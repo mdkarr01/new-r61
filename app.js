@@ -74,10 +74,6 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 //   console.log("The Route 61 Server Has Started!");
 // });
 
-<<<<<<< Updated upstream
-app.listen(3000 || process.env.PORT, process.env.IP, function() {
-=======
 app.listen(3000 || process.env.PORT, process.env.IP, function () {
->>>>>>> Stashed changes
   console.log("The Route 61 Server Has Started!");
 });
