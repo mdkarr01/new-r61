@@ -66,6 +66,10 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function() {
+// app.listen(process.env.PORT, process.env.IP, function() {
+//   console.log("The Route 61 Server Has Started!");
+// });
+
+app.listen(3000 || process.env.PORT, process.env.IP, function() {
   console.log("The Route 61 Server Has Started!");
 });
