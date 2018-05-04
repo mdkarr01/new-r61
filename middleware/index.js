@@ -12,10 +12,10 @@ module.exports = {
     Campground.findById(req.params.id, function (err, foundPost) {
       if (err || !foundPost) {
         console.log(err);
-        req.flash('error', 'Sorry, that campground does not exist!');
+        req.flash('error', 'Sorry, that post does not exist!');
         res.redirect('/posts');
       } else if (foundPost.author.id.equals(req.user._id) || req.user.isAdmin) {
-        req.campground = foundPost;
+        req.post = foundPost;
         next();
       } else {
         req.flash('error', 'You don\'t have permission to do that!');

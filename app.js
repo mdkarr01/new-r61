@@ -18,7 +18,7 @@ require("dotenv").load();
 
 //requiring routes
 var commentRoutes = require("./routes/comments"),
-  campgroundRoutes = require("./routes/campgrounds"),
+  campgroundRoutes = require("./routes/posts"),
   indexRoutes = require("./routes/index");
 
 const {
@@ -96,8 +96,8 @@ app.use(function (req, res, next) {
 });
 
 app.use("/", indexRoutes);
-app.use("/campgrounds", campgroundRoutes);
-app.use("/campgrounds/:id/comments", commentRoutes);
+app.use("/posts", campgroundRoutes);
+app.use("/posts/:id/comments", commentRoutes);
 
 // app.listen(process.env.PORT, process.env.IP, function () {
 //   console.log("The Route 61 Server Has Started!");
