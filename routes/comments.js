@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router({
     mergeParams: true
 });
-const Campground = require("../models/post");
+const Posts = require("../models/posts");
 const Comment = require("../models/comment");
 const middleware = require("../middleware");
 const {

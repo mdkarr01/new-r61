@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Campground = require("../models/post");
+var Posts = require("../models/posts");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var geocoder = require("geocoder");
