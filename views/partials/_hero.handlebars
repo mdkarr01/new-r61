@@ -11,24 +11,3 @@
             <i class="fa fa-long-arrow-down"></i> Scroll Down</a>
     </div>
 </section>
-<section>
-    <div class="container">
-        <div class="row text-center flex-wrap" id="post-grid">
-            {{#each posts}}
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="{{ post.image }}">
-                    <div class="caption">
-                        <h4>
-                            {{ post.name }}
-                        </h4>
-                    </div>
-                    <p>
-                        <a href="/posts/{{ post._id }}" class="btn btn-primary">More Info</a>
-                    </p>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </div>
-</section>
