@@ -20,6 +20,14 @@ var commentRoutes = require("./routes/comments"),
   campgroundRoutes = require("./routes/campgrounds"),
   indexRoutes = require("./routes/index");
 
+const {
+  truncate,
+  stripTags,
+  formatDate,
+  select,
+  editIcon
+} = require("./helpers/hbs");
+
 // assign mongoose promise library and connect to database
 mongoose.Promise = global.Promise;
 
@@ -37,10 +45,28 @@ app.use(
     extended: true
   })
 );
-app.set("view engine", "ejs");
+// Handlebars Middleware
+app.engine(
+  "handlebars",
+  exphbs({
+    helpers: {
+      truncate: truncate,
+      stripTags: stripTags,
+      formatDate: formatDate,
+      select: select,
+      editIcon: editIcon
+    },
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
+
 app.use(methodOverride("_method"));
+
 app.use(cookieParser("secret"));
+
+
 //require moment
 app.locals.moment = require("moment");
 // seedDB(); //seed the database
@@ -61,7 +87,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -76,6 +102,10 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 //   console.log("The Route 61 Server Has Started!");
 // });
 
-app.listen(3000 || process.env.PORT, process.env.IP, function() {
+// const port = (process.env.PORT, process.env.IP);
+const port = 3000;
+
+
+app.listen(port, () => {
   console.log("The Route 61 Server Has Started!");
 });
