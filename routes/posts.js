@@ -8,8 +8,7 @@ var {
     isLoggedIn,
     checkUserPost,
     checkUserComment,
-    isAdmin,
-    isSafe
+    isAdmin
 } = middleware; // destructuring assignment
 
 var request = require("request");
