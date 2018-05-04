@@ -137,7 +137,7 @@ router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
 });
 
 // PUT - updates post in the database
-router.put("/:id", () => (req, res) {
+router.put("/:id", function (req, res) {
     geocoder.geocode(req.body.location, function (err, data) {
         var lat = data.results[0].geometry.location.lat;
         var lng = data.results[0].geometry.location.lng;

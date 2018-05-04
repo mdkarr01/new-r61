@@ -12,6 +12,10 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    isPrimary: {
+        type: Boolean,
+        default: false
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
