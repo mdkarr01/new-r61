@@ -129,7 +129,7 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT - shows edit form for a post
-router.get("/:id/edit", isLoggedIn, checkUserCampground, function (req, res) {
+router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
     //render edit template with that post
     res.render("posts/edit", {
         post: req.post
@@ -137,7 +137,7 @@ router.get("/:id/edit", isLoggedIn, checkUserCampground, function (req, res) {
 });
 
 // PUT - updates post in the database
-router.put("/:id", isSafe, function (req, res) {
+router.put("/:id", () => (req, res) {
     geocoder.geocode(req.body.location, function (err, data) {
         var lat = data.results[0].geometry.location.lat;
         var lng = data.results[0].geometry.location.lng;
@@ -146,7 +146,7 @@ router.put("/:id", isSafe, function (req, res) {
             name: req.body.name,
             image: req.body.image,
             body: req.body.body,
-            cost: req.body.cost,
+            tags: req.body.tags,
             location: location,
             lat: lat,
             lng: lng
@@ -169,7 +169,7 @@ router.put("/:id", isSafe, function (req, res) {
 });
 
 // DELETE - removes post and its comments from the database
-router.delete("/:id", isLoggedIn, checkUserCampground, function (req, res) {
+router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
     Comment.remove({
             _id: {
                 $in: req.post.comments

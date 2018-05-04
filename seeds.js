@@ -21,14 +21,14 @@ var data = [{
 
 function seedDB() {
     //Remove all posts
-    Campground.remove({}, function (err) {
+    Post.remove({}, function (err) {
         if (err) {
             console.log(err);
         }
         console.log("removed posts!");
         //add a few posts
         data.forEach(function (seed) {
-            Campground.create(seed, function (err, post) {
+            Post.create(seed, function (err, post) {
                 if (err) {
                     console.log(err)
                 } else {

@@ -15,7 +15,7 @@ const {
 router.get("/new", isLoggedIn, function (req, res) {
     // find post by id
     console.log(req.params.id);
-    Campground.findById(req.params.id, function (err, post) {
+    Post.findById(req.params.id, function (err, post) {
         if (err) {
             console.log(err);
         } else {
@@ -29,7 +29,7 @@ router.get("/new", isLoggedIn, function (req, res) {
 //Comments Create
 router.post("/", isLoggedIn, function (req, res) {
     //lookup post using ID
-    Campground.findById(req.params.id, function (err, post) {
+    Post.findById(req.params.id, function (err, post) {
         if (err) {
             console.log(err);
             res.redirect("/posts");
@@ -74,7 +74,7 @@ router.put("/:commentId", isAdmin, function (req, res) {
 
 router.delete("/:commentId", isLoggedIn, checkUserComment, function (req, res) {
     // find post, remove comment from comments array, delete comment in db
-    Campground.findByIdAndUpdate(req.params.id, {
+    Post.findByIdAndUpdate(req.params.id, {
         $pull: {
             comments: req.comment.id
         }

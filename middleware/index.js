@@ -9,7 +9,7 @@ module.exports = {
     res.redirect('/login');
   },
   checkUserPost: function (req, res, next) {
-    Campground.findById(req.params.id, function (err, foundPost) {
+    Post.findById(req.params.id, function (err, foundPost) {
       if (err || !foundPost) {
         console.log(err);
         req.flash('error', 'Sorry, that post does not exist!');

@@ -6,7 +6,7 @@ var middleware = require("../middleware");
 var geocoder = require("geocoder");
 var {
   isLoggedIn,
-  checkUserCampground,
+  checkUserPost,
   checkUserComment,
   isAdmin
 } = middleware; // destructuring assignment
@@ -47,7 +47,7 @@ router.get("/", function (req, res) {
   if (req.query.search && req.xhr) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     // Get all posts from DB
-    Campground.find({
+    Post.find({
       name: regex
     }, function (err, allCampgrounds) {
       if (err) {
@@ -58,7 +58,7 @@ router.get("/", function (req, res) {
     });
   } else {
     // Get all posts from DB
-    Campground.find({}, function (err, allCampgrounds) {
+    Post.find({}, function (err, allCampgrounds) {
       if (err) {
         console.log(err);
       } else {
@@ -94,7 +94,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
-    Campground.create(req.body.post, function (err, post) {
+    Post.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
         return res.redirect("back");
@@ -112,7 +112,7 @@ router.get("/new", isLoggedIn, function (req, res) {
 // SHOW - shows more info about one post
 router.get("/:id", function (req, res) {
   //find the post with provided ID
-  Campground.findById(req.params.id)
+  Post.findById(req.params.id)
     .populate("comments")
     .exec(function (err, foundCampground) {
       if (err || !foundCampground) {
@@ -129,7 +129,7 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT - shows edit form for a post
-router.get("/:id/edit", isLoggedIn, checkUserCampground, function (req, res) {
+router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
   //render edit template with that post
   res.render("posts/edit", {
     post: req.post
@@ -137,7 +137,7 @@ router.get("/:id/edit", isLoggedIn, checkUserCampground, function (req, res) {
 });
 
 // PUT - updates post in the database
-router.put("/:id", isSafe, function (req, res) {
+router.put("/:id", () => (req, res) {
   geocoder.geocode(req.body.location, function (err, data) {
     var lat = data.results[0].geometry.location.lat;
     var lng = data.results[0].geometry.location.lng;
@@ -145,13 +145,12 @@ router.put("/:id", isSafe, function (req, res) {
     var newData = {
       name: req.body.name,
       image: req.body.image,
-      description: req.body.description,
-      cost: req.body.cost,
+      body: req.body.body,
       location: location,
       lat: lat,
       lng: lng
     };
-    Campground.findByIdAndUpdate(req.params.id, {
+    Post.findByIdAndUpdate(req.params.id, {
       $set: newData
     }, function (
       err,
@@ -169,7 +168,7 @@ router.put("/:id", isSafe, function (req, res) {
 });
 
 // DELETE - removes post and its comments from the database
-router.delete("/:id", isLoggedIn, checkUserCampground, function (req, res) {
+router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
   Comment.remove({
       _id: {
         $in: req.post.comments
@@ -185,7 +184,7 @@ router.delete("/:id", isLoggedIn, checkUserCampground, function (req, res) {
             req.flash("error", err.message);
             return res.redirect("/");
           }
-          req.flash("error", "Campground deleted!");
+          req.flash("error", "Post deleted!");
           res.redirect("/posts");
         });
       }
