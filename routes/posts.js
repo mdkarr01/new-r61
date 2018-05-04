@@ -42,7 +42,7 @@ function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-//INDEX - show all posts
+INDEX - show all posts
 router.get("/", function (req, res) {
     if (req.query.search && req.xhr) {
         const regex = new RegExp(escapeRegex(req.query.search), "gi");
@@ -74,6 +74,10 @@ router.get("/", function (req, res) {
         });
     }
 });
+
+// router.get('/', (req, res) => {
+//     res.send("Hi!");
+// })
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, upload.single("image"), function (
