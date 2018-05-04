@@ -4,6 +4,7 @@ var postSchema = new mongoose.Schema({
     title: String,
     image: String,
     body: String,
+    tags: String,
     location: String,
     lat: Number,
     lng: Number,
