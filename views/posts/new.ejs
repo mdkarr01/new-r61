@@ -18,8 +18,14 @@
                     <input class="form-control" type="text" name="body" id="body" placeholder="Body">
                 </div>
                 <div class="form-group">
-                <label class="sr-only" for="FormInputGroup">Primary</label>
-                    <h4>Primary Post?</h4>
+                    <label for="FormInputGroup">Status:</label>
+                    <select name="status" id="status">
+                        <option value="public" selected>Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="FormInputGroup">Primary Post?</label>
                     <input class="form-control" type="checkbox" value="true" name="primary" id="primary">
                 </div>
                 <div class="form-group">

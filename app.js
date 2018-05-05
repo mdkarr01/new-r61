@@ -7,7 +7,7 @@ var express = require("express"),
   LocalStrategy = require("passport-local"),
   exphbs = require("express-handlebars"),
   flash = require("connect-flash"),
-  resize = require('resize'),
+  // resize = require('resize'),
   Posts = require("./models/posts"),
   Comment = require("./models/comment"),
   User = require("./models/user"),
@@ -21,14 +21,6 @@ require("dotenv").load();
 var commentRoutes = require("./routes/comments"),
   postRoutes = require("./routes/posts"),
   indexRoutes = require("./routes/index");
-
-// var {
-//   truncate,
-//   stripTags,
-//   formatDate,
-//   select,
-//   editIcon
-// } = require("./helpers/hbs");
 
 // assign mongoose promise library and connect to database
 mongoose.Promise = global.Promise;
@@ -47,20 +39,7 @@ app.use(
     extended: true
   })
 );
-// // Handlebars Middleware
-// app.engine(
-//   "handlebars",
-//   exphbs({
-//     helpers: {
-//       truncate: truncate,
-//       stripTags: stripTags,
-//       formatDate: formatDate,
-//       select: select,
-//       editIcon: editIcon
-//     },
-//     defaultLayout: "main"
-//   })
-// );
+
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
