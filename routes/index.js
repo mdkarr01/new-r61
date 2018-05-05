@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
+var Campground = require("../models/campground");
 
 //root route
 router.get("/", function (req, res) {
@@ -18,11 +19,17 @@ router.get("/register", function (req, res) {
 //handle sign up logic
 router.post("/register", function (req, res) {
     var newUser = new User({
-        username: req.body.username
+        username: req.body.username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        avatar: req.body.avatar
     });
-    if (req.body.adminCode === process.env.ADMIN_CODE) {
+
+    if (req.body.adminCode === 'secretcode123') {
         newUser.isAdmin = true;
     }
+
     User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
@@ -32,7 +39,7 @@ router.post("/register", function (req, res) {
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-            res.redirect("/posts");
+            res.redirect("/campgrounds");
         });
     });
 });
@@ -46,7 +53,7 @@ router.get("/login", function (req, res) {
 
 //handling login logic
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/posts",
+    successRedirect: "/campgrounds",
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: 'Welcome to YelpCamp!'
@@ -56,7 +63,27 @@ router.post("/login", passport.authenticate("local", {
 router.get("/logout", function (req, res) {
     req.logout();
     req.flash("success", "See you later!");
-    res.redirect("/posts");
+    res.redirect("/campgrounds");
+});
+
+// USER PROFILE
+router.get("/users/:id", function (req, res) {
+    User.findById(req.params.id, function (err, foundUser) {
+        if (err) {
+            req.flash("error", "Something went wrong.");
+            return res.redirect("/");
+        }
+        Campground.find().where('author.id').equals(foundUser._id).exec(function (err, campgrounds) {
+            if (err) {
+                req.flash("error", "Something went wrong.");
+                return res.redirect("/");
+            }
+            res.render("users/show", {
+                user: foundUser,
+                campgrounds: campgrounds
+            });
+        })
+    });
 });
 
 
