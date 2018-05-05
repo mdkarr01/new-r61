@@ -16,6 +16,10 @@ var postSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    status: {
+        type: String,
+        default: 'public'
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

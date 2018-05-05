@@ -71,3 +71,38 @@
                     <% } %>
     </div>
     <div class="container">
+
+        <header class="jumbotron">
+            <div class="container">
+                <h1>
+                    <span class="glyphicon glyphicon-tent"></span> Welcome</h1>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/posts/new">Add New Post</a>
+                </p>
+                <p>
+                    <form action="/posts" method="GET" class="form-inline" id="post-search">
+                        <div class="form-group">
+                            <input type="text" name="search" placeholder="Post search..." class="form-control">
+                        </div>
+                    </form>
+                </p>
+            </div>
+        </header>
+
+        <div class="row text-center flex-wrap" id="post-grid">
+            <% posts.forEach(function(post){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <img src="<%= post.image %>">
+                        <div class="caption">
+                            <h4>
+                                <%= post.name %>
+                            </h4>
+                        </div>
+                        <p>
+                            <a href="/posts/<%= post._id %>" class="btn btn-primary">More Info</a>
+                        </p>
+                    </div>
+                </div>
+                <% }); %>
+        </div>
