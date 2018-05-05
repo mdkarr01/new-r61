@@ -487,16 +487,17 @@ div[class*="-btn"] {
     padding: 0.75em 0;
     letter-spacing: 1px;
     color: white;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Catamaran', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#mainNav ul>li:first-of-type {
+/* #mainNav ul>li:first-of-type {
     padding: 0.9em 1em 0 1em !important;
-}
+} */
 
 #mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #faf577;
+    font-size: 100%;
+    color: red;
 }
 
 /* #main-nav .form-inline {
@@ -530,6 +531,7 @@ div[class*="-btn"] {
     }
     #mainNav .navbar-nav .nav-item .nav-link {
         padding: 1.1em 1em !important;
+        font-size 1.25em;
     }
     #mainNav.navbar-shrink {
         padding-top: 0;
@@ -600,6 +602,10 @@ section.hero .continue i {
 *     FEATURED POSTS SECTION
 * ==========================================================
 */
+
+section.featured-posts .row {
+    margin-bottom: 5em;
+}
 
 section.featured-posts .row:nth-of-type(odd) .text {
     background: #fafafa;
