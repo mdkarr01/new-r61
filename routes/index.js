@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var Campground = require("../models/campground");
+var Posts = require("../models/posts");
 
 //root route
 router.get("/", function (req, res) {
@@ -39,7 +39,7 @@ router.post("/register", function (req, res) {
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-            res.redirect("/campgrounds");
+            res.redirect("/posts");
         });
     });
 });
@@ -53,7 +53,7 @@ router.get("/login", function (req, res) {
 
 //handling login logic
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/campgrounds",
+    successRedirect: "/posts",
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: 'Welcome to YelpCamp!'
@@ -63,7 +63,7 @@ router.post("/login", passport.authenticate("local", {
 router.get("/logout", function (req, res) {
     req.logout();
     req.flash("success", "See you later!");
-    res.redirect("/campgrounds");
+    res.redirect("/posts");
 });
 
 // USER PROFILE
@@ -73,14 +73,14 @@ router.get("/users/:id", function (req, res) {
             req.flash("error", "Something went wrong.");
             return res.redirect("/");
         }
-        Campground.find().where('author.id').equals(foundUser._id).exec(function (err, campgrounds) {
+        Posts.find().where('author.id').equals(foundUser._id).exec(function (err, posts) {
             if (err) {
                 req.flash("error", "Something went wrong.");
                 return res.redirect("/");
             }
             res.render("users/show", {
                 user: foundUser,
-                campgrounds: campgrounds
+                posts: posts
             });
         })
     });
