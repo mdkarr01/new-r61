@@ -151,9 +151,10 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
           var lng = data.results[0].geometry.location.lng;
           var location = data.results[0].formatted_address;
           var newData = {
-            name: req.body.name,
+            title: req.body.title,
             image: req.body.image,
             body: req.body.body,
+            tags: req.body.tags,
             location: location,
             lat: lat,
             lng: lng
