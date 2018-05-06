@@ -7,7 +7,6 @@ var express = require("express"),
   LocalStrategy = require("passport-local"),
   exphbs = require("express-handlebars"),
   flash = require("connect-flash"),
-  // resize = require('resize'),
   Posts = require("./models/posts"),
   Comment = require("./models/comment"),
   User = require("./models/user"),
@@ -16,6 +15,9 @@ var express = require("express"),
   methodOverride = require("method-override");
 // configure dotenv
 require("dotenv").load();
+
+//Where is this?
+// resize = require("./resize");
 
 //requiring routes
 var commentRoutes = require("./routes/comments"),
@@ -47,7 +49,6 @@ app.use(methodOverride("_method"));
 
 app.use(cookieParser("secret"));
 
-
 //require moment
 app.locals.moment = require("moment");
 // seedDB(); //seed the database
@@ -68,7 +69,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -85,7 +86,6 @@ app.use("/posts/:id/comments", commentRoutes);
 
 // const port = (process.env.PORT, process.env.IP);
 const port = 3000;
-
 
 app.listen(port, () => {
   console.log("The Route 61 Server Has Started!");
