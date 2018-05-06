@@ -5,39 +5,40 @@
             <h1 style="text-align: center">Register Account</h1>
             <form action="/register" method="post">
                 <div class="form-group">
-                <label class="sr-only" for="username">Username:</label>
+                <label class="sr-only" for="FormInputGroup">Username:</label>
                     <input class="form-control" type="text" name="username" id="username" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="password">Type Password:</label>
+                    <label class="sr-only" for="FormInputGroup">Type Password:</label>
                     <input class="form-control" type="password" name="password" id="password" placeholder="Password">
                 </div>
                     <div class="form-group">
-                    <label class="sr-only" for="password2">Password Confirm:</label>
+                    <label class="sr-only" for="FormInputGroup">Password Confirm:</label>
                     <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="fistName">First Name:</label>
+                    <label class="sr-only" for="FormInputGroup">First Name:</label>
                     <input class="form-control" type="text" name="firstName" id="firstName" placeholder="First name">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="lastName">Last Name:</label>
+                    <label class="sr-only" for="FormInputGroup">Last Name:</label>
                     <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Last name">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="email">Email Address:</label>
+                    <label class="sr-only" for="FormInputGroup">Email Address:</label>
                     <input class="form-control" type="Email"  id="email" name="email" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="avatar">Choose Your Avatar:</label>
+                    <label for="FormInputGroup">Choose Your Avatar:</label>
                     <input type="file" id="avatar" name="avatar" accept="image/*">
                 </div>
                 <div class="form-group">
+                    <label class="sr-only" for="FormInputGroup">Admin Code:</label>
                     <input class="form-control" type="text" name="adminCode" placeholder="Admin Code">
                     <small><em>Please get the admin code from and administator, otherwise leave this blank.</em></small>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+                    <button class="btn btn-lg btn-primary btn-block">Register Me</button>
                 </div>
             </form>
             <a href="/campgrounds">Go Back</a>
