@@ -59,7 +59,7 @@ router.post("/login", passport.authenticate("local", {
   successRedirect: "/posts",
   failureRedirect: "/login",
   failureFlash: true,
-  successFlash: 'Welcome to YelpCamp!'
+  successFlash: 'Welcome to Route 61!'
 }), function (req, res) {});
 
 // logout route
