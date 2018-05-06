@@ -77,119 +77,127 @@ router.get("/", function (req, res) {
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, upload.single("image"), function (
-  req,
-  res
-) {
-  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
-    if (err) {
-      req.flash("error", err.message);
-      return res.redirect("back");
-    }
-    // add cloudinary url for the image to the post object under image property
-    req.body.post.image = result.secure_url;
-    // add image's public_id to post object
-    req.body.post.imageId = result.public_id;
-    // add author to post
-    req.body.post.author = {
-      id: req.user._id,
-      username: req.user.username
-    };
-    Post.create(req.body.post, function (err, post) {
-      if (err) {
-        req.flash("error", err.message);
-        return res.redirect("back");
-      }
-      res.redirect("/posts/" + post.id);
-    });
-  });
-});
-
-//NEW - show form to create new post
-router.get("/new", isLoggedIn, function (req, res) {
-  res.render("posts/new");
-});
-
-// SHOW - shows more info about one post
-router.get("/:id", function (req, res) {
-  //find the post with provided ID
-  Post.findById(req.params.id)
-    .populate("comments")
-    .exec(function (err, foundCampground) {
-      if (err || !foundCampground) {
-        console.log(err);
-        req.flash("error", "Sorry, that post does not exist!");
-        return res.redirect("/posts");
-      }
-      console.log(foundCampground);
-      //render show template with that post
-      res.render("posts/show", {
-        post: foundCampground
-      });
-    });
-});
-
-// EDIT - shows edit form for a post
-router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
-  //render edit template with that post
-  res.render("posts/edit", {
-    post: req.post
-  });
-});
-
-// PUT - updates post in the database
-router.put("/:id", () => (req, res) {
-  geocoder.geocode(req.body.location, function (err, data) {
-    var lat = data.results[0].geometry.location.lat;
-    var lng = data.results[0].geometry.location.lng;
-    var location = data.results[0].formatted_address;
-    var newData = {
-      name: req.body.name,
-      image: req.body.image,
-      body: req.body.body,
-      location: location,
-      lat: lat,
-      lng: lng
-    };
-    Post.findByIdAndUpdate(req.params.id, {
-      $set: newData
-    }, function (
-      err,
-      post
+      req,
+      res
     ) {
-      if (err) {
-        req.flash("error", err.message);
-        res.redirect("back");
-      } else {
-        req.flash("success", "Successfully Updated!");
-        res.redirect("/posts/" + post._id);
-      }
-    });
-  });
-});
-
-// DELETE - removes post and its comments from the database
-router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
-  Comment.remove({
-      _id: {
-        $in: req.post.comments
-      }
-    },
-    function (err) {
-      if (err) {
-        req.flash("error", err.message);
-        res.redirect("/");
-      } else {
-        req.post.remove(function (err) {
-          if (err) {
-            req.flash("error", err.message);
-            return res.redirect("/");
+      cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+        if (err) {
+          req.flash("error", err.message);
+          return res.redirect("back");
+        }
+        // add cloudinary url for the image to the post object under image property
+        req.body.post.image = result.secure_url;
+        // add image's public_id to post object
+        req.body.post.imageId = result.public_id;
+        // add author to post
+        req.body.post.author = {
+          id: req.user._id,
+          username: req.user.username
+        };
+        geocoder.geocode(req.body.location, function (err, data) {
+          if (err || data.status === 'ZERO_RESULTS') {
+            req.flash('error', 'Invalid address');
+            return res.redirect('back');
           }
-          req.flash("error", "Post deleted!");
-          res.redirect("/posts");
+          var lat = data.results[0].geometry.location.lat;
+          var lng = data.results[0].geometry.location.lng;
+          var location = data.results[0].formatted_address;
+          Post.create(req.body.post, req.body.location, function (err, post) {
+            if (err) {
+              req.flash("error", err.message);
+              return res.redirect("back");
+            }
+            res.redirect("/posts/" + post.id);
+          });
         });
-      }
-    }
-  );
-});
+      });
 
-module.exports = router;
+      //NEW - show form to create new post
+      router.get("/new", isLoggedIn, function (req, res) {
+        res.render("posts/new");
+      });
+
+      // SHOW - shows more info about one post
+      router.get("/:id", function (req, res) {
+        //find the post with provided ID
+        Post.findById(req.params.id)
+          .populate("comments")
+          .exec(function (err, foundCampground) {
+            if (err || !foundCampground) {
+              console.log(err);
+              req.flash("error", "Sorry, that post does not exist!");
+              return res.redirect("/posts");
+            }
+            console.log(foundCampground);
+            //render show template with that post
+            res.render("posts/show", {
+              post: foundCampground
+            });
+          });
+      });
+
+      // EDIT - shows edit form for a post
+      router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
+        //render edit template with that post
+        res.render("posts/edit", {
+          post: req.post
+        });
+      });
+
+      // PUT - updates post in the database
+      router.put("/:id", () => (req, res) {
+        geocoder.geocode(req.body.location, function (err, data) {
+          var lat = data.results[0].geometry.location.lat;
+          var lng = data.results[0].geometry.location.lng;
+          var location = data.results[0].formatted_address;
+          var newData = {
+            name: req.body.name,
+            image: req.body.image,
+            body: req.body.body,
+            location: location,
+            lat: lat,
+            lng: lng
+          };
+          Post.findByIdAndUpdate(req.params.id, {
+            $set: newData
+          }, function (
+            err,
+            post
+          ) {
+            if (err) {
+              req.flash("error", err.message);
+              res.redirect("back");
+            } else {
+              req.flash("success", "Successfully Updated!");
+              res.redirect("/posts/" + post._id);
+            }
+          });
+        });
+      });
+
+      // DELETE - removes post and its comments from the database
+      router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
+        Comment.remove({
+            _id: {
+              $in: req.post.comments
+            }
+          },
+          function (err) {
+            if (err) {
+              req.flash("error", err.message);
+              res.redirect("/");
+            } else {
+              req.post.remove(function (err) {
+                if (err) {
+                  req.flash("error", err.message);
+                  return res.redirect("/");
+                }
+                req.flash("error", "Post deleted!");
+                res.redirect("/posts");
+              });
+            }
+          }
+        );
+      });
+
+      module.exports = router;
