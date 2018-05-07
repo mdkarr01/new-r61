@@ -80,7 +80,7 @@ router.post(
 // logout route
 router.get("/logout", function(req, res) {
   req.logout();
-  req.flash("success", "See you later!");
+  req.flash("success", "See Ya!");
   res.redirect("/posts");
 });
 

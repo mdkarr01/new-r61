@@ -154,6 +154,15 @@ i[class*="icon-"] {
     margin-top: 2em;
 }
 
+.new-blocks {
+    width: 60%; 
+    margin: 1.75em auto;
+}
+
+.new-blocks div {
+    margin-bottom: 2em;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {
