@@ -33,17 +33,14 @@ router.post("/register", function(req, res) {
     newUser.isAdmin = true;
   }
 
-  User.register(newUser, req.body.password, req.body.password2, function(
-    err,
-    user
-  ) {
-    if (req.body.password != req.body.password2) {
-      req.flash("failure", "Passwords do not match");
-    }
+  User.register(newUser, req.body.password, function(err, user) {
+    // if (req.body.password != req.body.password2) {
+    //   req.flash("failure", "Passwords do not match");
+    //
 
-    if (req.body.password.length < 6) {
-      req.flash("failure", "Password must be at least 4 characters");
-    }
+    // if (req.body.password.length < 6) {
+    //   req.flash("failure", "Password must be at least 4 characters");
+    // }
     if (err) {
       console.log(err);
       return res.render("register", {
