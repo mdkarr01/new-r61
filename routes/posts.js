@@ -84,11 +84,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
 ) {
   cloudinary.uploader.upload(req.file.path, function (result) {
     // add cloudinary url for the image to the post object under image property
-    if (!req.body.post.image) {
-      req.body.post.image = '../images/avatar-1.jpg';
-    } else {
-      req.body.post.image = result.secure_url;
-    }
+    req.body.post.image = result.secure_url;
     // add author to post
     req.body.post.author = {
       id: req.user._id,
