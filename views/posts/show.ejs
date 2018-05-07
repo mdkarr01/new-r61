@@ -13,8 +13,8 @@
           <em>Submitted by: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a>, <%= moment(post.createdAt).fromNow() %></em>
         </p>
         <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-        <a class="btn btn-warning" href="/campgrounds/<%= post._id %>/edit">Edit</a>
-        <form action="/campgrounds/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+        <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
           <button class="btn btn-danger">Delete</button>
         </form>
         <% } %>
@@ -22,7 +22,7 @@
     </div>
     <div class="well">
       <div class="text-right">
-        <a class="btn btn-success" href="/campgrounds/<%= post._id %>/comments/new">Add New Comment</a>
+        <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
       </div>
       <hr>
       <% post.comments.forEach(function(comment){ %>
