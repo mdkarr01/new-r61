@@ -2,15 +2,22 @@ var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var UserSchema = new mongoose.Schema({
-  username: String,
-  password: String,
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
   avatar: {
     type: String,
-    default: 'default.jpg'
+    required: false
   },
-  firstName: String,
-  lastName: String,
-  email: String,
+  email: {
+    type: String,
+    required: true
+  },
   isAdmin: {
     type: Boolean,
     default: false
