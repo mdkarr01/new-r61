@@ -83,14 +83,18 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
   res
 ) {
   cloudinary.uploader.upload(req.file.path, function (result) {
-    // add cloudinary url for the image to the post object under image property
-    req.body.post.image = result.secure_url;
+      // add cloudinary url for the image to the post object under image property
+      if (!req.body.post.image) {
+        req.body.post.image = "default.jpg"
+      } else {
+        req.body.post.image = result.secure_url;
+      }
+    }
     // add author to post
     req.body.post.author = {
       id: req.user._id,
       username: req.user.username
-    };
-    Posts.create(req.body.post, function (err, post) {
+    }; Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
         return res.redirect("back");
