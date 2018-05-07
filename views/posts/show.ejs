@@ -35,8 +35,8 @@
 
            <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
             <div class="pull-right">
-              <a href="/posts/<%=post._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-warning">EDIT</a>
-              <form class="delete-form" action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+              <a href="/campgrounds/<%=post._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-warning">EDIT</a>
+              <form class="delete-form" action="/campgrounds/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-xs btn-danger">DELETE</button>
               </form>
             </div>
