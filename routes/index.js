@@ -41,7 +41,7 @@ router.post("/register", function(req, res) {
       req.flash("failure", "Passwords do not match");
     }
 
-    if (req.body.password.length < 4) {
+    if (req.body.password.length < 6) {
       req.flash("failure", "Password must be at least 4 characters");
     }
     if (err) {
