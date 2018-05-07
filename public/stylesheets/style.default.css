@@ -150,6 +150,10 @@ i[class*="icon-"] {
     z-index: 9999 !important;
 }
 
+.flash-message {
+    margin-bottom: 2em;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {
