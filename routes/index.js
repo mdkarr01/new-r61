@@ -52,6 +52,7 @@ router.post("/register", function(req, res) {
         "success",
         "Successfully Signed Up! Nice to meet you " + req.body.username
       );
+      console.log(newUser);
       res.redirect("/posts");
     });
   });

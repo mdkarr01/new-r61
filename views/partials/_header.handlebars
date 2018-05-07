@@ -26,8 +26,7 @@
         <!-- Navbar Brand -->
         <a href="index.html" class="navbar-brand">Bootstrap Blog</a>
         <!-- Toggle Button-->
-        <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false"
-          aria-label="Toggle navigation" class="navbar-toggler">
+        <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
           <span></span>
           <span></span>
           <span></span>
@@ -70,3 +69,22 @@
     </div>
   </nav>
 </header>
+
+<div class="container">
+  <% if(error && error.length > 0) { %>
+    <div class="alert alert-danger">
+      <p>
+        <%=error %>
+      </p>
+    </div>
+    <% } %>
+
+      <% if(success && success.length > 0) { %>
+        <div class="alert alert-success">
+          <p>
+            <%= success %>
+          </p>
+        </div>
+        <% } %>
+</div>
+<div class="container">

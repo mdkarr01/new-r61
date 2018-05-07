@@ -50,6 +50,7 @@
       </div>
     </div>
   </nav>
+
     <!-- Hero Section-->
     <section style="background: url(./images/country-road.jpg); background-size: cover; background-position: center center" class="hero">
       <div class="container">
@@ -61,3 +62,21 @@
         </div>
       </div>
     </section>
+
+<div class="container">
+  <% if(error && error.length > 0) { %>
+    <div class="alert alert-danger">
+      <p>
+        <%=error %>
+      </p>
+    </div>
+    <% } %>
+
+      <% if(success && success.length > 0) { %>
+        <div class="alert alert-success">
+          <p>
+            <%= success %>
+          </p>
+        </div>
+        <% } %>
+</div>
