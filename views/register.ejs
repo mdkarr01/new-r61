@@ -5,32 +5,32 @@
             <h1 style="text-align: center">Register Account</h1>
             <form action="/register" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                <label for="FormInputGroup">*Username:</label>
+                <label for="FormInputGroup"><b>Username: *</b>:</label>
                     <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="FormInputGroup">Type Password:</label>
+                    <label class="sr-only" for="FormInputGroup"><b>Password: *</b></label>
                     <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
                     <small><em>Passwords much be at least 6 characters in length.<em></small>
                 </div>
                     <div class="form-group">
-                    <label class="sr-only" for="FormInputGroup">Password Confirm:</label>
+                    <label class="sr-only" for="FormInputGroup"><b>Password Confirm:</b></label>
                     <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" required>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="FormInputGroup">First Name:</label>
+                    <label class="sr-only" for="FormInputGroup"><b>First Name:</b></label>
                     <input class="form-control" type="text" name="firstName" id="firstName" placeholder="First name">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="FormInputGroup">Last Name:</label>
+                    <label class="sr-only" for="FormInputGroup"><b>Last Name:</b></label>
                     <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Last name">
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="FormInputGroup">Email Address:</label>
+                    <label class="sr-only" for="FormInputGroup"><b>Email: *</b>:</label>
                     <input class="form-control" type="Email"  id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="FormInputGroup">Choose Your Avatar:</label>
+                    <label for="FormInputGroup"><b>Choose Your Avatar:</b></label>
                     <input type="file" id="avatar" name="avatar" accept="image/*">
                 </div>
                 <% /* <div class="form-group">
@@ -42,7 +42,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Register Me</button>
                 </div>
             </form>
-            <a href="/campgrounds">Go Back</a>
+            <small><b>* Required</small></b></small>
         </div>
     </div>
 </div>
