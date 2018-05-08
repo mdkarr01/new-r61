@@ -46,16 +46,7 @@ router.get("/register", function (req, res) {
   });
 });
 
-// handle sign up logic
-router.post("/register", upload.single("avatar"), function (req, res) {
-  if (!req.body.avatar) {
-    req.body.avatar = 'default.jpg';
-  }
-  cloudinary.uploader.upload(req.file.path, function (result) {
-    // add cloudinary url for the image to the post object under image property
-    req.body.avatar = result.secure_url;
-  });
-  console.log(req.body.avatar);
+router.post("/register", function (req, res) {
   var newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -64,18 +55,16 @@ router.post("/register", upload.single("avatar"), function (req, res) {
     avatar: req.body.avatar
   });
 
-  if (req.body.adminCode === process.env.ADMINCODE) {
+  if (req.body.adminCode === 'secretcode123') {
     newUser.isAdmin = true;
   }
 
-  User.register(newUser, req.body.password, function (err, user) {
-    // if (req.body.password != req.body.password2) {
-    //   req.flash("failure", "Passwords do not match");
-    //
+  if (req.body.password != req.body.password2) {
+    req.flash('failure', 'Oh no!');
+    // return res.render("register");
+  }
 
-    // if (req.body.password.length < 6) {
-    //   req.flash("failure", "Password must be at least 4 characters");
-    // }
+  User.register(newUser, req.body.password, function (err, user) {
     if (err) {
       console.log(err);
       return res.render("register", {
@@ -83,11 +72,7 @@ router.post("/register", upload.single("avatar"), function (req, res) {
       });
     }
     passport.authenticate("local")(req, res, function () {
-      req.flash(
-        "success",
-        "Successfully Signed Up! Nice to meet you " + req.body.username
-      );
-      console.log(newUser);
+      req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
       res.redirect("/posts");
     });
   });
