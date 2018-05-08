@@ -48,10 +48,14 @@ router.get("/register", function (req, res) {
 
 // handle sign up logic
 router.post("/register", upload.single("avatar"), function (req, res) {
+  if (!req.body.avatar) {
+    req.body.avatar = 'default.jpg';
+  }
   cloudinary.uploader.upload(req.file.path, function (result) {
     // add cloudinary url for the image to the post object under image property
     req.body.avatar = result.secure_url;
   });
+  console.log(req.body.avatar);
   var newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -59,10 +63,6 @@ router.post("/register", upload.single("avatar"), function (req, res) {
     email: req.body.email,
     avatar: req.body.avatar
   });
-
-  // if (!req.body.avatar) {
-  //   req.body.avatar = 'default.jpg';
-  // }
 
   if (req.body.adminCode === process.env.ADMINCODE) {
     newUser.isAdmin = true;
