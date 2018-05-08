@@ -20,7 +20,7 @@
             <div class="text-inner d-flex align-items-center">
               <div class="content">
                 <header class="post-header">
-                  <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
+                  <div class="category"><a href="#">Rock</a><a href="#">Live Music</a></div><a href="post.html">
                     <h2 class="h4"><%= post.title %></h2></a>
                 </header>
                 <p><%- post.body.substring(0, 300) %>... <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a></p>
@@ -45,7 +45,7 @@
                   <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
                     <h2 class="h4"><%= post.title %></h2></a>
                 </header>
-                <p><%= post.body.substring(0, 300) %>...                  <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a></p>
+                <p><%- post.body.substring(0, 300) %>...                  <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a></p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="../images/avatar-1.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span>John Doe</span></div></a>
