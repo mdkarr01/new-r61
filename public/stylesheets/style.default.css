@@ -155,7 +155,7 @@ i[class*="icon-"] {
 }
 
 .new-blocks {
-    width: 60%; 
+    width: 60%;
     margin: 1.75em auto;
 }
 
@@ -720,7 +720,7 @@ section.featured-posts .post-footer {
         -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
         order: 1;
-        max-height: 300px;
+        max-height: 200px;
         min-height: auto !important;
     }
     section.featured-posts .image img {
