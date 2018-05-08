@@ -23,7 +23,7 @@
                   <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
                     <h2 class="h4"><%= post.title %></h2></a>
                 </header>
-                <p><%= post.body %></p>
+                <p><%= post.body.substring(0, 300) %>...</p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="../images/avatar-1.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span>John Doe</span></div></a>
@@ -45,7 +45,7 @@
                   <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
                     <h2 class="h4"><%= post.title %></h2></a>
                 </header>
-                <p><%= post.body.substring(0,100) %></p>
+                <p><%= post.body %></p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
                     <div class="avatar"><img src="../images/avatar-1.jpg" alt="..." class="img-fluid"></div>
                     <div class="title"><span>John Doe</span></div></a>

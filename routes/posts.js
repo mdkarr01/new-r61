@@ -90,6 +90,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
+    req.body.post.body = req.sanitize(req.body.post.body);
     Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
