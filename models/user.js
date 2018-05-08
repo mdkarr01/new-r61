@@ -4,7 +4,6 @@ var passportLocalMongoose = require("passport-local-mongoose");
 var UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
   },
   password: {
     type: String
@@ -15,13 +14,18 @@ var UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true
   },
   isAdmin: {
     type: Boolean,
     default: false
   }
 });
+
+var requiredAttrs = ['username', 'email'];
+
+for (attr in requiredAttrs) {
+  schema[attr].required = true;
+}
 
 UserSchema.plugin(passportLocalMongoose);
 
