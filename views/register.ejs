@@ -3,9 +3,9 @@
     <div class="row">
         <div style="width: 38%; margin: 25px auto;">
             <h1 style="text-align: center">Register Account</h1>
-            <form action="/register" method="post">
+            <form action="/register" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                <label class="sr-only" for="FormInputGroup">*Username:</label>
+                <label for="FormInputGroup">*Username:</label>
                     <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
                 </div>
                 <div class="form-group">

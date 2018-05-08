@@ -3,9 +3,36 @@ var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
 var Posts = require("../models/posts");
+var middleware = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+
+var request = require("request");
+var multer = require("multer");
+var storage = multer.diskStorage({
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error("Only image files are allowed!"), false);
+  }
+  cb(null, true);
+};
+var upload = multer({
+  storage: storage,
+  fileFilter: imageFilter
+});
+
+var cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: "michael-karr",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 //root route
 router.get("/", function (req, res) {
@@ -20,10 +47,11 @@ router.get("/register", function (req, res) {
 });
 
 // handle sign up logic
-router.post("/register", function (req, res) {
-  if (!req.body.avatar) {
-    req.body.avatar = 'default.jpg';
-  }
+router.post("/register", upload.single("avatar"), function (req, res) {
+  cloudinary.uploader.upload(req.file.path, function (result) {
+    // add cloudinary url for the image to the post object under image property
+    req.body.avatar = result.secure_url;
+  });
   var newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -31,6 +59,10 @@ router.post("/register", function (req, res) {
     email: req.body.email,
     avatar: req.body.avatar
   });
+
+  // if (!req.body.avatar) {
+  //   req.body.avatar = 'default.jpg';
+  // }
 
   if (req.body.adminCode === process.env.ADMINCODE) {
     newUser.isAdmin = true;
