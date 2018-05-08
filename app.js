@@ -4,6 +4,8 @@ var express = require("express"),
   mongoose = require("mongoose"),
   passport = require("passport"),
   cookieParser = require("cookie-parser"),
+  truncate = require('truncate'),
+  expressSanitizer = require("express-sanitizer"),
   LocalStrategy = require("passport-local"),
   exphbs = require("express-handlebars"),
   flash = require("connect-flash"),
@@ -41,6 +43,7 @@ app.use(
     extended: true
   })
 );
+app.use(expressSanitizer());
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
