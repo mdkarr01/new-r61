@@ -35,30 +35,10 @@
           </div>
           <div class="image col-lg-5"><img src="<%= post.image %>" alt="Test"></div>
         </div>
-
-          <div class="row d-flex align-items-stretch">
-          <div class="image col-lg-5"><img src="<%= post.image%>" alt="Test"></div>
-          <div class="text col-lg-7">
-            <div class="text-inner d-flex align-items-center">
-              <div class="content">
-                <header class="post-header">
-                  <div class="category"><a href="#">Business</a><a href="#">Technology</a></div><a href="post.html">
-                    <h2 class="h4"><%= post.title %></h2></a>
-                </header>
-                <p><%- post.body.substring(0, 300) %>... <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a></p>
-                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="../images/avatar-1.jpg" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>John Doe</span></div></a>
-                  <div class="date"><i class="fas fa-clock"></i> <%= moment(post.createdAt).fromNow() %></div>
-                  <div class="comments"><i class="fas fa-comments"></i> 12 Comments</div>
-                </footer>
-              </div>
-            </div>
-          </div>
-        </div>
-        <% }); %>
       </div>
+        <% }); %>
     </section>
+    
     <!-- Divider Section-->
     <section style="background: url(./images/divider-bg.jpg); background-size: cover; background-position: center bottom" class="divider">
       <div class="container">
