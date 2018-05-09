@@ -26,6 +26,12 @@ var commentRoutes = require("./routes/comments"),
   postRoutes = require("./routes/posts"),
   indexRoutes = require("./routes/index");
 
+//PASSPORT CONFIG
+// require("./config/passport")(passport);
+
+//If using config/database for production and dev databases
+// const db = require('./config/database');
+
 // assign mongoose promise library and connect to database
 mongoose.Promise = global.Promise;
 

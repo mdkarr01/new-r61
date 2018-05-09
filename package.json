@@ -13,6 +13,7 @@
   "author": "Michael Karr",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.14.1",
     "cloudinary": "^1.11.0",
     "connect-flash": "^0.1.1",
@@ -33,7 +34,7 @@
     "nodemailer": "^4.6.4",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^3.1.0",
+    "passport-local-mongoose": "^5.0.0",
     "request": "^2.65.0",
     "sharp": "^0.20.2",
     "truncate": "^2.0.1"

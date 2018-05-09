@@ -33,11 +33,12 @@
 // UserSchema.plugin(passportLocalMongoose);
 
 // module.exports = mongoose.model("User", UserSchema);
-
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var UserSchema = new mongoose.Schema({
+  usernameField: 'email',
+  usernameQueryFields: ['email'],
   username: {
     type: String,
     unique: true,
@@ -50,7 +51,8 @@ var UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    lowercase: true
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
