@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
 var UserSchema = new mongoose.Schema({
-  username: {
+  screenname: {
     type: String,
     unique: true,
     required: true
@@ -27,6 +27,7 @@ var UserSchema = new mongoose.Schema({
 
 
 // UserSchema.plugin(passportLocalMongoose);
+
 UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
   usernameQueryFields: ['email']
