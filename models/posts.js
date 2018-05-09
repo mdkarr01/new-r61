@@ -4,10 +4,9 @@ var postSchema = new mongoose.Schema({
     title: String,
     image: String,
     body: String,
-    tags: String,
-    location: String,
-    lat: Number,
-    lng: Number,
+    // location: String,
+    // lat: Number,
+    // lng: Number,
     createdAt: {
         type: Date,
         default: Date.now
@@ -20,10 +19,18 @@ var postSchema = new mongoose.Schema({
         type: String,
         default: 'public'
     },
-    tag1: String,
-    tag2: String,
-    tag3: String,
-    tag4: String,
+    tag1: {
+        type: String
+    },
+    tag2: {
+        type: String
+    },
+    tag3: {
+        type: String
+    },
+    tag4: {
+        type: String
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
