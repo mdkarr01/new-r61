@@ -1,4 +1,5 @@
 <% include ./partials/header %>
+<% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 <h1>Welcome <% post.user.firstName %></h1>
 <h4>Your Posts</h4>
   <table class="striped">
@@ -13,19 +14,18 @@
     <tbody>
       <% posts.forEach(function(post){ %>
         <tr>
-          <td><a href="/stories/show/{{id}}"><% post.title %></a></td>
-          <td>{{formatDate data 'MMMM do YYYY'}}</td>
-          <td><span class="dash-status">{{status}}</span></td>
+          <td><a href="/posts/show/<%=post._id%>"><%- post.title %></a></td>
+          <td><%= moment(post.createdAt).date() %></td>
+          <td><span class="dash-status"><%= post.status %></span></td>
           <td>
-            <a class="btn left-align" href="/posts/edit/{{id}}"><i class="fa fa-pencil"></i> Edit</a>
-
-            <a href="/posts/<%=post._id%>/comments/<%=comment._id%>/edit" class="btn btn-x    btn-warning">EDIT</a>
-              <form class="delete-form" action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                <button class="btn btn-xs btn-danger">DELETE</button>
-              </form>   
+        <a class="btn btn-xs btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+          <button class="btn btn-xs btn-danger">Delete</button>
+        </form> 
           </td>
         </tr>
       <% } %>
     </tbody>
   </table>
+  <%}%>
 <% include ./partials/footer %>
