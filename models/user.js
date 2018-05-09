@@ -22,11 +22,7 @@ var UserSchema = new mongoose.Schema({
   isAdmin: {
     type: Boolean,
     default: false
-  },
-  tag1: String,
-  tag2: String,
-  tag3: String,
-  tag4: String
+  }
 });
 
 

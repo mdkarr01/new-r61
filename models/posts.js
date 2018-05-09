@@ -20,6 +20,10 @@ var postSchema = new mongoose.Schema({
         type: String,
         default: 'public'
     },
+    tag1: String,
+    tag2: String,
+    tag3: String,
+    tag4: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

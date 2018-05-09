@@ -20,12 +20,12 @@
             <div class="text-inner d-flex align-items-center">
               <div class="content">
                 <header class="post-header">
-                  <div class="category"><a href="#">Rock</a><a href="#">Live Music</a></div><a href="post.html">
-                    <h2 class="h4"><%= post.title %></h2></a>
+                  <div class="category"><a href="#"><%- post.tag2 %></a> <a href="#"><%- post.tag3 %> Music</a> <a href="#"><%- post.tag4 %> Music</a></div>
+                    <h2 class="h4"><%- post.title %></h2></a>
                 </header>
                 <p><%- post.body.substring(0, 300) %>... <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a></p>
                 <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="../images/avatar-1.jpg" alt="..." class="img-fluid"></div>
+                    <div class="avatar"><img src="../images/avatar-1.jpg" alt="Avatar" class="img-fluid"></div>
                     <div class="title"><span><%= post.author.username %></span></div></a>
                   <div class="date"><i class="fas fa-clock"></i> <%= moment(post.createdAt).fromNow() %></div>
                   <div class="comments"><i class="fas fa-comments"></i> 12 Comments</div>
