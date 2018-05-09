@@ -92,7 +92,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       username: req.user.username
     };
     req.body.post.title = req.sanitize(req.body.post.title);
-    req.body.post.title = req.sanitize(req.body.post.alt);
+    req.body.post.alt = req.sanitize(req.body.post.alt);
     req.body.post.body = req.sanitize(req.body.post.body);
     req.body.post.tag1 = req.sanitize(req.body.post.tag1);
     Posts.create(req.body.post, function (err, post) {
