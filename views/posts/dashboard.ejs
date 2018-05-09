@@ -1,7 +1,6 @@
 <% include ./partials/header %>
-<h1>Welcome <% user.firstName %></h1>
-<h4>Your Stories</h4>
-{{#if stories}}
+<h1>Welcome <% post.user.firstName %></h1>
+<h4>Your Posts</h4>
   <table class="striped">
     <thead>
       <tr>
@@ -12,24 +11,21 @@
       </tr>
     </thead>
     <tbody>
-      {{#each stories}}
+      <% posts.forEach(function(post){ %>
         <tr>
-          <td><a href="/stories/show/{{id}}">{{title}}</a></td>
+          <td><a href="/stories/show/{{id}}"><% post.title %></a></td>
           <td>{{formatDate data 'MMMM do YYYY'}}</td>
           <td><span class="dash-status">{{status}}</span></td>
           <td>
-            <a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i> Edit</a>
+            <a class="btn left-align" href="/posts/edit/{{id}}"><i class="fa fa-pencil"></i> Edit</a>
 
-            <form action="/stories/{{id}}?_method=DELETE" method="post" id="delete-form">
-              <input type="hidden" name="_method" value="DELETE">
-              <button type="submit" class="btn red"><i class="fa fa-remove"></i> Delete</button>
-            </form>
+            <a href="/posts/<%=post._id%>/comments/<%=comment._id%>/edit" class="btn btn-x    btn-warning">EDIT</a>
+              <form class="delete-form" action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-xs btn-danger">DELETE</button>
+              </form>   
           </td>
         </tr>
-      {{/each}}
+      <% } %>
     </tbody>
   </table>
-{{else}}
-  <p>You have not created any stories yet</p>
-{{/if}}
 <% include ./partials/footer %>
