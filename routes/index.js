@@ -89,7 +89,7 @@ router.get("/login", function (req, res) {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/posts",
+    successRedirect: "/dashboard",
     failureRedirect: "/login",
     failureFlash: true,
     successFlash: "Welcome to Route 61!"
