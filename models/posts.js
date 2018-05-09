@@ -4,7 +4,10 @@ var postSchema = new mongoose.Schema({
     title: String,
     image: String,
     alt: String,
-    body: String,
+    body: {
+        type: String,
+        required: true
+    },
     // location: String,
     // lat: Number,
     // lng: Number,
