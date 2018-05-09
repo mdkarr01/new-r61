@@ -2,20 +2,22 @@
 <div class="container">
     <div class="row">
         <div class="new-blocks">
-            <h1 style="text-align: center;">New Post</h1>
+            <% /* <h1 style="text-align: center;">New Post</h1> */%>
+            <fieldset>
+            <legend>New Post</legend>
             <form action="/posts" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                 <label class="sr-only" for="FormInputGroup">Post Title</label>
-                <h4>Post Title:</h4>
-                    <input class="form-control" type="text" name="post[title]" id="title" placeholder="Post Title">
+                <p><b>Post Title:</b></p>
+                    <input class="form-control" type="text" name="post[title]" id="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Image:</label>
+                    <label for="image"><b>Image</b>:</label>
                     <input type="file" id="image" name="image" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="FormInputGroup">Post</label>
-                    <h4>Post:</h4>
+                    <p><b>Post:</b></p>
                     <textarea class="form-control" name="post[body]" id="body" rows="15" required></textarea>
                 </div>
                 <% /* <div class="form-group">
@@ -37,6 +39,7 @@
                     <button class="btn btn-lg btn-primary btn-block">Submit</button>
                 </div>
             </form>
+            </fieldset>
             <a href="/posts">View All Posts</a>
         </div>
     </div>
