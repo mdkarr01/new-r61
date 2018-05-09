@@ -26,11 +26,11 @@ var UserSchema = new mongoose.Schema({
 });
 
 
-// UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
-UserSchema.plugin(passportLocalMongoose, {
-  usernameField: 'email',
-  usernameQueryFields: ['email']
-});
+// UserSchema.plugin(passportLocalMongoose, {
+//   usernameField: 'email',
+//   usernameQueryFields: ['email']
+// });
 
 module.exports = mongoose.model("User", UserSchema);
