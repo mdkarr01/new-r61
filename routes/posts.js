@@ -8,7 +8,8 @@ var {
   isLoggedIn,
   checkUserPost,
   checkUserComment,
-  isAdmin
+  isAdmin,
+  truncate
 } = middleware; // destructuring assignment
 
 var request = require("request");
@@ -90,7 +91,9 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
+    req.body.post.title = req.sanitize(req.body.post.title);
     req.body.post.body = req.sanitize(req.body.post.body);
+    req.body.post.tag1 = req.sanitize(req.body.post.tag1);
     Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
