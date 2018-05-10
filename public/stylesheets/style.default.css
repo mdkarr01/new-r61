@@ -141,7 +141,7 @@ h1:hover a {
     color: #000;
 }
 
-i[class*="icon-"] {
+i[class*="icon-"]
     -webkit-transform: translateY(3px);
     transform: translateY(3px);
 }
@@ -707,11 +707,11 @@ section.featured-posts .image {
     max-height: 200px;
     width: auto;
     /* overflow: hidden; */
-    padding-top: 5em;
+    padding-top: 2em;
 }
 
 section.featured-posts .image img {
-    height: 70%;
+    height: 90%;
 }
 
 section.featured-posts .post-header {
