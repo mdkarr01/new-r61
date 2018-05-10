@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <h2 class="h3">Welcome!</h2>
+            <h1>Welcome!</h2>
             <p class="text-big">This is where a tagline goes.</p>
           </div>
         </div>
@@ -30,10 +30,20 @@
                   <div class="date"><i class="fas fa-clock"></i> <%= moment(post.createdAt).fromNow() %></div>
                   <div class="comments"><i class="fas fa-comments"></i> 12 Comments</div>
                 </footer>
+
+                  <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                    <div class="button-block">
+                      <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+                      <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+                        <button class="btn btn-danger">Delete</button>
+                      </form>
+                    </div>
+                  <% } %>
+
               </div>
             </div>
           </div>
-          <div class="image col-lg-5"><img src="<%= post.image %>" alt="Test"></div>
+          <div class="image col-lg-5"><img src="<%= post.image %>" alt="<%- post.alt %>"></div>
         </div>
         <% }); %>
       </div>

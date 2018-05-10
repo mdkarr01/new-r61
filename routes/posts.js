@@ -139,19 +139,36 @@ router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
 
 // PUT - updates post in the database
 router.put("/:id", function (req, res) {
-  geocoder.geocode(req.body.location, function (err, data) {
-    var lat = data.results[0].geometry.location.lat;
-    var lng = data.results[0].geometry.location.lng;
-    var location = data.results[0].formatted_address;
-    var newData = {
-      name: req.body.name,
-      image: req.body.image,
-      body: req.body.body,
-      tags: req.body.tags,
-      location: location,
-      lat: lat,
-      lng: lng
-    };
+  if (req.post.image) {
+    cloudinary.uploader.upload(req.file.path, function (result) {
+
+      // add cloudinary url for the image to the post object under image property
+      req.body.post.image = result.secure_url;
+
+      req.body.post.title = req.sanitize(req.body.post.title);
+      req.body.post.alt = req.sanitize(req.body.post.alt);
+      req.body.post.body = req.sanitize(req.body.post.body);
+      req.body.post.tag1 = req.sanitize(req.body.post.tag1);
+      Posts.findByIdAndUpdate(
+        req.params.id, {
+          $set: newData
+        },
+        function (err, post) {
+          if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+          } else {
+            req.flash("success", "Successfully Updated!");
+            res.redirect("/posts/" + post._id);
+          }
+        }
+      );
+    });
+  } else {
+    req.body.post.title = req.sanitize(req.body.post.title);
+    req.body.post.alt = req.sanitize(req.body.post.alt);
+    req.body.post.body = req.sanitize(req.body.post.body);
+    req.body.post.tag1 = req.sanitize(req.body.post.tag1);
     Posts.findByIdAndUpdate(
       req.params.id, {
         $set: newData
@@ -166,7 +183,7 @@ router.put("/:id", function (req, res) {
         }
       }
     );
-  });
+  }
 });
 
 // DELETE - removes post and its comments from the database

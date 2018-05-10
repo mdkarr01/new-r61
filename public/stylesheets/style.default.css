@@ -141,9 +141,8 @@ h1:hover a {
     color: #000;
 }
 
-i[class*="icon-"]
-    -webkit-transform: translateY(3px);
-    transform: translateY(3px);
+i[class*="icon-"] -webkit-transform: translateY(3px);
+transform: translateY(3px);
 }
 
 #style-switch-button {
@@ -400,6 +399,15 @@ h6 {
 
 .container-fluid {
     width: 100%;
+}
+
+section.intro {
+    padding: 2.5em 0;
+    text-align: center;
+}
+
+section.intro h1 {
+    font-style: italic;
 }
 
 .text-big {
@@ -720,6 +728,10 @@ section.featured-posts .post-header {
 
 section.featured-posts .post-footer {
     margin-top: 30px;
+}
+
+.button-block {
+    display: inline-block;
 }
 
 /* Featured Posts Section Media Query ------------------------------------- */
