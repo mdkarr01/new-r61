@@ -32,7 +32,7 @@
                 </footer>
 
                   <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                    <div class="button-block">
+                    <div class="button-block d-inline-flex">
                       <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
                       <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
                         <button class="btn btn-danger">Delete</button>
@@ -43,7 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="image col-lg-5"><img src="<%= post.image %>" alt="<%- post.alt %>"></div>
+          <div class="image col-lg-5"><img class="img-fluid" src="<%= post.image %>" alt="<%- post.alt %>"></div>
         </div>
         <% }); %>
       </div>

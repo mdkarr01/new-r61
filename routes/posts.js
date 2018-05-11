@@ -51,7 +51,8 @@ router.get("/", function (req, res) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     // Get all posts from DB
     Posts.find({
-        name: regex
+        name: regex,
+        sort: desc
       },
       function (err, allPosts) {
         if (err) {
@@ -164,7 +165,7 @@ router.put("/:id", upload.single('image'), function (req, res) {
       post.tag4 = req.body.tag4;
       post.status = req.body.status;
       post.alt = req.body.alt;
-      post.primary = req.body.primary;
+      post.isPrimary = req.body.isPrimary;
       post.save();
       req.flash("success", "Successfully Updated Post.");
       res.redirect("/posts/" + post._id);

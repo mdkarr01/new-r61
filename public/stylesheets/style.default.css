@@ -511,8 +511,8 @@ div[class*="-btn"] {
     font-family: 'Catamaran', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#mainNav ul>li:first-of-type {
-    padding: 0.35em 1em 0 1em !important;
+#mainNav ul>li #post-search {
+    padding: 0.45em 1em 0 1em !important;
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active,
@@ -527,9 +527,12 @@ div[class*="-btn"] {
 
 #mainNav .search-form {
     height: 24px;
-    -webkit-border-radius: 5px; //For Safari, etc.
-    -moz-border-radius: 5px; //For Mozilla, etc.
-    border-radius: 5px; //CSS3 Feature
+    -webkit-border-radius: 5px;
+    /* //For Safari, etc. */
+    -moz-border-radius: 5px;
+    /* For Mozilla, etc. */
+    border-radius: 5px;
+    /* CSS3 Feature */
 }
 
 @media (min-width: 992px) {
@@ -719,7 +722,8 @@ section.featured-posts .image {
 }
 
 section.featured-posts .image img {
-    height: 90%;
+    height: 300px;
+    width: auto;
 }
 
 section.featured-posts .post-header {
