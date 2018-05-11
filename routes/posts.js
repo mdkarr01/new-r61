@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Posts = require("../models/posts");
+var path = require('path');
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var geocoder = require("geocoder");
@@ -9,7 +10,6 @@ var {
   checkUserPost,
   checkUserComment,
   isAdmin,
-  truncate
 } = middleware; // destructuring assignment
 
 var request = require("request");
@@ -137,36 +137,29 @@ router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
   });
 });
 
-// PUT - updates post in the database
-router.put("/:id", function (req, res) {
-  cloudinary.uploader.upload(req.file.path, function (result) {
-
-    // add cloudinary url for the image to the post object under image property
-    req.body.post.image = result.secure_url;
-
-    req.body.post.title = req.sanitize(req.body.post.title);
-    req.body.post.alt = req.sanitize(req.body.post.alt);
-    req.body.post.body = req.sanitize(req.body.post.body);
-    req.body.post.tag1 = req.sanitize(req.body.post.tag1);
-    var newData = {
-      title: req.body.post.title,
-      image: req.body.post.image,
-      body: req.body.post.body
-    };
-    Posts.findByIdAndUpdate(
-      req.params.id, {
-        $set: newData
-      },
-      function (err, post) {
-        if (err) {
+router.put("/:id", upload.single('image'), function (req, res) {
+  Posts.findById(req.params.id, async function (err, post) {
+    if (err) {
+      req.flash("error", err.message);
+      res.redirect("back");
+    } else {
+      if (req.file) {
+        try {
+          await cloudinary.v2.uploader.destroy(post.imageId);
+          var result = await cloudinary.v2.uploader.upload(req.file.path);
+          post.imageId = result.public_id;
+          post.image = result.secure_url;
+        } catch (err) {
           req.flash("error", err.message);
-          res.redirect("back");
-        } else {
-          req.flash("success", "Successfully Updated!");
-          res.redirect("/posts/" + post._id);
+          return res.redirect("back");
         }
       }
-    );
+      post.title = req.body.title;
+      post.body = req.body.body;
+      post.save();
+      req.flash("success", "Successfully Updated Post.");
+      res.redirect("/posts/" + post._id);
+    }
   });
 });
 
@@ -193,6 +186,26 @@ router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
       }
     }
   );
+});
+
+router.delete('/:id', function (req, res) {
+  Posts.findById(req.params.id, async function (err, post) {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    try {
+      await cloudinary.v2.uploader.destroy(post.imageId);
+      post.remove();
+      req.flash('success', 'Post deleted successfully!');
+      res.redirect('/posts');
+    } catch (err) {
+      if (err) {
+        req.flash("error", err.message);
+        return res.redirect("back");
+      }
+    }
+  });
 });
 
 module.exports = router;
