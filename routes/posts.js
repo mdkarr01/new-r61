@@ -10,6 +10,8 @@ var {
   checkUserPost,
   checkUserComment,
   isAdmin,
+  select,
+  formatDate
 } = middleware; // destructuring assignment
 
 var request = require("request");
@@ -156,6 +158,13 @@ router.put("/:id", upload.single('image'), function (req, res) {
       }
       post.title = req.body.title;
       post.body = req.body.body;
+      post.tag1 = req.body.tag1;
+      post.tag2 = req.body.tag2;
+      post.tag3 = req.body.tag3;
+      post.tag4 = req.body.tag4;
+      post.status = req.body.status;
+      post.alt = req.body.alt;
+      post.primary = req.body.primary;
       post.save();
       req.flash("success", "Successfully Updated Post.");
       res.redirect("/posts/" + post._id);
@@ -188,7 +197,7 @@ router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
   );
 });
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', isLoggedIn, checkUserPost, function (req, res) {
   Posts.findById(req.params.id, async function (err, post) {
     if (err) {
       req.flash("error", err.message);

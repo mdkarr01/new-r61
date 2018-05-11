@@ -2,11 +2,11 @@
     <div class="row">
         <div class="new-blocks">
             <fieldset>
-            <legend>Edit Post</legend>
+            <legend>Edit <%- post.title %></legend>
             <form action="/posts/<%=post._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                 <label for="FormInputGroup"><b>Post Title</b>:</label>
-                    <input class="form-control" type="text" name="post[title]" id="title" value="<%- post.title %>" required>
+                    <input class="form-control" type="text" name="title" id="title" value="<%- post.title %>" required>
                 </div>
                 <div class="form-group">
                     <label for="image"><b>Image</b>:</label>
@@ -14,37 +14,35 @@
                 </div>
                 <div class="form-group">
                 <label for="FormInputGroup"><b>Image Description:</b></label>
-                    <input class="form-control" type="text" name="post[alt]" id="alt" value="<%- post.alt %>" required>
+                    <input class="form-control" type="text" name="alt" id="alt" value="<%- post.alt %>" required>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" type="text" name="post[body]" id="body" value="Description"><%=post.body%></textarea>
+                    <textarea class="form-control" type="text" name="body" id="body" value="Description"><%=post.body%></textarea>
                 </div>
                  <div class="form-group">
                     <label for="FormInputGroup"><b>Status</b>:</label>
-                    <select name="post[status]" id="status">
-                        <option value="public" selected>Public</option>
-                        <option value="private">Private</option>
-                    </select>
+                    <input class="form-control" type="checkbox" name="status" id="status" checked>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: inline-block;">
                     <div>
-                    <label for="FormInputGroup"><b>Primary Post?</b></label>
-                    <input class="form-control" type="checkbox" name="post[primary]" id="primary">
+                        <label for="FormInputGroup"><b>Primary Post?</b></label>
+                        <input class="form-control" type="checkbox" name="primary" id="primary">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="FormInputGroup"><b>Artist Name</b>:</label>
-                    <input class="form-control" type="text" name="post[tag1]" id="tag1" value="<%- post.alt %>">
+                    <input class="form-control" type="text" name="tag1" id="tag1" value="<%- post.tag1 %>">
                 </div>
                 <div class="form-group">
                     <label for="FormInputGroup"><b>Tags</b></label>
-                    <select name="post[tag2]" id="tag2">
+                    <select name="tag2" id="tag2">
+                        <option value="<%= post.tag2 %>" selected><%= post.tag2 %></option>   
                         <option value="Rock">Rock</option>
                         <option value="Blues">Blues</option>
                         <option value="Americana">Americana</option>
                         <option value="Folk">Folk</option>
                         <option value="Country">Country</option>
-                        <option value="Listen"><i class="fas fa-headphones"></i> Listen</option>
+                        <option value="Listen">Listen</option>
                         <option value="Playlist">Playlist</option>
                         <option value="Album">Album</option>
                         <option value="Song">Song</option>
@@ -53,7 +51,8 @@
                 </div>                
                 <div class="form-group">
                     <label for="FormInputGroup">Tags</label>
-                    <select name="post[tag3]" id="tag3">
+                    <select name="tag3" id="tag3">
+                        <option selected value="<%= post.tag3 %>"><%= post.tag3 %></option>   
                         <option value="Rock">Rock</option>
                         <option value="Blues">Blues</option>
                         <option value="Americana">Americana</option>
@@ -68,7 +67,8 @@
                 </div>               
                 <div class="form-group">
                     <label for="FormInputGroup">Tags</label>
-                    <select name="post[tag4]" id="tag4">
+                    <select name="tag4" id="tag4">
+                        <option selected value="<%= post.tag4 %>"><%= post.tag4 %></option>   
                         <option value="Rock">Rock</option>
                         <option value="Blues">Blues</option>
                         <option value="Americana">Americana</option>
