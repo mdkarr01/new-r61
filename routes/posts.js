@@ -51,8 +51,7 @@ router.get("/", function (req, res) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     // Get all posts from DB
     Posts.find({
-        name: regex,
-        sort: desc
+        tag1: regex
       },
       function (err, allPosts) {
         if (err) {
@@ -80,6 +79,25 @@ router.get("/", function (req, res) {
     });
   }
 });
+
+//INDEX - show all posts
+// router.get("/", function (req, res) {
+//   if (req.query.search && req.xhr) {
+//     const regex = new RegExp(escapeRegex(req.query.search), "gi");
+//     // Get all posts from DB
+//     Posts.find({
+//         tag1: regex
+//       },
+//       function (err, allPosts) {
+//         if (err) {
+//           console.log(err);
+//         } else {
+//           res.status(200).json(allPosts);
+//         }
+//       }
+//     );
+//   } 
+// });
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, upload.single("image"), function (
