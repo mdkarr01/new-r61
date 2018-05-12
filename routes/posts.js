@@ -104,6 +104,12 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
   req,
   res
 ) {
+  var eager_options = {
+    width: 600,
+    height: 400,
+    crop: 'scale',
+    format: 'jpg'
+  };
   cloudinary.uploader.upload(req.file.path, function (result) {
     // add cloudinary url for the image to the post object under image property
     req.body.post.image = result.secure_url;
@@ -112,10 +118,12 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
+
     req.body.post.title = req.sanitize(req.body.post.title);
     req.body.post.alt = req.sanitize(req.body.post.alt);
     req.body.post.body = req.sanitize(req.body.post.body);
     req.body.post.tag1 = req.sanitize(req.body.post.tag1);
+
     Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
