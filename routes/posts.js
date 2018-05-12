@@ -17,6 +17,8 @@ var {
 var request = require("request");
 var multer = require("multer");
 var storage = multer.diskStorage({
+  width: 600,
+  height: 400,
   filename: function (req, file, callback) {
     callback(null, Date.now() + file.originalname);
   }
