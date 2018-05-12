@@ -107,8 +107,10 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
 ) {
 
   cloudinary.v2.uploader.upload(req.file.path, {
-    width: 600,
-    height: 400
+    eager: {
+      width: 600,
+      height: 400
+    }
   }, function (result) {
     // add cloudinary url for the image to the post object under image property
     req.body.post.image = result.secure_url;
