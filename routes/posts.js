@@ -4,7 +4,8 @@ var Posts = require("../models/posts");
 var path = require('path');
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
-var geocoder = require("geocoder");
+var middleware = require("../middleware");
+var sharp = require("sharp");
 var {
   isLoggedIn,
   checkUserPost,
@@ -104,13 +105,11 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
   req,
   res
 ) {
-  var eager_options = {
+
+  cloudinary.v2.uploader.upload(req.file.path, {
     width: 600,
-    height: 400,
-    crop: 'scale',
-    format: 'jpg'
-  };
-  cloudinary.uploader.upload(req.file.path, function (result) {
+    height: 400
+  }, function (result) {
     // add cloudinary url for the image to the post object under image property
     req.body.post.image = result.secure_url;
     // add author to post
