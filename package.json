@@ -28,7 +28,6 @@
     "express-validator": "^5.2.0",
     "geocoder": "^0.2.3",
     "helmet": "^3.12.0",
-    "locus": "^2.0.1",
     "method-override": "^2.3.5",
     "moment": "^2.17.1",
     "mongoose": "^4.11.9",
@@ -42,5 +41,8 @@
     "sharp": "^0.20.2",
     "text-clipper": "^1.2.1",
     "truncate": "^2.0.1"
+  },
+  "devDependencies": {
+    "locus": "^2.0.1"
   }
 }

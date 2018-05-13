@@ -8,6 +8,13 @@ var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
 var validator = require('express-validator');
+var {
+  matchedData
+} = require('express-validator/filter');
+var {
+  check,
+  validationResult
+} = require('express-validator/check')
 var request = require("request");
 var multer = require("multer");
 var storage = multer.diskStorage({
@@ -37,6 +44,35 @@ cloudinary.config({
 //root route
 router.get("/", function (req, res) {
   res.render("landing");
+});
+
+//Contact form
+router.get("/contact", function name(req, res) {
+  res.render("contact");
+});
+
+router.post('/contact', [
+  check('message')
+  .isLength({
+    min: 1
+  })
+  .withMessage('Message is required'),
+  check('email')
+  .isEmail()
+  .withMessage('That email doesn‘t look right')
+], (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.render('posts', {
+      data: req.body,
+      errors: errors.mapped()
+    })
+  }
+  const data = matchedData(req)
+  console.log('Sanitized:', data)
+  req.flash('success', 'Thanks for the message! I‘ll be in touch.');
+  res.redirect("/posts");
 });
 
 // show register form

@@ -5,9 +5,12 @@ var path = require('path');
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var {
+  matchedData
+} = require('express-validator/filter');
+var {
   check,
   validationResult
-} = require('express-validator/check');
+} = require('express-validator/check')
 var sharp = require("sharp");
 var {
   isLoggedIn,
@@ -84,40 +87,6 @@ router.get("/", function (req, res) {
     });
   }
 });
-
-// //Contact form
-// router.post('/posts', (req, res) => {
-//   res.render('index', {
-//     data: req.body, // { message, email }
-//     errors: {
-//       message: {
-//         msg: 'A message is required'
-//       },
-//       email: {
-//         msg: 'That email doesn‘t look right'
-//       }
-//     }
-//   })
-// })
-
-router.post('/posts', [
-  check('message')
-  .isLength({
-    min: 1
-  })
-  .withMessage('Message is required'),
-  check('email')
-  .isEmail()
-  .withMessage('That email doesn‘t look right')
-  .trim()
-  .normalizeEmail()
-], (req, res) => {
-  const errors = validationResult(req)
-  res.render('contact', {
-    data: req.body,
-    errors: errors.mapped()
-  })
-})
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, upload.single("image"), function (
