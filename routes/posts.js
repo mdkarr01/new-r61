@@ -4,7 +4,10 @@ var Posts = require("../models/posts");
 var path = require('path');
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
-var middleware = require("../middleware");
+var {
+  check,
+  validationResult
+} = require('express-validator/check');
 var sharp = require("sharp");
 var {
   isLoggedIn,
@@ -12,7 +15,6 @@ var {
   checkUserComment,
   isAdmin,
   select,
-  formatDate
 } = middleware; // destructuring assignment
 
 var request = require("request");
@@ -83,18 +85,37 @@ router.get("/", function (req, res) {
   }
 });
 
-//Contact form
-router.post('/posts', (req, res) => {
-  res.render('index', {
-    data: req.body, // { message, email }
-    errors: {
-      message: {
-        msg: 'A message is required'
-      },
-      email: {
-        msg: 'That email doesn‘t look right'
-      }
-    }
+// //Contact form
+// router.post('/posts', (req, res) => {
+//   res.render('index', {
+//     data: req.body, // { message, email }
+//     errors: {
+//       message: {
+//         msg: 'A message is required'
+//       },
+//       email: {
+//         msg: 'That email doesn‘t look right'
+//       }
+//     }
+//   })
+// })
+
+router.post('/posts', [
+  check('message')
+  .isLength({
+    min: 1
+  })
+  .withMessage('Message is required'),
+  check('email')
+  .isEmail()
+  .withMessage('That email doesn‘t look right')
+  .trim()
+  .normalizeEmail()
+], (req, res) => {
+  const errors = validationResult(req)
+  res.render('contact', {
+    data: req.body,
+    errors: errors.mapped()
   })
 })
 
