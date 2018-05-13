@@ -18,37 +18,25 @@ var express = require("express"),
 // configure dotenv
 require("dotenv").load();
 
-//Where is this?
-// resize = require("./resize");
-
-//requiring routes
+//Where is this? resize = require("./resize"); requiring routes
 var commentRoutes = require("./routes/comments"),
   postRoutes = require("./routes/posts"),
   indexRoutes = require("./routes/index");
 
-//PASSPORT CONFIG
-// require("./config/passport")(passport);
-
-//If using config/database for production and dev databases
-// const db = require('./config/database');
-
-// assign mongoose promise library and connect to database
+// PASSPORT CONFIG require("./config/passport")(passport); If using
+// config/database for production and dev databases const db =
+// require('./config/database'); assign mongoose promise library and connect to
+// database
 mongoose.Promise = global.Promise;
 
 const databaseUri = process.env.MONGODB_URI;
 
 mongoose
-  .connect(databaseUri, {
-    useMongoClient: true
-  })
+  .connect(databaseUri, {useMongoClient: true})
   .then(() => console.log(`Database connected`))
   .catch(err => console.log(`Database connection error: ${err.message}`));
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 
 app.set("view engine", "ejs");
@@ -60,16 +48,10 @@ app.use(cookieParser("secret"));
 
 //require moment
 app.locals.moment = require("moment");
-// seedDB(); //seed the database
+app.locals.clip = require("text-clipper");
 
-// PASSPORT CONFIGURATION
-app.use(
-  require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
-    resave: false,
-    saveUninitialized: false
-  })
-);
+// seedDB(); //seed the database PASSPORT CONFIGURATION
+app.use(require("express-session")({secret: "Once again Rusty wins cutest dog!", resave: false, saveUninitialized: false}));
 
 app.use(flash());
 app.use(passport.initialize());
@@ -89,11 +71,9 @@ app.use("/", indexRoutes);
 app.use("/posts", postRoutes);
 app.use("/posts/:id/comments", commentRoutes);
 
-// app.listen(process.env.PORT, process.env.IP, function () {
-//   console.log("The Route 61 Server Has Started!");
-// });
-
-// const port = (process.env.PORT, process.env.IP);
+// app.listen(process.env.PORT, process.env.IP, function () {   console.log("The
+// Route 61 Server Has Started!"); }); const port = (process.env.PORT,
+// process.env.IP);
 const port = 3000;
 
 app.listen(port, () => {
