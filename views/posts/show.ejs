@@ -9,7 +9,7 @@
           <div class="category"><a href="#"><%- post.tag2 %></a> <a href="#"><%- post.tag3 %></a> <a href="#"><%- post.tag4 %></a></div>
           <p><%- post.body %></p>
           <p>
-            <em>Submitted by: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a>, <%= moment(post.createdAt).fromNow() %></em>
+            <em>Submitted by: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a>, <%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %></em>
           </p>
           <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
             <div class="d-inline-flex">
