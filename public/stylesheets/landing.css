@@ -47,10 +47,12 @@ h1 {
 .slideshow li:nth-child(1) {
   background-image: url(../images/landing/crowd-color.jpg);
 }
+
 .slideshow li:nth-child(2) {
   background-image: url(../images/landing/crowd-bw.jpg);
   animation-delay: 4s;
 }
+
 .slideshow li:nth-child(3) {
   background-image: url(../images/landing/stage-right.jpg);
   animation-delay: 20s;
@@ -58,7 +60,7 @@ h1 {
 
 @keyframes imageAnimation {
   0% {
-    opacity: 0;
+    opacity: 0.15;
     animation-timing-function: ease-in;
   }
   10% {
@@ -74,6 +76,7 @@ h1 {
 }
 
 /* Older browser support - .no-cssanimations class added by modernizr */
+
 .no-cssanimations .slideshow li {
   opacity: 1;
 }

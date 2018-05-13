@@ -14,6 +14,8 @@ var express = require("express"),
   User = require("./models/user"),
   session = require("express-session"),
   seedDB = require("./seeds"),
+  validator = require('express-validator'),
+  helmet = require('helmet'),
   methodOverride = require("method-override");
 // configure dotenv
 require("dotenv").load();
@@ -32,11 +34,15 @@ mongoose.Promise = global.Promise;
 const databaseUri = process.env.MONGODB_URI;
 
 mongoose
-  .connect(databaseUri, {useMongoClient: true})
+  .connect(databaseUri, {
+    useMongoClient: true
+  })
   .then(() => console.log(`Database connected`))
   .catch(err => console.log(`Database connection error: ${err.message}`));
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(expressSanitizer());
 
 app.set("view engine", "ejs");
@@ -46,12 +52,22 @@ app.use(methodOverride("_method"));
 
 app.use(cookieParser("secret"));
 
+app.use(validator());
+
+app.use(helmet());
+
 //require moment
 app.locals.moment = require("moment");
+
+//require text-clipper
 app.locals.clip = require("text-clipper");
 
 // seedDB(); //seed the database PASSPORT CONFIGURATION
-app.use(require("express-session")({secret: "Once again Rusty wins cutest dog!", resave: false, saveUninitialized: false}));
+app.use(require("express-session")({
+  secret: "Once again Rusty wins cutest dog!",
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use(flash());
 app.use(passport.initialize());
