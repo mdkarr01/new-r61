@@ -39,21 +39,6 @@ router.get("/", function (req, res) {
   res.render("landing");
 });
 
-//Contact form
-router.post('/', (req, res) => {
-  res.render('index', {
-    data: req.body, // { message, email }
-    errors: {
-      message: {
-        msg: 'A message is required'
-      },
-      email: {
-        msg: 'That email doesn‘t look right'
-      }
-    }
-  })
-})
-
 // show register form
 router.get("/register", function (req, res) {
   res.render("register", {

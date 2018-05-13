@@ -64,7 +64,7 @@ section#contact :-ms-input-placeholder {
 section#contact .error,
 .errors-list {
     font-size: 14px;
-    color: #C00;
+    color: rgb(167, 161, 161);
 }
 
 section#contact .errors-list {

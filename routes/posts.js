@@ -73,7 +73,9 @@ router.get("/", function (req, res) {
         } else {
           res.render("posts/index", {
             posts: allPosts,
-            page: "posts"
+            page: "posts",
+            data: {},
+            errors: {}
           });
         }
       }
@@ -81,24 +83,20 @@ router.get("/", function (req, res) {
   }
 });
 
-//INDEX - show all posts
-// router.get("/", function (req, res) {
-//   if (req.query.search && req.xhr) {
-//     const regex = new RegExp(escapeRegex(req.query.search), "gi");
-//     // Get all posts from DB
-//     Posts.find({
-//         tag1: regex
-//       },
-//       function (err, allPosts) {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           res.status(200).json(allPosts);
-//         }
-//       }
-//     );
-//   } 
-// });
+//Contact form
+router.post('/posts', (req, res) => {
+  res.render('index', {
+    data: req.body, // { message, email }
+    errors: {
+      message: {
+        msg: 'A message is required'
+      },
+      email: {
+        msg: 'That email doesn‘t look right'
+      }
+    }
+  })
+})
 
 //CREATE - add new post to DB
 router.post("/", middleware.isLoggedIn, upload.single("image"), function (
