@@ -1,58 +1,62 @@
 section#contact {
-    background-color: #212529;
-    background-image: url("../img/map-image.png");
-    background-repeat: no-repeat;
-    background-position: center;
+  background-color: #212529;
+  background-image: url("../img/map-image.png");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 section#contact .section-heading {
-    color: #fff;
+  color: #fff;
+}
+
+section#contact .contact-margins {
+  margin: 0 6em;
 }
 
 section#contact .form-group {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 section#contact .form-group input,
 section#contact .form-group textarea {
-    padding: 20px;
+  padding: 20px;
 }
 
 section#contact .form-group input.form-control {
-    height: auto;
+  height: auto;
 }
 
 section#contact .form-group textarea.form-control {
-    height: 248px;
+  height: 248px;
 }
 
 section#contact .form-control:focus {
-    border-color: #faf577;
-    box-shadow: none;
+  border-color: #faf577;
+  box-shadow: none;
 }
 
 section#contact ::-webkit-input-placeholder {
-    font-weight: 700;
-    color: #ced4da;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #ced4da;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 section#contact :-moz-placeholder {
-    font-weight: 700;
-    color: #ced4da;
-    /* Firefox 18- */
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #ced4da;
+  /* Firefox 18- */
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 section#contact ::-moz-placeholder {
-    font-weight: 700;
-    color: #ced4da;
-    /* Firefox 19+ */
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #ced4da;
+  /* Firefox 19+ */
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 section#contact :-ms-input-placeholder {
-    font-weight: 700;
-    color: #ced4da;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  color: #ced4da;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
