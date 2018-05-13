@@ -14,12 +14,12 @@ section#contact .contact-margins {
 }
 
 section#contact .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 2em;
 }
 
 section#contact .form-group input,
 section#contact .form-group textarea {
-    padding: 20px;
+    padding: 10px;
 }
 
 section#contact .form-group input.form-control {
@@ -27,7 +27,7 @@ section#contact .form-group input.form-control {
 }
 
 section#contact .form-group textarea.form-control {
-    height: 248px;
+    height: 12em;
 }
 
 section#contact .form-control:focus {
