@@ -82,14 +82,22 @@ router.post('/contact', [
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const msg = {
       to: 'mdkarr01@gmail.com',
-      from: req.body.email,
+      from: {
+        email: 'no-reply@michaelkarr.net'
+      },
       subject: 'Contact Form: Route62',
-      html: '<strong>Phone: </strong>',
-      phone: req.body.phone,
-      html: '<strong>Message: </strong>',
-      text: req.body.message
+      content: [{
+        type: 'text/plain',
+        value: `
+        You have received a contact us form submission. Here is the data:
+        Email: ${req.body.email}
+        Name: ${req.body.name}
+        Phone: ${req.body.phone}
+        Message: ${req.body.message}
+      `
+      }]
     };
-    eval(require('locus'))
+    // eval(require('locus'))
     sgMail.send(msg);
   } else {
     req.flash('failure', 'There was a problem sending your message. Please try again.');
