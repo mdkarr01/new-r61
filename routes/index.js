@@ -80,15 +80,18 @@ router.post('/contact', [
   if (req.body) {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const text = req.body.message
+    const phone = req.body.phone
     const msg = {
       to: 'mdkarr01@gmail.com',
       from: req.body.email,
       subject: 'Contact Form: Route62',
       html: '<strong>Phone: </strong>',
-      text: data.phone,
+      phone: phone,
       html: '<strong>Message: </strong>',
-      message: req.body.message
+      text: message
     };
+    eval(require('locus'))
     sgMail.send(msg);
   } else {
     req.flash('failure', 'There was a problem sending your message. Please try again.');
