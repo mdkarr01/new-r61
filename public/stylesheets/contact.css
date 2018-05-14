@@ -1,0 +1,66 @@
+ul {
+    margin-bottom: 1em;
+}
+
+#contact .form-group {
+    margin-bottom: 2em;
+}
+
+#contact .form-group input,
+#contact .form-group textarea {
+    padding: 10px;
+}
+
+#contact .form-group input.form-control {
+    height: auto;
+}
+
+#contact .form-group textarea.form-control {
+    height: 20em;
+}
+
+#contact .form-control:focus {
+    border-color: #faf577;
+    box-shadow: none;
+}
+
+#contact ::-webkit-input-placeholder {
+    font-weight: 700;
+    color: #727475;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#contact :-moz-placeholder {
+    font-weight: 700;
+    color: #ced4da;
+    /* Firefox 18- */
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#contact ::-moz-placeholder {
+    font-weight: 700;
+    color: #ced4da;
+    /* Firefox 19+ */
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#contact :-ms-input-placeholder {
+    font-weight: 700;
+    color: #ced4da;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#contact .error,
+.errors-list {
+    font-size: 14px;
+    color: rgb(247, 10, 10);
+}
+
+#contact .errors-list {
+    margin: 0 0 1.5em;
+    padding: 0 0 0 15px;
+}
+
+#contact .form-field-invalid .input {
+    border-color: #c00;
+}

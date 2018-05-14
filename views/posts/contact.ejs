@@ -1,12 +1,10 @@
 <% include ../partials/header2 %>
-<section id="contact no-padding-top">
-
 <div class="container">
     <div class="row">
-        <div class="new-blocks">
+        <div class="new-blocks id="contact">
             <fieldset>
             <% if (Object.keys(errors).length === 0) { %>
-            <legend>Send A Message</legend>
+            <legend>&nbsp;Send A Message</legend>
             <% } else { %>
               <h5 class="errors-heading">Oops, please correct the following:</h5>
               <ul class="errors-list">
@@ -52,5 +50,4 @@
         </div>
     </div>
 </div>
-</section>
 <% include ../partials/footer2 %>
