@@ -1,95 +1,113 @@
 <% include ../partials/header2 %>
-<div class="container">
-    <div class="row">
-        <div class="new-blocks">
-            <fieldset>
-            <legend>New Post</legend>
-            <form action="/posts" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                <label for="FormInputGroup"><b>Post Title</b>:</label>
-                    <input class="form-control" type="text" name="post[title]" id="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="image"><b>Image</b>:</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
-                </div>
-                <div class="form-group">
-                <label for="FormInputGroup"><b>Image Description:</b></label>
-                    <input class="form-control" type="text" name="post[alt]" id="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="FormInputGroup"><b>Post:</b</label>
-                    <textarea class="form-control" name="post[body]" id="body" required></textarea>
-                </div>
-                 <div class="form-group">
-                    <label for="FormInputGroup"><b>Status</b>:</label>
-                    <select name="post[status]" id="status">
-                        <option value="public" selected>Public</option>
-                        <option value="private">Private</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <div>
-                    <label for="FormInputGroup"><b>Primary Post?</b></label>
-                    <input class="form-control" type="checkbox" name="post[isPrimary]" id="isPrimary">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="FormInputGroup"><b>Artist Name</b>:</label>
-                    <input class="form-control" type="text" name="post[tag1]" id="tag1">
-                </div>
-                <div class="form-group">
-                    <label for="FormInputGroup"><b>Tags</b></label>
-                    <select name="post[tag2]" id="tag2">
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen">Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div>                
-                <div class="form-group">
-                    <label for="FormInputGroup">Tags</label>
-                    <select name="post[tag3]" id="tag3">
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen">Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div>               
-                <div class="form-group">
-                    <label for="FormInputGroup">Tags</label>
-                    <select name="post[tag4]" id="tag4">
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen">Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div> 
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
-                </div>
-            </form>
-            </fieldset>
-            <a href="/posts">View All Posts</a>
+    <div class="container">
+        <div class="row">
+            <div class="new-blocks">
+                <fieldset>
+                    <legend>&nbsp;New Post</legend>
+                    <form action="/posts" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Post Title</b>:</label>
+                            <input class="form-control" type="text" name="post[title]" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">
+                                <b>Image</b>:</label>
+                            <input type="file" id="image" name="image" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Image Description:</b>
+                            </label>
+                            <input class="form-control" type="text" name="post[alt]" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Post:</b</label>
+                                    <textarea class="form-control" name="post[body]" id="body" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Should this post be published to the main page?</b>:</label>
+                            <input type="hidden" name="post[status]" id="status" value="false" />
+                            <div class='inline d-flex'>
+                                <p style="font-weight: normal;">Yes</p>
+                                <input class="form-control" type="checkbox" name="post[status]" id="status" checked>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label for="FormInputGroup">
+                                    <span>
+                                        <b>Should this post be pinned to the top of the page?</b>
+                                    </span>
+                                    <input type="hidden" name="post[isPrimary]" id="isPrimary" value="false" />
+                                    <div class='inline d-flex'>
+                                        <p style="font-weight: normal;">Yes</p>
+                                        <input class="form-control" type="checkbox" name="post[isPrimary]" id="isPrimary" checked>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Artist Name</b>:</label>
+                            <input class="form-control" type="text" name="post[tag1]" id="tag1">
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">
+                                <b>Tags</b>
+                            </label>
+                            <select name="post[tag2]" id="tag2">
+                                <option value="Rock">Rock</option>
+                                <option value="Blues">Blues</option>
+                                <option value="Americana">Americana</option>
+                                <option value="Folk">Folk</option>
+                                <option value="Country">Country</option>
+                                <option value="Listen">Listen</option>
+                                <option value="Playlist">Playlist</option>
+                                <option value="Album">Album</option>
+                                <option value="Song">Song</option>
+                                <option value="Live">Live</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">Tags</label>
+                            <select name="post[tag3]" id="tag3">
+                                <option value="Rock">Rock</option>
+                                <option value="Blues">Blues</option>
+                                <option value="Americana">Americana</option>
+                                <option value="Folk">Folk</option>
+                                <option value="Country">Country</option>
+                                <option value="Listen">Listen</option>
+                                <option value="Playlist">Playlist</option>
+                                <option value="Album">Album</option>
+                                <option value="Song">Song</option>
+                                <option value="Live">Live</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="FormInputGroup">Tags</label>
+                            <select name="post[tag4]" id="tag4">
+                                <option value="Rock">Rock</option>
+                                <option value="Blues">Blues</option>
+                                <option value="Americana">Americana</option>
+                                <option value="Folk">Folk</option>
+                                <option value="Country">Country</option>
+                                <option value="Listen">Listen</option>
+                                <option value="Playlist">Playlist</option>
+                                <option value="Album">Album</option>
+                                <option value="Song">Song</option>
+                                <option value="Live">Live</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                        </div>
+                    </form>
+                </fieldset>
+                <a href="/posts">View All Posts</a>
+            </div>
         </div>
     </div>
-</div>
-<% include ../partials/footer2 %>
+    <% include ../partials/footer2 %>

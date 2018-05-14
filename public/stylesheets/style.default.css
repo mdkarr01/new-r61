@@ -168,6 +168,10 @@ fieldset {
     padding: 2em 5em;
 }
 
+.new-blocks input[type=checkbox] {
+    padding: 2px 0 0 5px;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {
