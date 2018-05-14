@@ -74,8 +74,14 @@ router.post('/contact', [
       errors: errors.mapped()
     })
   }
-  const data = matchedData(req)
-  console.log('Sanitized:', data)
+  const data = matchedData(req);
+  console.log('Sanitized:', data);
+  var options = {
+    {
+      api_user: SENDGRID_USER_NAME
+      api_key: SENDGRID_API_KEY
+    }
+  }
   req.flash('success', 'Thanks for the message! I‘ll be in touch.');
   res.redirect("/posts");
 });
