@@ -4,13 +4,6 @@ var Posts = require("../models/posts");
 var path = require('path');
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
-var {
-  matchedData
-} = require('express-validator/filter');
-var {
-  check,
-  validationResult
-} = require('express-validator/check')
 var sharp = require("sharp");
 var {
   isLoggedIn,
@@ -30,14 +23,14 @@ var storage = multer.diskStorage({
 var imageFilter = function (req, file, cb) {
   // accept image files only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-    return cb(new Error("Only image files are allowed!"), false);
+    return cb(new Error('Only image files are allowed!'), false);
   }
   cb(null, true);
 };
 var upload = multer({
   storage: storage,
   fileFilter: imageFilter
-});
+})
 
 var cloudinary = require("cloudinary");
 cloudinary.config({
@@ -87,30 +80,22 @@ router.get("/", function (req, res) {
 });
 
 //CREATE - add new post to DB
-router.post("/", middleware.isLoggedIn, upload.single("image"), function (
-  req,
-  res
-) {
-  cloudinary.v2.uploader.upload(req.file.path, function (result) {
+router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, res) {
+  cloudinary.uploader.upload(req.file.path, function (result) {
     // add cloudinary url for the image to the post object under image property
     req.body.post.image = result.secure_url;
     // add author to post
     req.body.post.author = {
       id: req.user._id,
       username: req.user.username
-    };
-
-    req.body.post.title = req.sanitize(req.body.post.title);
-    req.body.post.alt = req.sanitize(req.body.post.alt);
-    req.body.post.body = req.sanitize(req.body.post.body);
-    req.body.post.tag1 = req.sanitize(req.body.post.tag1);
-
+    }
+    req.body.post.body = req.sanitize(req.body.post);
     Posts.create(req.body.post, function (err, post) {
       if (err) {
-        req.flash("error", err.message);
-        return res.redirect("back");
+        req.flash('error', err.message);
+        return res.redirect('back');
       }
-      res.redirect("/posts/" + post.id);
+      res.redirect('/posts/' + post.id);
     });
   });
 });
