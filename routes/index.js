@@ -83,11 +83,11 @@ router.post('/contact', [
     const msg = {
       to: 'mdkarr01@gmail.com',
       from: req.body.email,
-      subject: 'Contact Form: Route61',
-      html: '<strong>Phone:</strong> ',
-      text: req.body.phone,
+      subject: 'Contact Form: Route62',
+      html: '<strong>Phone: </strong>',
+      text: data.phone,
       html: '<strong>Message: </strong>',
-      text: req.body.message
+      message: req.body.message
     };
     sgMail.send(msg);
   } else {
