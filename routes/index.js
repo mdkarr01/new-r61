@@ -76,11 +76,22 @@ router.post('/contact', [
   }
   const data = matchedData(req);
   console.log('Sanitized:', data);
-  var options = {
-    {
-      api_user: SENDGRID_USER_NAME
-      api_key: SENDGRID_API_KEY
-    }
+
+  if (req.body) {
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: 'mdkarr01@gmail.com',
+      from: req.body.email,
+      subject: 'Contact Form: Route61',
+      html: '<strong>Phone:</strong> ',
+      text: req.body.phone,
+      html: '<strong>Message: </strong>',
+      text: req.body.message
+    };
+    sgMail.send(msg);
+  } else {
+    req.flash('failure', 'There was a problem sending your message. Please try again.');
   }
   req.flash('success', 'Thanks for the message! I‘ll be in touch.');
   res.redirect("/posts");
