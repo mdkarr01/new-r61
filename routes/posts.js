@@ -78,9 +78,7 @@ router.get("/", function (req, res) {
         } else {
           res.render("posts/index", {
             posts: allPosts,
-            page: "posts",
-            data: {},
-            errors: {}
+            page: "posts"
           });
         }
       }

@@ -47,9 +47,12 @@ router.get("/", function (req, res) {
 });
 
 //Contact form
-router.get("/contact", function name(req, res) {
-  res.render("contact");
-});
+router.get('/contact', (req, res) => {
+  res.render('posts/contact', {
+    data: {},
+    errors: {}
+  })
+})
 
 router.post('/contact', [
   check('message')
@@ -59,12 +62,14 @@ router.post('/contact', [
   .withMessage('Message is required'),
   check('email')
   .isEmail()
+  .trim()
+  .normalizeEmail()
   .withMessage('That email doesn‘t look right')
 ], (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.render('posts', {
+    return res.render('posts/contact', {
       data: req.body,
       errors: errors.mapped()
     })

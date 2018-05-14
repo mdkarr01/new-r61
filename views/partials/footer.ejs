@@ -1,107 +1,75 @@
-</div>
-<!-- /.container -->
 <!-- Page Footer-->
-<!-- Contact -->
-<section id="contact">
-    <div class="contact-margins">
-            <div class="row">
-                <div class="col-xl-5 col-lg-4">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4 class="section-heading text-uppercase" style="padding-bottom: 1re">Route61</h4>
-                        <div class="menus d-flex">
-                        <ul class="list-unstyled">
-                            <li> <a href="#">My Account</a></li>
-                            <li> <a href="#">Add Listing</a></li>
-                            <li> <a href="#">Pricing</a></li>
-                            <li> <a href="#">Privacy &amp; Policy</a></li>
-                        </ul>
-                     </div>
-                  </div>
-              </div>
+    <footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="logo">
+              <h6 class="text-white">Bootstrap Blog</h6>
             </div>
-            <div class="col-xl-7 col-lg-8">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                    <% if (Object.keys(errors).length === 0) { %>
-                      <h4 class="section-heading text-uppercase">Contact Us</h4>
-                      <h5 class="section-subheading text-muted">Let's talk!</h5>
-                     = <% } else { %>
-                          <h5 class="errors-heading">Oops, please correct the following:</h5>
-                          <ul class="errors-list">
-                            <% Object.values(errors).forEach(error => { %>
-                                <li><%= error.msg %></li>
-                            <% }) %>
-                          </ul>
-                      <%}%>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 contact-gutters">
-                        <form action='/posts' method="POST" id="contactForm" name="sentMessage" novalidate>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text" placeholder="Your Name *" required data-validation-required-message="Please enter your name.">
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control <%= errors.email ? 'form-field-invalid' : '' %>" name="email" id="email" type="email" value="<%= data.email %>" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
-                                        <% if (errors.email) { %>
-                                          <div class="error"><%= errors.email.msg %></div>
-                                        <% } %>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control <%= errors.phone ? 'form-field-invalid' : '' %>" name="phone" id="phone" type="tel" value="<%= data.phone %>" placeholder="Your Phone">
-                                        <!-- <p class="help-block text-danger"></p> -->
-                                        <small style="color: white;"><em>Not required</em></small>
-                                        <% if (errors.phone) { %>
-                                          <div class="error"><%= errors.phone.msg %></div>
-                                        <% } %>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <textarea class="form-control <%= errors.message ? 'form-field-invalid' : '' %>" name="message" id="message" placeholder="Talk to us! *" required data-validation-required-message="Please enter a message."><%= data.message %></textarea>
-                                        <% if (errors.message) { %>
-                                          <div class="error"><%= errors.message.msg %></div>
-                                        <% } %>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-12 text-center">
-                                    <div id="success"></div>
-                                    <button id="sendMessageButton" class="btn btn-primary btn-block text-uppercase" type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="contact-details">
+              <p>53 Broadway, Brooklyn, NY 11249</p>
+              <p>Phone: (020) 123 456 789</p>
+              <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
+              <ul class="social-menu">
+                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+              </ul>
             </div>
+          </div>
+          <div class="col-md-4">
+            <div class="menus d-flex">
+              <ul class="list-unstyled">
+                <li> <a href="#">My Account</a></li>
+                <li> <a href="#">Add Listing</a></li>
+                <li> <a href="#">Pricing</a></li>
+                <li> <a href="#">Privacy &amp; Policy</a></li>
+              </ul>
+              <ul class="list-unstyled">
+                <li> <a href="#">Our Partners</a></li>
+                <li> <a href="#">FAQ</a></li>
+                <li> <a href="#">How It Works</a></li>
+                <li> <a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="latest-posts"><a href="#">
+                <div class="post d-flex align-items-center">
+                  <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
+                </div></a><a href="#">
+                <div class="post d-flex align-items-center">
+                  <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
+                </div></a><a href="#">
+                <div class="post d-flex align-items-center">
+                  <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
+                </div></a></div>
+          </div>
         </div>
       </div>
-</section>
+    </footer>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+        <script src="../vendor/popper.js/umd/popper.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../vendor/jquery.cookie/jquery.cookie.js"> </script>
+          <!-- Plugin JavaScript -->
+          <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="./vendor/popper.js/umd/popper.min.js"></script>
-<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="./vendor/jquery.cookie/jquery.cookie.js"> </script>
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Contact form JavaScript -->
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
-<script src="./vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
-<script src="./scripts/front.js"></script>
-<script src="./scripts/extras.js"></script>
-<script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
-
-<script>
-    CKEDITOR.replace('body', {
-        plugins: 'wysiwygarea,toolbar,basicstyles,link'
-    });
-</script>
-</body>
-
+          <!-- Contact form JavaScript -->
+          <script src="../js/jqBootstrapValidation.js"></script>
+          <script src="../js/contact_me.js"></script>
+        <script src="../vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+        <script src="../scripts/front.js"></script>
+        <script src="../scripts/extras.js"></script>
+        <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script> 
+        <script>
+			    CKEDITOR.replace( 'body' );
+		    </script>
+    </body>
 </html>
