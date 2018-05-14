@@ -85,7 +85,7 @@
     <div class="container">
       <!-- Post-->
       <% posts.forEach(function(post) { %>
-        <% if(post.isPrimary && post.status) { %>
+        <% if(!post.isPrimary && post.status) { %>
           <div class="row d-flex align-items-stretch">
             <div class="text col-lg-7">
               <div class="text-inner d-flex align-items-center">
