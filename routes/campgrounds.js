@@ -153,36 +153,32 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       });
 
       // PUT - updates post in the database
-      router.put("/:id", () => (req, res) {
-        geocoder.geocode(req.body.location, function (err, data) {
-          var lat = data.results[0].geometry.location.lat;
-          var lng = data.results[0].geometry.location.lng;
-          var location = data.results[0].formatted_address;
-          var newData = {
-            title: req.body.title,
-            image: req.body.image,
-            body: req.body.body,
-            tags: req.body.tags,
-            location: location,
-            lat: lat,
-            lng: lng
-          };
-          Post.findByIdAndUpdate(req.params.id, {
-            $set: newData
-          }, function (
-            err,
-            post
-          ) {
-            if (err) {
-              req.flash("error", err.message);
-              res.redirect("back");
-            } else {
-              req.flash("success", "Successfully Updated!");
-              res.redirect("/posts/" + post._id);
+      router.put("/:id", upload.single('image'), function (req, res) {
+        Posts.findById(req.params.id, async function (err, post) {
+          if (err) {
+            req.flash("error", err.message);
+            res.redirect("back");
+          } else {
+            if (req.file) {
+              try {
+                await cloudinary.v2.uploader.destroy(post.imageId);
+                var result = await cloudinary.v2.uploader.upload(req.file.path);
+                post.imageId = result.public_id;
+                post.image = result.secure_url;
+              } catch (err) {
+                req.flash("error", err.message);
+                return res.redirect("back");
+              }
             }
-          });
+            post.name = req.body.name;
+            post.description = req.body.description;
+            post.save();
+            req.flash("success", "Successfully Updated!");
+            res.redirect("/posts/" + post._id);
+          }
         });
       });
+
 
       // DELETE - removes post and its comments from the database
       router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
