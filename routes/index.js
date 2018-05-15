@@ -7,6 +7,7 @@ var middleware = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+var assert = require('assert')
 var validator = require('express-validator');
 var {
   matchedData
@@ -55,17 +56,19 @@ router.get('/contact', (req, res) => {
 })
 
 router.post('/contact', [
-  check('message')
-  .isLength({
-    min: 1
-  })
+  check('body')
+  .not().isEmpty()
+  .trim()
+  .escape()
   .withMessage('Message is required'),
   check('email')
+  .notEmpty()
   .isEmail()
   .trim()
   .normalizeEmail()
   .withMessage('That email doesn‘t look right')
 ], (req, res) => {
+  // req.assert('password', 'Password is required').notEmpty();
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
