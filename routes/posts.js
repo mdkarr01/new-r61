@@ -98,12 +98,12 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
-    eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
         return res.redirect("back");
       }
+      console.log(req.body.post.imageId);
       res.redirect("/posts/" + post.id);
     });
   });
@@ -151,7 +151,6 @@ router.put("/:id", upload.single('image'), function (req, res) {
         try {
           await cloudinary.v2.uploader.destroy(post.imageId);
           var result = await cloudinary.v2.uploader.upload(req.file.path);
-          post.imageId = result.public_id;
           post.image = result.secure_url;
         } catch (err) {
           req.flash("error", err.message);
