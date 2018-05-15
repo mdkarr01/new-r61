@@ -103,7 +103,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
         req.flash("error", err.message);
         return res.redirect("back");
       }
-      console.log(req.body.post.imageId);
+      console.log("Public ID" + req.body.post.imageId);
       res.redirect("/posts/" + post.id);
     });
   });

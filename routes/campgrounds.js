@@ -137,10 +137,18 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       });
 
       // EDIT - shows edit form for a post
-      router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
-        //render edit template with that post
-        res.render("posts/edit", {
-          post: req.post
+      router.get("/:id/edit", middleware.checkUserCampground, function (req, res) {
+        console.log("IN EDIT!");
+        //find the post with provided ID
+        Posts.findById(req.params.id, function (err, foundPost) {
+          if (err) {
+            console.log(err);
+          } else {
+            //render show template with that post
+            res.render("posts/edit", {
+              post: foundPost
+            });
+          }
         });
       });
 
