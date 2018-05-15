@@ -84,7 +84,11 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
   req,
   res
 ) {
-  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+  cloudinary.v2.uploader.upload(req.file.path, {
+    width: 100,
+    height: 150,
+    crop: "fill"
+  }, function (err, result) {
     if (err) {
       req.flash("error", err.message);
       return res.redirect("back");
@@ -197,6 +201,7 @@ router.delete('/:id', function (req, res) {
       post.remove();
       req.flash('success', 'Post deleted successfully!');
       res.redirect('/posts');
+      console.log("DELETED!");
     } catch (err) {
       if (err) {
         req.flash("error", err.message);
