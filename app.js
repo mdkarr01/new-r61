@@ -8,6 +8,7 @@ var express = require("express"),
   expressSanitizer = require("express-sanitizer"),
   LocalStrategy = require("passport-local"),
   exphbs = require("express-handlebars"),
+  csrf = require('csurf'),
   flash = require("connect-flash"),
   Posts = require("./models/posts"),
   Comment = require("./models/comment"),
@@ -55,6 +56,10 @@ app.use(cookieParser("secret"));
 app.use(validator());
 
 app.use(helmet());
+
+app.use(csrf({
+  cookie: true
+}));
 
 //require moment
 app.locals.moment = require("moment");

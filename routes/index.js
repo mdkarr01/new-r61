@@ -8,7 +8,6 @@ const async = require("async");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const assert = require('assert');
-const helmet = require('helmet')
 const validator = require('express-validator');
 const {
   matchedData
@@ -52,7 +51,8 @@ router.get("/", function (req, res) {
 router.get('/contact', (req, res) => {
   res.render('posts/contact', {
     data: {},
-    errors: {}
+    errors: {},
+    csrfToken: req.csrfToken()
   })
 })
 
@@ -77,7 +77,8 @@ router.post('/contact', [
   if (!errors.isEmpty()) {
     return res.render('posts/contact', {
       data: req.body,
-      errors: errors.mapped()
+      errors: errors.mapped(),
+      csrfToken: req.csrfToken()
     })
   }
   const data = matchedData(req);
