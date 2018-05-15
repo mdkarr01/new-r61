@@ -1,11 +1,11 @@
-var express = require("express");
-var router = express.Router();
-var Posts = require("../models/posts");
-var path = require('path');
-var Comment = require("../models/comment");
-var middleware = require("../middleware");
-var sharp = require("sharp");
-var {
+const express = require("express");
+const router = express.Router();
+const expressSanitizer = require("express-sanitizer");
+const Posts = require("../models/posts");
+const Comment = require("../models/comment");
+const middleware = require("../middleware");
+const await = require("await");
+const {
   isLoggedIn,
   checkUserPost,
   checkUserComment,
@@ -80,22 +80,31 @@ router.get("/", function (req, res) {
 });
 
 //CREATE - add new post to DB
-router.post("/", middleware.isLoggedIn, upload.single('image'), function (req, res) {
-  cloudinary.uploader.upload(req.file.path, function (result) {
+router.post("/", middleware.isLoggedIn, upload.single("image"), function (
+  req,
+  res
+) {
+  cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
     // add cloudinary url for the image to the post object under image property
     req.body.post.image = result.secure_url;
+    // add image's public_id to post object
+    req.body.post.imageId = result.public_id;
     // add author to post
     req.body.post.author = {
       id: req.user._id,
       username: req.user.username
-    }
-    req.body.post.body = req.sanitize(req.body.post);
+    };
+    eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {
-        req.flash('error', err.message);
-        return res.redirect('back');
+        req.flash("error", err.message);
+        return res.redirect("back");
       }
-      res.redirect('/posts/' + post.id);
+      res.redirect("/posts/" + post.id);
     });
   });
 });
@@ -166,31 +175,31 @@ router.put("/:id", upload.single('image'), function (req, res) {
 });
 
 // DELETE - removes post and its comments from the database
-router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
-  Comment.remove({
-      _id: {
-        $in: req.post.comments
-      }
-    },
-    function (err) {
-      if (err) {
-        req.flash("error", err.message);
-        res.redirect("/");
-      } else {
-        req.post.remove(function (err) {
-          if (err) {
-            req.flash("error", err.message);
-            return res.redirect("/");
-          }
-          req.flash("error", "Posts deleted!");
-          res.redirect("/posts");
-        });
-      }
-    }
-  );
-});
+// router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
+//   Comment.remove({
+//       _id: {
+//         $in: req.post.comments
+//       }
+//     },
+//     function (err) {
+//       if (err) {
+//         req.flash("error", err.message);
+//         res.redirect("/");
+//       } else {
+//         req.post.remove(function (err) {
+//           if (err) {
+//             req.flash("error", err.message);
+//             return res.redirect("/");
+//           }
+//           req.flash("error", "Posts deleted!");
+//           res.redirect("/posts");
+//         });
+//       }
+//     }
+//   );
+// });
 
-router.delete('/:id', isLoggedIn, checkUserPost, function (req, res) {
+router.delete('/:id', function (req, res) {
   Posts.findById(req.params.id, async function (err, post) {
     if (err) {
       req.flash("error", err.message);
@@ -198,6 +207,7 @@ router.delete('/:id', isLoggedIn, checkUserPost, function (req, res) {
     }
     try {
       await cloudinary.v2.uploader.destroy(post.imageId);
+      post.imageId = result.public_id;
       post.remove();
       req.flash('success', 'Post deleted successfully!');
       res.redirect('/posts');

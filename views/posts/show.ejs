@@ -1,59 +1,85 @@
 <% include ../partials/header2 %>
-<div class="container">
-  <div class="row">
-    <div class="col-9">
-      <div class="thumbnail">
-        <img class="img-fluid" src="<%= post.image %>">
-        <div class="caption-full">
-          <h4><a><%= post.title %></a></h4>
-          <div class="category"><a href="#"><%- post.tag2 %></a> <a href="#"><%- post.tag3 %></a> <a href="#"><%- post.tag4 %></a></div>
-          <p><%- post.body %></p>
-          <p>
-            <em>Submitted by: <a href="/users/<%= post.author.id %>"><%= post.author.username %></a>, <%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %></em>
-          </p>
-          <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-            <div class="d-inline-flex">
-              <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
-              <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
-              <button class="btn btn-danger">Delete</button>
-          </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <div class="thumbnail">
+          <img class="img-fluid" src="<%= post.image %>">
+          <div class="caption-full">
+            <h4>
+              <a>
+                <%= post.title %>
+              </a>
+            </h4>
+            <div class="category">
+              <a href="#">
+                <%- post.tag2 %>
+              </a>
+              <a href="#">
+                <%- post.tag3 %>
+              </a>
+              <a href="#">
+                <%- post.tag4 %>
+              </a>
             </div>
-          <% } %>
+            <p>
+              <%- post.body %>
+            </p>
+            <p>
+              <em>Submitted by:
+                <a href="/users/<%= post.author.id %>">
+                  <%= post.author.username %>
+                </a>,
+                <%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %>
+              </em>
+            </p>
+            <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+              <div class="d-inline-flex">
+                <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                  <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+              </div>
+              <% } %>
+          </div>
         </div>
       </div>
+
+      <div class="col-3">Hi</div>
+
     </div>
-
-    <div class="col-3">Hi</div>
-
   </div>
-</div>
-<div>&nbsp;</div>
-<script>
-  function initMap() {
-    var lat = <%= post.lat %>;
-    var lng = <%= post.lng %>;
-    var center = {lat: lat, lng: lng };
-    var map = new google.maps.Map(document.getElementById('map'), {
+  <div>&nbsp;</div>
+  <script>
+    function initMap() {
+      var lat = <%= post.lat %>;
+      var lng = <%= post.lng %>;
+      var center = {
+        lat: lat,
+        lng: lng
+      };
+      var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 8,
         center: center,
         scrollwheel: false
-    });
-    var contentString = `
+      });
+      var contentString =
+        `
       <strong><%= post.name %><br />
       <%= post.location %></strong>
       <p><%= post.description %></p>
     `
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    var marker = new google.maps.Marker({
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      var marker = new google.maps.Marker({
         position: center,
         map: map
-    });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-  }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG51lwJtDvYFKTBdRZlhzYg1D4QFsXPU&callback=initMap"></script>
-<% include ../partials/footer2 %>
+      });
+      marker.addListener('click', function () {
+        infowindow.open(map, marker);
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG51lwJtDvYFKTBdRZlhzYg1D4QFsXPU&callback=initMap"></script>
+  <% include ../partials/footer2 %>
