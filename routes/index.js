@@ -52,7 +52,7 @@ router.get('/contact', (req, res) => {
   res.render('posts/contact', {
     data: {},
     errors: {},
-    csrfToken: req.csrfToken()
+    // csrfToken: req.csrfToken()
   })
 })
 
@@ -78,7 +78,7 @@ router.post('/contact', [
     return res.render('posts/contact', {
       data: req.body,
       errors: errors.mapped(),
-      csrfToken: req.csrfToken()
+      // csrfToken: req.csrfToken()
     })
   }
   const data = matchedData(req);
