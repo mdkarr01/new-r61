@@ -4,7 +4,7 @@ const expressSanitizer = require("express-sanitizer");
 const Posts = require("../models/posts");
 const Comment = require("../models/comment");
 const middleware = require("../middleware");
-const await = require("await");
+const async = require("async");
 const {
   isLoggedIn,
   checkUserPost,
@@ -98,6 +98,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
+    // eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {
         req.flash("error", err.message);
@@ -134,10 +135,18 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT - shows edit form for a post
-router.get("/:id/edit", isLoggedIn, checkUserPost, function (req, res) {
-  //render edit template with that post
-  res.render("posts/edit", {
-    post: req.post
+router.get("/:id/edit", middleware.checkUserPost, function (req, res) {
+  console.log("IN EDIT!");
+  //find the post with provided ID
+  Posts.findById(req.params.id, function (err, foundPosts) {
+    if (err) {
+      console.log(err);
+    } else {
+      //render show template with that post
+      res.render("posts/edit", {
+        post: foundPosts
+      });
+    }
   });
 });
 
@@ -151,6 +160,7 @@ router.put("/:id", upload.single('image'), function (req, res) {
         try {
           await cloudinary.v2.uploader.destroy(post.imageId);
           var result = await cloudinary.v2.uploader.upload(req.file.path);
+          post.imageId = result.public_id;
           post.image = result.secure_url;
         } catch (err) {
           req.flash("error", err.message);
@@ -172,66 +182,18 @@ router.put("/:id", upload.single('image'), function (req, res) {
     }
   });
 });
-
-router.put("/:id", upload.single('image'), function (req, res) {
-  Posts.findById(req.params.id, async function (err, post) {
-    if (err) {
-      req.flash("error", err.message);
-      res.redirect("back");
-    } else {
-      if (req.file) {
-        try {
-          await cloudinary.v2.uploader.destroy(post.imageId);
-          var result = await cloudinary.v2.uploader.upload(req.file.path);
-          post.image = result.secure_url;
-        } catch (err) {
-          req.flash("error", err.message);
-          return res.redirect("back");
-        }
-      }
-      post.name = req.body.name;
-      post.description = req.body.description;
-      post.save();
-      req.flash("success", "Successfully Updated!");
-      res.redirect("/posts/" + post._id);
-    }
-  });
-});
-
-// DELETE - removes post and its comments from the database
-// router.delete("/:id", isLoggedIn, checkUserPost, function (req, res) {
-//   Comment.remove({
-//       _id: {
-//         $in: req.post.comments
-//       }
-//     },
-//     function (err) {
-//       if (err) {
-//         req.flash("error", err.message);
-//         res.redirect("/");
-//       } else {
-//         req.post.remove(function (err) {
-//           if (err) {
-//             req.flash("error", err.message);
-//             return res.redirect("/");
-//           }
-//           req.flash("error", "Posts deleted!");
-//           res.redirect("/posts");
-//         });
-//       }
-//     }
-//   );
-// });
+//Missing required parameter - public_id
 
 router.delete('/:id', function (req, res) {
   Posts.findById(req.params.id, async function (err, post) {
+    // eval(require('locus'))
+
     if (err) {
       req.flash("error", err.message);
       return res.redirect("back");
     }
     try {
       await cloudinary.v2.uploader.destroy(post.imageId);
-      post.imageId = result.public_id;
       post.remove();
       req.flash('success', 'Post deleted successfully!');
       res.redirect('/posts');

@@ -4,6 +4,7 @@ var postSchema = new mongoose.Schema({
     title: String,
     image: String,
     alt: String,
+    imageId: String,
     body: {
         type: String,
         required: true
