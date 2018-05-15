@@ -9,6 +9,12 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const assert = require('assert');
 const validator = require('express-validator');
+// const csrf = require('csurf');
+// var csrfProtection = csrf({
+//   cookie: true
+// });
+
+
 const {
   matchedData
 } = require('express-validator/filter');
@@ -75,6 +81,7 @@ router.post('/contact', [
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    eval(require('locus'))
     return res.render('posts/contact', {
       data: req.body,
       errors: errors.mapped(),

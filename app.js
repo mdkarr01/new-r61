@@ -8,7 +8,6 @@ var express = require("express"),
   expressSanitizer = require("express-sanitizer"),
   LocalStrategy = require("passport-local"),
   exphbs = require("express-handlebars"),
-  // csrf = require('csurf'),
   flash = require("connect-flash"),
   Posts = require("./models/posts"),
   Comment = require("./models/comment"),
@@ -57,10 +56,6 @@ app.use(validator());
 
 app.use(helmet());
 
-// app.use(csrf({
-//   cookie: true
-// }));
-
 //require moment
 app.locals.moment = require("moment");
 
@@ -69,7 +64,7 @@ app.locals.clip = require("text-clipper");
 
 // seedDB(); //seed the database PASSPORT CONFIGURATION
 app.use(require("express-session")({
-  secret: "Once again Rusty wins cutest dog!",
+  secret: "Nellie is a sweetheart!",
   resave: false,
   saveUninitialized: false
 }));
