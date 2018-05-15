@@ -1,41 +1,42 @@
-var express = require("express");
-var router = express.Router();
-var passport = require("passport");
-var User = require("../models/user");
-var Posts = require("../models/posts");
-var middleware = require("../middleware");
-var async = require("async");
-var nodemailer = require("nodemailer");
-var crypto = require("crypto");
-var assert = require('assert')
-var validator = require('express-validator');
-var {
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const User = require("../models/user");
+const Posts = require("../models/posts");
+const middleware = require("../middleware");
+const async = require("async");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const assert = require('assert');
+const helmet = require('helmet')
+const validator = require('express-validator');
+const {
   matchedData
 } = require('express-validator/filter');
-var {
+const {
   check,
   validationResult
 } = require('express-validator/check')
-var request = require("request");
-var multer = require("multer");
-var storage = multer.diskStorage({
+const request = require("request");
+const multer = require("multer");
+const storage = multer.diskStorage({
   filename: function (req, file, callback) {
     callback(null, Date.now() + file.originalname);
   }
 });
-var imageFilter = function (req, file, cb) {
+const imageFilter = function (req, file, cb) {
   // accept image files only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
     return cb(new Error("Only image files are allowed!"), false);
   }
   cb(null, true);
 };
-var upload = multer({
+const upload = multer({
   storage: storage,
   fileFilter: imageFilter
 });
 
-var cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary");
 cloudinary.config({
   cloud_name: "michael-karr",
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -56,17 +57,19 @@ router.get('/contact', (req, res) => {
 })
 
 router.post('/contact', [
-  check('body')
+  check('name')
   .not().isEmpty()
-  .trim()
-  .escape()
-  .withMessage('Message is required'),
+  .withMessage('Message is required')
+  .trim(),
+  check('message')
+  .not().isEmpty()
+  .withMessage('Message is required')
+  .trim(),
   check('email')
-  .notEmpty()
   .isEmail()
+  .withMessage('That email doesn‘t look right')
   .trim()
   .normalizeEmail()
-  .withMessage('That email doesn‘t look right')
 ], (req, res) => {
   // req.assert('password', 'Password is required').notEmpty();
   const errors = validationResult(req);
