@@ -22,7 +22,7 @@ var postSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Publich'
+        default: true
     },
     tag1: {
         type: String

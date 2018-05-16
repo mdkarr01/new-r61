@@ -142,11 +142,17 @@
             <div>
               <label for="FormInputGroup"></label>
               <span>
-                <b>Should this post be pinned to the top of the page?</b>
+                <b>Should this post be published?</b>
               </span>
               <div>
-                <input type="checkbox" name="post[status]" value="%post.status%>" /> Yes</div>
-              <input type='hidden' name='post[status]' value="No" />
+                <div>
+                  <% if(post.status === 'true') { %>
+                    <input type="checkbox" name="post[status]" value="<%= post.status %>" checked="checked" /> Yes</div>
+                <% } else { %>
+                  <input type="checkbox" name="post[status]" value="<%= post.status %>" /> Yes
+                  <input type='hidden' name='post[status]' value="false" />
+                  <% } %>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -156,8 +162,14 @@
                 <b>Should this post be pinned to the top of the page?</b>
               </span>
               <div>
-                <input type="checkbox" name="post[isPrimary]" value="%post.isPrimary%>" /> Yes</div>
-              <input type='hidden' name='post[isPrimary]' value="No" />
+                <div>
+                  <% if(post.isPrimary === 'true') { %>
+                    <input type="checkbox" name="post[isPrimary]" value="<%= post.isPrimary %>" checked="checked" /> Yes</div>
+                <% } else { %>
+                  <input type="checkbox" name="post[isPrimary]" value="<%= post.isPrimary %>" /> Yes
+                  <input type='hidden' name='post[isPrimary]' value="false" />
+                  <% } %>
+              </div>
             </div>
           </div>
           <div class="form-group">
