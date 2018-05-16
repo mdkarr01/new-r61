@@ -32,13 +32,13 @@
                                 <b>Should this post be published?</b>
                             </span>
                             <div>
-                                <select name="post[status]">
+                                <select name="post[status]" onchange="showDiv(this)">
                                     <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="No" selected>No</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="hidden_div" style="display: none;">
                             <label for="FormInputGroup"></label>
                             <span>
                                 <b>Should this post be pinned to the top of the page?</b>
@@ -46,7 +46,7 @@
                             <div>
                                 <select name="post[isPrimary]">
                                     <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
+                                    <option value="No" selected>No</option>
                                 </select>
                             </div>
                         </div>

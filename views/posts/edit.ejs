@@ -144,10 +144,17 @@
               <b>Should this post be published?</b>
             </span>
             <div>
-              <select name="post[status]">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
+              <% if (post.status == 'Yes') { %>
+                <select name="status">
+                  <option value="Yes" selected>Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <% } else { %>
+                  <select name="status">
+                    <option value="No" selected>No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                  <%}%>
             </div>
           </div>
           <div class="form-group">
@@ -156,10 +163,17 @@
               <b>Should this post be pinned to the top of the page?</b>
             </span>
             <div>
-              <select name="post[isPrimary]">
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
+              <% if (post.isPrimary == 'Yes') { %>
+                <select name="isPrimary">
+                  <option value="Yes" selected>Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <% } else { %>
+                  <select name="isPrimary">
+                    <option value="No" selected>No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                  <%}%>
             </div>
           </div>
           <div class="form-group">
@@ -180,7 +194,7 @@
               <option value="Americana">Americana</option>
               <option value="Folk">Folk</option>
               <option value="Country">Country</option>
-              <option value="Listen">Listen</option>
+              <option value="Review">Review</option>
               <option value="Playlist">Playlist</option>
               <option value="Album">Album</option>
               <option value="Song">Song</option>
@@ -198,8 +212,7 @@
               <option value="Americana">Americana</option>
               <option value="Folk">Folk</option>
               <option value="Country">Country</option>
-              <option value="Listen">
-                <i class="fas fa-headphones"></i> Listen</option>
+              <option value="Review">Review</option>
               <option value="Playlist">Playlist</option>
               <option value="Album">Album</option>
               <option value="Song">Song</option>
@@ -217,8 +230,7 @@
               <option value="Americana">Americana</option>
               <option value="Folk">Folk</option>
               <option value="Country">Country</option>
-              <option value="Listen">
-                <i class="fas fa-headphones"></i> Listen</option>
+              <option value="Review">Review</option>
               <option value="Playlist">Playlist</option>
               <option value="Album">Album</option>
               <option value="Song">Song</option>

@@ -17,12 +17,12 @@ var postSchema = new mongoose.Schema({
         default: Date.now
     },
     isPrimary: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: 'No'
     },
     status: {
         type: String,
-        default: true
+        default: 'Yes'
     },
     tag1: {
         type: String
