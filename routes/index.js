@@ -7,7 +7,6 @@ const middleware = require("../middleware");
 const async = require("async");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-const assert = require('assert');
 const validator = require('express-validator');
 // const csrf = require('csurf');
 // var csrfProtection = csrf({
@@ -78,8 +77,8 @@ router.post('/contact', [
   .normalizeEmail()
 ], (req, res) => {
   // req.assert('password', 'Password is required').notEmpty();
+  // req.check("password", "...").matches(^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{5,20}$, "i");
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
     eval(require('locus'))
     return res.render('posts/contact', {

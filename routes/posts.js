@@ -85,8 +85,8 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
   res
 ) {
   cloudinary.v2.uploader.upload(req.file.path, {
-    width: 100,
-    height: 150,
+    width: 600,
+    height: 400,
     crop: "fill"
   }, function (err, result) {
     if (err) {
@@ -139,7 +139,7 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT - shows edit form for a post
-router.get("/:id/edit", middleware.checkUserPost, function (req, res) {
+router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res) {
   console.log("IN EDIT!");
   //find the post with provided ID
   Posts.findById(req.params.id, function (err, foundPosts) {
@@ -154,38 +154,39 @@ router.get("/:id/edit", middleware.checkUserPost, function (req, res) {
   });
 });
 
-router.put("/:id", upload.single('image'), function (req, res) {
-  Posts.findById(req.params.id, async function (err, post) {
-    if (err) {
-      req.flash("error", err.message);
-      res.redirect("back");
-    } else {
-      if (req.file) {
-        try {
-          await cloudinary.v2.uploader.destroy(post.imageId);
-          var result = await cloudinary.v2.uploader.upload(req.file.path);
-          post.imageId = result.public_id;
-          post.image = result.secure_url;
-        } catch (err) {
-          req.flash("error", err.message);
-          return res.redirect("back");
+router.put("/:id", upload.single('image'), isLoggedIn,
+  function (req, res) {
+    Posts.findById(req.params.id, async function (err, post) {
+      if (err) {
+        req.flash("error", err.message);
+        res.redirect("back");
+      } else {
+        if (req.file) {
+          try {
+            await cloudinary.v2.uploader.destroy(post.imageId);
+            var result = await cloudinary.v2.uploader.upload(req.file.path);
+            post.imageId = result.public_id;
+            post.image = result.secure_url;
+          } catch (err) {
+            req.flash("error", err.message);
+            return res.redirect("back");
+          }
         }
+        post.title = req.body.title;
+        post.body = req.body.body;
+        post.tag1 = req.body.tag1;
+        post.tag2 = req.body.tag2;
+        post.tag3 = req.body.tag3;
+        post.tag4 = req.body.tag4;
+        post.status = req.body.status;
+        post.alt = req.body.alt;
+        post.isPrimary = req.body.isPrimary;
+        post.save();
+        req.flash("success", "Successfully Updated Post.");
+        res.redirect("/posts/" + post._id);
       }
-      post.title = req.body.title;
-      post.body = req.body.body;
-      post.tag1 = req.body.tag1;
-      post.tag2 = req.body.tag2;
-      post.tag3 = req.body.tag3;
-      post.tag4 = req.body.tag4;
-      post.status = req.body.status;
-      post.alt = req.body.alt;
-      post.isPrimary = req.body.isPrimary;
-      post.save();
-      req.flash("success", "Successfully Updated Post.");
-      res.redirect("/posts/" + post._id);
-    }
+    });
   });
-});
 //Missing required parameter - public_id
 
 router.delete('/:id', function (req, res) {
