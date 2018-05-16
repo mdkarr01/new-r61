@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Route61</title>
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Custom icon font-->
-    <link rel="stylesheet" href="../stylesheets/fontastic.css">
-    <!-- Google fonts - Open Sans-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:200,300,400,700">
-    <!-- Fancybox-->
-    <link rel="stylesheet" href="../vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="../../stylesheets/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="stylesheets/custom.css">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="favicon.png">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Route61</title>
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="../vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Custom icon font-->
+  <link rel="stylesheet" href="../stylesheets/fontastic.css">
+  <!-- Google fonts - Open Sans-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:200,300,400,700">
+  <!-- Fancybox-->
+  <link rel="stylesheet" href="../vendor/@fancyapps/fancybox/jquery.fancybox.min.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="../../stylesheets/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="stylesheets/custom.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="favicon.png">
+  <!-- Tweaks for older IEs-->
+  <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-  </head>
-  <body>
+</head>
+
+<body>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
@@ -37,229 +40,331 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
-            <% if(currentUser){ %>
-                <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
-                </li>
-                <li class='nav-item'><a class='nav-link' href="#">Signed In As <%= currentUser.username %></a></li>
-                <li class='nav-item'><a class='nav-link' href="/logout">Logout</a></li>
-                <li class='nav-item'><a class='nav-link' href="/posts/new">New Post</a></li>
-          <% } else { %>
-                <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
-          <% } %>
+          <% if(currentUser){ %>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
+            </li>
+            <li class='nav-item'>
+              <a class='nav-link' href="#">Signed In As
+                <%= currentUser.username %>
+              </a>
+            </li>
+            <li class='nav-item'>
+              <a class='nav-link' href="/logout">Logout</a>
+            </li>
+            <li class='nav-item'>
+              <a class='nav-link' href="/posts/new">New Post</a>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              </li>
+              <% } %>
         </ul>
       </div>
     </div>
   </nav>
 
-    <!-- Hero Section-->
-    <section style="background: url(../../images/hero-crowd-fire.jpg); background-size: cover; background-position: center center; max-height: 300px;" class="hero">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 header-text">
-            <h1>Edit Post</h1>
-          </div>
+  <!-- Hero Section-->
+  <section style="background: url(../../images/hero-crowd-fire.jpg); background-size: cover; background-position: center center; max-height: 300px;"
+    class="hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 header-text">
+          <h1>Edit Post</h1>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-<div class="container">
-  <div class='flash-message'>
+  <div class="container">
+    <div class='flash-message'>
       <% if(error && error.length > 0) { %>
-      <div class="alert alert-danger">
-        <p>
-          <%=error %>
-        </p>
-      </div>
-      <% } %>
+        <div class="alert alert-danger">
+          <p>
+            <%=error %>
+          </p>
+        </div>
+        <% } %>
 
-        <% if(success && success.length > 0) { %>
-          <div class="alert alert-success">
+          <% if(success && success.length > 0) { %>
+            <div class="alert alert-success">
+              <p>
+                <%= success %>
+              </p>
+            </div>
+            <% } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="new-blocks">
+      <fieldset>
+        <legend>Edit
+          <b>
+            <%- post.title %>
+          </b>
+        </legend>
+        <form action="/posts/<%=post._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="FormInputGroup">
+              <b>Post Title</b>:</label>
+            <input class="form-control" type="text" name="title" id="title" value="<%- post.title %>" required>
+          </div>
+          <div class="form-group">
+            <label for="image">
+              <b>Image</b>:</label>
+            <input type="file" id="image" name="image" accept="image/*">
             <p>
-              <%= success %>
+              <small>
+                <em>Current Description Of Your Image</em>:&nbsp;
+                <%- post.alt %>
+              </small>
             </p>
           </div>
-        <% } %>
+          <div class="form-group">
+            <label for="FormInputGroup">
+              <b>Image Description:</b>
+            </label>
+            <input class="form-control" type="text" name="alt" id="alt" value="<%- post.alt %>" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" type="text" name="body" id="body" value="Description">
+              <%=post.body%>
+            </textarea>
+          </div>
+          <div class="form-group">
+            <div>
+              <label for="FormInputGroup"></label>
+              <span>
+                <b>Should this post be pinned to the top of the page?</b>
+              </span>
+              <div>
+                <input type="checkbox" name="post[status]" value="%post.status%>" /> Yes</div>
+              <input type='hidden' name='post[status]' value="No" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div>
+              <label for="FormInputGroup"></label>
+              <span>
+                <b>Should this post be pinned to the top of the page?</b>
+              </span>
+              <div>
+                <input type="checkbox" name="post[isPrimary]" value="%post.isPrimary%>" /> Yes</div>
+              <input type='hidden' name='post[isPrimary]' value="No" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="FormInputGroup">
+              <b>Artist Name</b>:</label>
+            <input class="form-control" type="text" name="tag1" id="tag1" value="<%- post.tag1 %>">
+          </div>
+          <div class="form-group">
+            <label for="FormInputGroup">
+              <b>Tags</b>
+            </label>
+            <select name="tag2" id="tag2">
+              <option value="<%= post.tag2 %>" selected>
+                <%= post.tag2 %>
+              </option>
+              <option value="Rock">Rock</option>
+              <option value="Blues">Blues</option>
+              <option value="Americana">Americana</option>
+              <option value="Folk">Folk</option>
+              <option value="Country">Country</option>
+              <option value="Listen">Listen</option>
+              <option value="Playlist">Playlist</option>
+              <option value="Album">Album</option>
+              <option value="Song">Song</option>
+              <option value="Live">Live</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="FormInputGroup">Tags</label>
+            <select name="tag3" id="tag3">
+              <option selected value="<%= post.tag3 %>">
+                <%= post.tag3 %>
+              </option>
+              <option value="Rock">Rock</option>
+              <option value="Blues">Blues</option>
+              <option value="Americana">Americana</option>
+              <option value="Folk">Folk</option>
+              <option value="Country">Country</option>
+              <option value="Listen">
+                <i class="fas fa-headphones"></i> Listen</option>
+              <option value="Playlist">Playlist</option>
+              <option value="Album">Album</option>
+              <option value="Song">Song</option>
+              <option value="Live">Live</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="FormInputGroup">Tags</label>
+            <select name="tag4" id="tag4">
+              <option selected value="<%= post.tag4 %>">
+                <%= post.tag4 %>
+              </option>
+              <option value="Rock">Rock</option>
+              <option value="Blues">Blues</option>
+              <option value="Americana">Americana</option>
+              <option value="Folk">Folk</option>
+              <option value="Country">Country</option>
+              <option value="Listen">
+                <i class="fas fa-headphones"></i> Listen</option>
+              <option value="Playlist">Playlist</option>
+              <option value="Album">Album</option>
+              <option value="Song">Song</option>
+              <option value="Live">Live</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block">Submit</button>
+          </div>
+        </form>
+      </fieldset>
+      <a href="/posts">View All Posts</a>
     </div>
-</div>
-    <div class="row">
-        <div class="new-blocks">
-            <fieldset>
-            <legend>Edit <b><%- post.title %></b></legend>
-            <form action="/posts/<%=post._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                <label for="FormInputGroup"><b>Post Title</b>:</label>
-                    <input class="form-control" type="text" name="title" id="title" value="<%- post.title %>" required>
-                </div>
-                <div class="form-group">
-                    <label for="image"><b>Image</b>:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    <p><small><em>Current Description Of Your Image</em>:&nbsp; <%- post.alt %></small></p>
-                </div>
-                <div class="form-group">
-                <label for="FormInputGroup"><b>Image Description:</b></label>
-                    <input class="form-control" type="text" name="alt" id="alt" value="<%- post.alt %>" required>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" type="text" name="body" id="body" value="Description"><%=post.body%></textarea>
-                </div>
-                 <div class="form-group">
-                    <label for="FormInputGroup"><b>Status?</b>:</label>
-                    <select name="status" id="status">
-                        <option value="<%= post.status %>" selected><%= post.status %></option>   
-                        <option value="Publish">Publish</option>
-                        <option value="Private">Private</option>
-                    </select>                
-                </div>
-                <div class="form-group" style="display: inline-block;">
-                    <div>
-                        <input name="isPrimary" type="hidden" value="false">
-                        <input class="form-control" type="checkbox" name="isPrimary" id="isPrimary" value="true" <% if (post.isPrimary === true) { %>
-                            checked="checked"
-                        <% } %> > &nbsp;
-                        <label for="FormInputGroup"><b>Primary Post?</b></label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="FormInputGroup"><b>Artist Name</b>:</label>
-                    <input class="form-control" type="text" name="tag1" id="tag1" value="<%- post.tag1 %>">
-                </div>
-                <div class="form-group">
-                    <label for="FormInputGroup"><b>Tags</b></label>
-                    <select name="tag2" id="tag2">
-                        <option value="<%= post.tag2 %>" selected><%= post.tag2 %></option>   
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen">Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div>                
-                <div class="form-group">
-                    <label for="FormInputGroup">Tags</label>
-                    <select name="tag3" id="tag3">
-                        <option selected value="<%= post.tag3 %>"><%= post.tag3 %></option>   
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen"><i class="fas fa-headphones"></i> Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div>               
-                <div class="form-group">
-                    <label for="FormInputGroup">Tags</label>
-                    <select name="tag4" id="tag4">
-                        <option selected value="<%= post.tag4 %>"><%= post.tag4 %></option>   
-                        <option value="Rock">Rock</option>
-                        <option value="Blues">Blues</option>
-                        <option value="Americana">Americana</option>
-                        <option value="Folk">Folk</option>
-                        <option value="Country">Country</option>
-                        <option value="Listen"><i class="fas fa-headphones"></i> Listen</option>
-                        <option value="Playlist">Playlist</option>
-                        <option value="Album">Album</option>
-                        <option value="Song">Song</option>
-                        <option value="Live">Live</option>
-                </select>
-                </div> 
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
-                </div>
-            </form>
-            </fieldset>
-            <a href="/posts">View All Posts</a>
+  </div>
+  <!-- Page Footer-->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="logo">
+            <h6 class="text-white">Bootstrap Blog</h6>
+          </div>
+          <div class="contact-details">
+            <p>53 Broadway, Broklyn, NY 11249</p>
+            <p>Phone: (020) 123 456 789</p>
+            <p>Email:
+              <a href="mailto:info@company.com">Info@Company.com</a>
+            </p>
+            <ul class="social-menu">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-behance"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-pinterest"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-<!-- Page Footer-->
-    <footer class="main-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="logo">
-              <h6 class="text-white">Bootstrap Blog</h6>
-            </div>
-            <div class="contact-details">
-              <p>53 Broadway, Broklyn, NY 11249</p>
-              <p>Phone: (020) 123 456 789</p>
-              <p>Email: <a href="mailto:info@company.com">Info@Company.com</a></p>
-              <ul class="social-menu">
-                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
-                <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-              </ul>
-            </div>
+        <div class="col-md-4">
+          <div class="menus d-flex">
+            <ul class="list-unstyled">
+              <li>
+                <a href="#">My Account</a>
+              </li>
+              <li>
+                <a href="#">Add Listing</a>
+              </li>
+              <li>
+                <a href="#">Pricing</a>
+              </li>
+              <li>
+                <a href="#">Privacy &amp; Policy</a>
+              </li>
+            </ul>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#">Our Partners</a>
+              </li>
+              <li>
+                <a href="#">FAQ</a>
+              </li>
+              <li>
+                <a href="#">How It Works</a>
+              </li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
           </div>
-          <div class="col-md-4">
-            <div class="menus d-flex">
-              <ul class="list-unstyled">
-                <li> <a href="#">My Account</a></li>
-                <li> <a href="#">Add Listing</a></li>
-                <li> <a href="#">Pricing</a></li>
-                <li> <a href="#">Privacy &amp; Policy</a></li>
-              </ul>
-              <ul class="list-unstyled">
-                <li> <a href="#">Our Partners</a></li>
-                <li> <a href="#">FAQ</a></li>
-                <li> <a href="#">How It Works</a></li>
-                <li> <a href="#">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="latest-posts"><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Hotels for all budgets</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Great street atrs in London</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a><a href="#">
-                <div class="post d-flex align-items-center">
-                  <div class="image"><img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
-                  <div class="title"><strong>Best coffee shops in Sydney</strong><span class="date last-meta">October 26, 2016</span></div>
-                </div></a></div>
+        </div>
+        <div class="col-md-4">
+          <div class="latest-posts">
+            <a href="#">
+              <div class="post d-flex align-items-center">
+                <div class="image">
+                  <img src="img/small-thumbnail-1.jpg" alt="..." class="img-fluid">
+                </div>
+                <div class="title">
+                  <strong>Hotels for all budgets</strong>
+                  <span class="date last-meta">October 26, 2016</span>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="post d-flex align-items-center">
+                <div class="image">
+                  <img src="img/small-thumbnail-2.jpg" alt="..." class="img-fluid">
+                </div>
+                <div class="title">
+                  <strong>Great street atrs in London</strong>
+                  <span class="date last-meta">October 26, 2016</span>
+                </div>
+              </div>
+            </a>
+            <a href="#">
+              <div class="post d-flex align-items-center">
+                <div class="image">
+                  <img src="img/small-thumbnail-3.jpg" alt="..." class="img-fluid">
+                </div>
+                <div class="title">
+                  <strong>Best coffee shops in Sydney</strong>
+                  <span class="date last-meta">October 26, 2016</span>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
-    </footer>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-          crossorigin="anonymous"></script>
-        <script src="../../vendor/popper.js/umd/popper.min.js"></script>
-        <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../../vendor/jquery.cookie/jquery.cookie.js"> </script>
-          <!-- Plugin JavaScript -->
-          <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="../../vendor/popper.js/umd/popper.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../vendor/jquery.cookie/jquery.cookie.js">
+  </script>
+  <!-- Plugin JavaScript -->
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-          <!-- Contact form JavaScript -->
-          <script src="../../js/jqBootstrapValidation.js"></script>
-          <script src="../../js/contact_me.js"></script>
-        <script src="../../vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
-        <script src="../../scripts/front.js"></script>
-        <script src="../../scripts/extras.js"></script>
-        <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>   
-        <script>
-          CKEDITOR.replace('body');
-        </script> 
-    </body>
+  <!-- Contact form JavaScript -->
+  <script src="../../js/jqBootstrapValidation.js"></script>
+  <script src="../../js/contact_me.js"></script>
+  <script src="../../vendor/@fancyapps/fancybox/jquery.fancybox.min.js"></script>
+  <script src="../../scripts/front.js"></script>
+  <script src="../../scripts/extras.js"></script>
+  <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+  <script>
+    CKEDITOR.replace('body');
+  </script>
+</body>
+
 </html>
