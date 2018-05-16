@@ -147,9 +147,9 @@
               <div>
                 <div>
                   <% if(post.status === 'true') { %>
-                    <input type="checkbox" name="post[status]" value="<%= post.status %>" checked="checked" /> Yes</div>
+                    <input type="checkbox" name="post[status]" value="true>" checked="checked" /> Yes</div>
                 <% } else { %>
-                  <input type="checkbox" name="post[status]" value="<%= post.status %>" /> Yes
+                  <input type="checkbox" name="post[status]" value="true" /> Yes
                   <input type='hidden' name='post[status]' value="false" />
                   <% } %>
               </div>
@@ -164,9 +164,9 @@
               <div>
                 <div>
                   <% if(post.isPrimary === 'true') { %>
-                    <input type="checkbox" name="post[isPrimary]" value="<%= post.isPrimary %>" checked="checked" /> Yes</div>
+                    <input type="checkbox" name="post[isPrimary]" value="true" checked="checked" /> Yes</div>
                 <% } else { %>
-                  <input type="checkbox" name="post[isPrimary]" value="<%= post.isPrimary %>" /> Yes
+                  <input type="checkbox" name="post[isPrimary]" value="true" /> Yes
                   <input type='hidden' name='post[isPrimary]' value="false" />
                   <% } %>
               </div>
