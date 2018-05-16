@@ -129,15 +129,14 @@
                     <div class="comments">
                       <i class="fas fa-comments"></i> 12 Comments</div>
                   </footer>
-
-
-                  <div class="button-block d-inline-flex">
-                    <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
-                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
-                      <button class="btn btn-danger">Delete</button>
-                    </form>
-                  </div>
-
+                  <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                    <div class="button-block d-inline-flex">
+                      <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+                      <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+                        <button class="btn btn-danger">Delete</button>
+                      </form>
+                    </div>
+                    <%}%>
                 </div>
               </div>
             </div>

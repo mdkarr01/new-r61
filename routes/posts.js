@@ -154,7 +154,7 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
   });
 });
 
-router.put("/:id", upload.single('image'), isLoggedIn,
+router.put("/:id", isLoggedIn, upload.single('image'),
   function (req, res) {
     Posts.findById(req.params.id, async function (err, post) {
       if (err) {
@@ -189,7 +189,7 @@ router.put("/:id", upload.single('image'), isLoggedIn,
   });
 //Missing required parameter - public_id
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', isLoggedIn, function (req, res) {
   Posts.findById(req.params.id, async function (err, post) {
     // eval(require('locus'))
 

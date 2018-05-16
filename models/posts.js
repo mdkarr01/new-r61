@@ -24,6 +24,7 @@ var postSchema = new mongoose.Schema({
         type: String,
         default: 'Yes'
     },
+
     tag1: {
         type: String
     },
