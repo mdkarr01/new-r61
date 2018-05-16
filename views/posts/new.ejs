@@ -27,30 +27,25 @@
                                     <textarea class="form-control" name="post[body]" id="body" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="FormInputGroup">
+                            <div>
+                                <label for="FormInputGroup"></label>
                                 <span>
-                                    <b>Should this post be published?</b>
-                                </span>:
-                                <div class='inline d-flex'>
-                                    <p style="font-weight: normal;">Yes</p>
-                                    <select value="<%post[status]%>">
-                                        <option value="true" selected>Publish</option>
-                                        <option value="false">Private</option>
-                                    </select>
-                                </div>
-                            </label>
+                                    <b>Should this post be pinned to the top of the page?</b>
+                                </span>
+                                <div>
+                                    <input type="checkbox" name="post[status]" value="Yes" /> Yes</div>
+                                <input type='hidden' name='post[status]' value="No" />
+                            </div>
                         </div>
                         <div class="form-group">
                             <div>
-                                <label for="FormInputGroup">
-                                    <span>
-                                        <b>Should this post be pinned to the top of the page?</b>
-                                    </span>
-                                    <select value="<%post[isPrimary]%>">
-                                        <option value="true" selected>Pinned</option>
-                                        <option value="false" selected>Not Pinned</option>
-                                    </select>
-                                </label>
+                                <label for="FormInputGroup"></label>
+                                <span>
+                                    <b>Should this post be pinned to the top of the page?</b>
+                                </span>
+                                <div>
+                                    <input type="checkbox" name="post[isPrimary]" value="Yes" /> Yes</div>
+                                <input type='hidden' name='post[isPrimary]' value="No" />
                             </div>
                         </div>
                         <div class="form-group">
