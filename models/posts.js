@@ -25,18 +25,18 @@ var postSchema = new mongoose.Schema({
         default: 'Yes'
     },
 
-    tags: {
-        type: String,
-        dropdown: [{
-                name: "Rock",
-                value: "Rock"
-            },
-            {
-                name: "Blues",
-                value: "Blues"
-            }
-        ]
-    },
+    // tags: {
+    //     type: String,
+    //     dropdown: [{
+    //             name: "Rock",
+    //             value: "Rock"
+    //         },
+    //         {
+    //             name: "Blues",
+    //             value: "Blues"
+    //         }
+    //     ]
+    // },
 
     tag1: {
         type: String
