@@ -24,20 +24,6 @@ var postSchema = new mongoose.Schema({
         type: String,
         default: 'Yes'
     },
-
-    // tags: {
-    //     type: String,
-    //     dropdown: [{
-    //             name: "Rock",
-    //             value: "Rock"
-    //         },
-    //         {
-    //             name: "Blues",
-    //             value: "Blues"
-    //         }
-    //     ]
-    // },
-
     tag1: {
         type: String
     },
@@ -57,6 +43,13 @@ var postSchema = new mongoose.Schema({
         },
         username: String,
         avatar: String
+    },
+    tags: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category"
+        },
+        tags: String,
     },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
