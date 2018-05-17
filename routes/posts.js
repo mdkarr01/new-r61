@@ -156,7 +156,7 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
 
 router.put("/:id", isLoggedIn, upload.single('image'),
   function (req, res) {
-    Posts.findById(req.params.id, async, function (err, post) {
+    Posts.findById(req.params.id, async function (err, post) {
       if (err) {
         req.flash("error", err.message);
         res.redirect("back");
