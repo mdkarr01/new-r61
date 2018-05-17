@@ -638,7 +638,7 @@ section.hero .continue i {
 */
 
 section.featured-posts .row {
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
 
 section.featured-posts .row:nth-of-type(odd) .text {
