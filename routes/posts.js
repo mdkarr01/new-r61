@@ -188,27 +188,27 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
 //     });
 //   });
 
-// router.delete('/:id', isLoggedIn, function (req, res) {
-//   Posts.findById(req.params.id, async function (err, post) {
-//     // eval(require('locus'))
+router.delete('/:id', isLoggedIn, function (req, res) {
+  Posts.findById(req.params.id, async function (err, post) {
+    // eval(require('locus'))
 
-//     if (err) {
-//       req.flash("error", err.message);
-//       return res.redirect("back");
-//     }
-//     try {
-//       await cloudinary.v2.uploader.destroy(post.imageId);
-//       post.remove();
-//       req.flash('success', 'Post deleted successfully!');
-//       res.redirect('/posts');
-//       console.log("DELETED!");
-//     } catch (err) {
-//       if (err) {
-//         req.flash("error", err.message);
-//         return res.redirect("back");
-//       }
-//     }
-//   });
-// });
+    if (err) {
+      req.flash("error", err.message);
+      return res.redirect("back");
+    }
+    try {
+      await cloudinary.v2.uploader.destroy(post.imageId);
+      post.remove();
+      req.flash('success', 'Post deleted successfully!');
+      res.redirect('/posts');
+      console.log("DELETED!");
+    } catch (err) {
+      if (err) {
+        req.flash("error", err.message);
+        return res.redirect("back");
+      }
+    }
+  });
+});
 
 module.exports = router;
