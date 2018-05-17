@@ -182,7 +182,7 @@ router.put("/:id", isLoggedIn, upload.single('image'),
         post.alt = req.body.alt;
         post.isPrimary = req.body.isPrimary;
         post.save();
-        req.flash("success", "Successfully Updated Post.");
+        req.flash("success", "Successfully Updated This Post.");
         res.redirect("/posts/" + post._id);
       }
     });
