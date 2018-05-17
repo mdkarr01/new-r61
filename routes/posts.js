@@ -188,6 +188,31 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
 //     });
 //   });
 
+router.put("/:id", function (req, res) {
+  var newData = {
+    title: req.body.title,
+    image: req.body.image,
+    body: req.body.body,
+    tag1: req.body.tag1,
+    tag2: req.body.tag2,
+    tag3: req.body.tag3,
+    status: req.body.status,
+    iPrimary: req.body.iPrimary,
+    alt: req.body.alt,
+  };
+  Posts.findByIdAndUpdate(req.params.id, {
+    $set: newData
+  }, function (err, post) {
+    if (err) {
+      req.flash("error", err.message);
+      res.redirect("back");
+    } else {
+      req.flash("success", "Successfully Updated!");
+      res.redirect("/posts/" + post._id);
+    }
+  });
+});
+
 // router.delete('/:id', isLoggedIn, function (req, res) {
 //   Posts.findById(req.params.id, async function (err, post) {
 //     // eval(require('locus'))
