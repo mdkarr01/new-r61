@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const expressSanitizer = require("express-sanitizer");
 const Posts = require("../models/posts");
+const Category = require('../models/category')
 const Comment = require("../models/comment");
 const middleware = require("../middleware");
 
@@ -116,7 +117,12 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
 
 //NEW - show form to create new post
 router.get("/new", isLoggedIn, function (req, res) {
-  res.render("posts/new");
+  Category.find({}, (err, tags) => {
+    eval(require('locus'))
+    res.render("posts/new", {
+      tags: tags
+    });
+  })
 });
 
 // SHOW - shows more info about one post
