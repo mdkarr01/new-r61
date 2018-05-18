@@ -138,6 +138,56 @@
       document.getElementById('hidden_div').style.display = "block";
   }
 </script>
+<script>
+  let optionList = document.getElementsByClassName('tags').options;
+  let options = [{
+      text: 'Rock',
+      value: 'Rock'
+    },
+    {
+      text: 'Blues',
+      value: 'Blues',
+    },
+    {
+      text: 'Americana',
+      value: 'Americana',
+    },
+    {
+      text: 'Folk',
+      value: 'Folk',
+    },
+    {
+      text: 'Country',
+      value: 'Country',
+    },
+    {
+      text: 'Review',
+      value: 'Review',
+    },
+    {
+      text: 'Live',
+      value: 'Live',
+    },
+    {
+      text: 'Listen',
+      value: 'Listen',
+    },
+    {
+      text: 'Album',
+      value: 'Album',
+    },
+    {
+      text: 'Song',
+      value: 'Song',
+    }
+  ];
+
+  options.forEach(option =>
+    optionList.add(
+      new Option(option.text, option.value, option.selected)
+    )
+  );
+</script>
 </body>
 
 </html>

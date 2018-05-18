@@ -103,6 +103,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       id: req.user._id,
       username: req.user.username
     };
+    req.body.users.avatar = "http://res.cloudinary.com/michael-karr/image/upload/v1526679487/avatar-1_yprjkf.jpg";
     // eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {
