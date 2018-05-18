@@ -346,31 +346,18 @@ router.get("/users/:id", function (req, res) {
   User.findById(req.params.id, function (err, foundUser) {
     if (err) {
       req.flash("error", "Something went wrong.");
-      res.redirect("/");
+      return res.redirect("/");
     }
-    Posts.find()
-      .where("author.id")
-      .equals(foundUser._id)
-      .exec(function (err, posts) {
-        if (err) {
-          req.flash("error", "Something went wrong.");
-          res.redirect("/");
-          return res.redirect("/");
-        }
-        Posts.find()
-          .where("author.id")
-          .equals(foundUser._id)
-          .exec(function (err, posts) {
-            if (err) {
-              req.flash("error", "Something went wrong.");
-              return res.redirect("/");
-            }
-            res.render("users/show", {
-              user: foundUser,
-              posts: posts
-            });
-          });
+    Posts.find().where('author.id').equals(foundUser._id).exec(function (err, posts) {
+      if (err) {
+        req.flash("error", "Something went wrong.");
+        return res.redirect("/");
+      }
+      res.render("users/show", {
+        user: foundUser,
+        posts: posts
       });
+    })
   });
 });
 
