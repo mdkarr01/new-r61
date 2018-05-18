@@ -116,13 +116,8 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
 });
 
 //NEW - show form to create new post
-router.get("/new", isLoggedIn, function (req, res) {
-  Category.find({}, (err, tags) => {
-    eval(require('locus'))
-    res.render("posts/new", {
-      tags: tags
-    });
-  })
+router.get("/new", function (req, res) {
+  res.render("posts/new");
 });
 
 // SHOW - shows more info about one post
