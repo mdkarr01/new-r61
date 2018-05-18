@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const expressSanitizer = require("express-sanitizer");
 const Posts = require("../models/posts");
-const Category = require('../models/category')
 const Comment = require("../models/comment");
 const middleware = require("../middleware");
 
