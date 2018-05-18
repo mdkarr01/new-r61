@@ -44,7 +44,7 @@
                   <footer class="post-footer d-flex align-items-center">
                     <a href="#" class="author d-flex align-items-center flex-wrap">
                       <div class="avatar">
-                        <img src="./images/default.jpg" alt="Image of <%- post.firstName %> <%- post.lastName %>" class="img-fluid">
+                        <img src="<%- post.author.avatar %>" alt="Image of author <%- post.firstName %> <%- post.lastName %>" class="img-fluid">
                       </div>
                       <div class="title">
                         <span>
@@ -114,7 +114,7 @@
                   <footer class="post-footer d-flex align-items-center">
                     <a href="#" class="author d-flex align-items-center flex-wrap">
                       <div class="avatar">
-                        <img src="<%= post.author.avatar %>" alt="Image of <%- post.firstName %> <%- post.lastName %>" class="img-fluid">
+                        <img src="<%= post.author.avatar %>" alt="Image of <%= post.firstName %> <%= post.lastName %>" class="img-fluid">
                       </div>
                       <div class="title">
                         <span>
