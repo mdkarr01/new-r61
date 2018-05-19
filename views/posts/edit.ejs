@@ -57,13 +57,20 @@
             </li>
             <% } else { %>
               <li class="nav-item">
+                <form action="/posts" method="GET" class="form-inline" id="post-search">
+                  <div class="form-group">
+                    <input type="text" name="search" placeholder="Search" class="form-control">
+                  </div>
+                </form>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                <a class="nav-link js-scroll-trigger" href="/about">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                <a class="nav-link js-scroll-trigger" href="/contact">Contact</a>
               </li>
               <% } %>
         </ul>

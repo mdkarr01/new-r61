@@ -172,6 +172,11 @@ fieldset {
     padding: 2px 0 0 5px;
 }
 
+.user-thumb {
+    max-width: 200px;
+    padding-right: 3rem;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {

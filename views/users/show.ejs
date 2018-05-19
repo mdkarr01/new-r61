@@ -32,9 +32,9 @@
 					<%= user.username %>'s Posts:</h4>
 				<ul>
 					<% posts.forEach(function(post) { %>
-						<li class="d-flex" style="margin-bottom: 2rem;">
+						<li class="d-flex" style="margin-bottom: 3rem;">
 							<div class="avatar" style="padding-right: 30px;">
-								<img src="<%- post.image %>" alt="<%- post.alt %>">
+								<img class="user-thumb" src="<%- post.image %>" alt="<%- post.alt %>">
 							</div>
 							<div class="div">
 								<p>

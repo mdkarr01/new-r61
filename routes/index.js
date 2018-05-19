@@ -54,7 +54,7 @@ router.get("/", function (req, res) {
 
 //Contact form
 router.get('/contact', (req, res) => {
-  res.render('posts/contact', {
+  res.render('contact', {
     data: {},
     errors: {},
     // csrfToken: req.csrfToken()
