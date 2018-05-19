@@ -177,6 +177,12 @@ fieldset {
     padding-right: 3rem;
 }
 
+.error {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {
