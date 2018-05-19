@@ -64,7 +64,7 @@ router.get('/contact', (req, res) => {
 router.post('/contact', [
   check('name')
   .not().isEmpty()
-  .withMessage('Message is required')
+  .withMessage('Name is required')
   .trim(),
   check('message')
   .not().isEmpty()
