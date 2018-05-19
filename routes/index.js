@@ -54,7 +54,7 @@ router.get("/", function (req, res) {
 
 //ABOUT PORT
 router.get('/about', (res, req) => {
-  res.send('Hi');
+  res.sendStatus(200);
 });
 
 //Contact form
