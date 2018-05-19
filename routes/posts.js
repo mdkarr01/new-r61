@@ -180,39 +180,39 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
   });
 });
 
-router.put("/:id", upload.single('image'),
-  function (req, res) {
-    Posts.findById(req.params.id, async function (err, post) {
-      if (err) {
-        req.flash("error", err.message);
-        res.redirect("back");
-      } else {
-        if (req.file) {
-          try {
-            await cloudinary.v2.uploader.destroy(post.imageId);
-            var result = await cloudinary.v2.uploader.upload(req.file.path);
-            post.imageId = result.public_id;
-            post.image = result.secure_url;
-          } catch (err) {
-            req.flash("error", err.message);
-            return res.redirect("back");
-          }
-        }
-        post.title = req.body.title;
-        post.body = req.body.body;
-        post.tag1 = req.body.tag1;
-        post.tag2 = req.body.tag2;
-        post.tag3 = req.body.tag3;
-        post.tag4 = req.body.tag4;
-        post.status = req.body.status;
-        post.alt = req.body.alt;
-        post.isPrimary = req.body.isPrimary;
-        post.save();
-        req.flash("success", "Successfully Updated This Post.");
-        res.redirect("/posts/" + post._id);
-      }
-    });
-  });
+// router.put("/:id", upload.single('image'),
+//   function (req, res) {
+//     Posts.findById(req.params.id, async function (err, post) {
+//       if (err) {
+//         req.flash("error", err.message);
+//         res.redirect("back");
+//       } else {
+//         if (req.file) {
+//           try {
+//             await cloudinary.v2.uploader.destroy(post.imageId);
+//             var result = await cloudinary.v2.uploader.upload(req.file.path);
+//             post.imageId = result.public_id;
+//             post.image = result.secure_url;
+//           } catch (err) {
+//             req.flash("error", err.message);
+//             return res.redirect("back");
+//           }
+//         }
+//         post.title = req.body.title;
+//         post.body = req.body.body;
+//         post.tag1 = req.body.tag1;
+//         post.tag2 = req.body.tag2;
+//         post.tag3 = req.body.tag3;
+//         post.tag4 = req.body.tag4;
+//         post.status = req.body.status;
+//         post.alt = req.body.alt;
+//         post.isPrimary = req.body.isPrimary;
+//         post.save();
+//         req.flash("success", "Successfully Updated This Post.");
+//         res.redirect("/posts/" + post._id);
+//       }
+//     });
+//   });
 
 // router.put("/:id", function (req, res) {
 //   var newData = {
@@ -263,15 +263,3 @@ router.put("/:id", upload.single('image'),
 // });
 
 module.exports = router;
-
-//HEROKU ERROR ==========================================
-// 2018-05-17T16:36:31.703482+00:00 app[web.1]: /app/routes/posts.js:192
-// 2018-05-17T16:36:31.703512+00:00 app[web.1]: Posts.findById(req.params.id, async function (err, post) {
-// 2018-05-17T16:36:31.703514+00:00 app[web.1]: ^^^^^
-// 2018-05-17T16:36:31.703515+00:00 app[web.1]: SyntaxError: missing ) after argument list
-
-//HEROKU ERROR IF DELETE COMMENTED OUT AND ONLY ID AVAILABLE
-// 2018-05-17T16:56:57.081919+00:00 app[web.1]: /app/routes/posts.js:159
-// 2018-05-17T16:56:57.081950+00:00 app[web.1]: Posts.findById(req.params.id, async function (err, post) {
-// 2018-05-17T16:56:57.081952+00:00 app[web.1]: ^^^^^
-// 2018-05-17T16:56:57.081953+00:00 app[web.1]: SyntaxError: missing ) after argument list
