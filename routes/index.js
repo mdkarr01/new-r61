@@ -80,7 +80,6 @@ router.post('/contact', [
   // req.check("password", "...").matches(^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{5,20}$, "i");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    eval(require('locus'))
     return res.render('posts/contact', {
       data: req.body,
       errors: errors.mapped(),
