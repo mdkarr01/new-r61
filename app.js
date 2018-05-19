@@ -87,11 +87,11 @@ app.use("/", indexRoutes);
 app.use("/posts", postRoutes);
 app.use("/posts/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function () {
-  console.log("The Route 61 Server Has Started!");
-});
-// const port = 3000;
-
-// app.listen(port, () => {
+// app.listen(process.env.PORT, process.env.IP, function () {
 //   console.log("The Route 61 Server Has Started!");
 // });
+const port = 3000;
+
+app.listen(port, () => {
+  console.log("The Route 61 Server Has Started!");
+});
