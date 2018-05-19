@@ -69,8 +69,8 @@ router.post('/contact', [
 ], (req, res) => {
   // req.assert('password', 'Password is required').notEmpty();
   // req.check("password",
-  // "...").matches(^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!
-  // @#$%^&*()_+]{5,20}$, "i");
+  // "...").matches(^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d
+  // ! @#$%^&*()_+]{5,20}$, "i");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.render('contact', {
@@ -160,8 +160,8 @@ router.post("/login", passport.authenticate("local", {
 router.get("/logout", function (req, res) {
   req
     .session
-    .logout();
-  req.flash("success", "See Ya!");
+    .destroy();
+  // req.flash("success", "See Ya!");
   res.redirect("/posts");
 });
 
