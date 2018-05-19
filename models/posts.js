@@ -44,13 +44,13 @@ var postSchema = new mongoose.Schema({
         username: String,
         avatar: String
     },
-    tags: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Category"
-        },
-        tags: String,
-    },
+    // tags: {
+    //     id: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: "Category"
+    //     },
+    //     tags: String,
+    // },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"

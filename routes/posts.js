@@ -44,36 +44,61 @@ function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-//INDEX - show all posts
+///INDEX - show all posts
 router.get("/", function (req, res) {
-  if (req.query.search && req.xhr) {
-    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+  var noMatch = null;
+  if (req.query.search) {
+    const re = new RegExp(escapeRegex(req.query.search), 'gi');
+    // var re = new RegExp(req.params.search, 'i');
     // Get all posts from DB
-    Posts.find({
-        tag1: regex
-      },
-      function (err, allPosts) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.status(200).json(allPosts);
-        }
+    Posts.find().or([{
+      'tag1': {
+        $regex: re
       }
-    );
+    }, {
+      'title': {
+        $regex: re
+      }
+    }, {
+      'tag2': {
+        $regex: re
+      }
+    }, {
+      'tag3': {
+        $regex: re
+      }
+    }, {
+      'tag4': {
+        $regex: re
+      }
+    }, {
+      'body': {
+        $regex: re
+      }
+    }, ]).exec(function (err, allPosts) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (allPosts.length < 1) {
+          req.flash('error', 'Sorry, no artists match your query. Please try again');
+          return res.redirect('/posts');
+        }
+        res.render("posts/index", {
+          posts: allPosts,
+          noMatch: noMatch
+        });
+      }
+    });
   } else {
     // Get all posts from DB
     Posts.find({}, function (err, allPosts) {
       if (err) {
         console.log(err);
       } else {
-        if (req.xhr) {
-          res.json(allPosts);
-        } else {
-          res.render("posts/index", {
-            posts: allPosts,
-            page: "posts"
-          });
-        }
+        res.render("posts/index", {
+          posts: allPosts,
+          noMatch: noMatch
+        });
       }
     });
   }
@@ -100,9 +125,9 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
     // add author to post
     req.body.post.author = {
       id: req.user._id,
-      username: req.user.username
+      username: req.user.username,
+      avatar: "http://res.cloudinary.com/michael-karr/image/upload/v1526680635/default_szjoz0.jpg"
     };
-    req.body.users.avatar = "http://res.cloudinary.com/michael-karr/image/upload/v1526680635/default_szjoz0.jpg";
     // eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {

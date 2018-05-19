@@ -22,8 +22,8 @@
                 <div class="content">
                   <header class="post-header">
                     <div class="category">
-                      <a href="#">
-                        <%- post.tag2 %>
+                      <a href="/tags/<%= post.tag2 %>">
+                        <%= post.tag2 %>
                       </a>
                       <a href="#">
                         <%- post.tag3 %>
@@ -48,7 +48,9 @@
                       </div>
                       <div class="title">
                         <span>
-                          <%= post.author.username %>
+                          <a href="/users/<%= post.author.id %>">
+                            <%= post.author.username %>
+                          </a>
                         </span>
                       </div>
                     </a>
