@@ -32,10 +32,21 @@
 					<%= user.username %>'s Posts:</h4>
 				<ul>
 					<% posts.forEach(function(post) { %>
-						<li>
-							<a href="/posts/<%= posts.id %>">
-								<%= post.name %>
-							</a>
+						<li class="d-flex" style="margin-bottom: 2rem;">
+							<div class="avatar" style="padding-right: 30px;">
+								<img src="<%- post.image %>" alt="<%- post.alt %>">
+							</div>
+							<div class="div">
+								<p>
+									<b>
+										<a href="/posts/<%= posts.id %>">
+											<%= post.title %>
+										</a>
+									</b>
+									<%- clip(post.body, 200, { html: true, maxLines: 3 }) %>
+										<a class="read-more" href="/posts/<%= post._id %>">(Read More)</a>
+								</p>
+							</div>
 						</li>
 						<% }); %>
 				</ul>
