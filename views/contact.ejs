@@ -3,7 +3,7 @@
         <div class="row">
             <div class="new-blocks">
                 <fieldset>
-                    <legend>Send A Message</legend>
+                    <legend> Send A Message</legend>
 
                     <% if (Object.keys(errors).length !== 0) { %>
                         <% Object.values(errors).forEach(error => { %>
@@ -22,12 +22,13 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input class="form-control" name="name" id="name" type="text" value="<%= data.name%>" placeholder="Your Name *" requireddata-validation-required-message="Please enter your name.">
-                                                        <p class="help-block text-danger"></p>
+                                                        <label for="name">Your Name:</label>
+                                                        <input class="form-control" name="name" id="name" type="text" value="<%= data.name%>" required>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="email">Your Email:</label>
                                                         <input class="form-control <%= errors.email ? 'form-field-invalid': '' %>" name="email" id="email" type="email" value="<%=data.email %>"
-                                                            placeholder="Your Email *" requireddata-validation-required-message="Please enter your emailaddress.">
+                                                            required>
                                                         <% if (errors.email) { %>
                                                             <div class="error">
                                                                 <%= errors.email.msg %>
@@ -35,9 +36,8 @@
                                                             <% } %>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input class="form-control <%= errors.phone ? 'form-field-invalid': '' %>" name="phone" id="phone" type="tel" value="<%= data.phone%>"
-                                                            placeholder="Your Phone">
-                                                        <!-- <p class="help-block text-danger"></p> -->
+                                                        <label for="phone">Your Phone:</label>
+                                                        <input class="form-control <%= errors.phone ? 'form-field-invalid': '' %>" name="phone" id="phone" type="tel" value="<%= data.phone%>">
                                                         <small style="color: white;">
                                                             <em>Not required</em>
                                                         </small>
@@ -50,7 +50,9 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <textarea class="form-control <%= errors.message ?'form-field-invalid' : '' %>" name="message" id="message" placeholder="Talk to us! *">
+                                                        <label for="message">Your Message:</label>
+                                                        <textarea rows="9" class="message form-control <%= errors.message ?'form-field-invalid' : '' %>" name="message" id="message"
+                                                            required>
                                                             <%=data.message %>
                                                         </textarea>
                                                         <% if (errors.message) { %>
