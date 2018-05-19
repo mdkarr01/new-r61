@@ -52,6 +52,11 @@ router.get("/", function (req, res) {
   res.render("landing");
 });
 
+//ABOUT PORT
+router.get('/about', (res, req) => {
+  res.send('Hi');
+});
+
 //Contact form
 router.get('/contact', (req, res) => {
   res.render('contact', {
