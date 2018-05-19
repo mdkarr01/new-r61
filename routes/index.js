@@ -53,7 +53,7 @@ router.get("/", function (req, res) {
 });
 
 //ABOUT PORT
-router.get('/about', (res, req) => {
+router.get("/about", function (req, res) {
   res.sendStatus(200);
 });
 
