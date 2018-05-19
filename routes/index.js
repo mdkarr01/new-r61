@@ -361,3 +361,8 @@ router.get("/users/:id", function (req, res) {
 });
 
 module.exports = router;
+
+// 2018-05-19T18:46:52.915828+00:00 app[web.1]: /app/routes/posts.js:185
+// 2018-05-19T18:46:52.915865+00:00 app[web.1]: Posts.findById(req.params.id, async function (err, post) {
+// 2018-05-19T18:46:52.915868+00:00 app[web.1]: ^^^^^
+// 2018-05-19T18:46:52.915869+00:00 app[web.1]: SyntaxError: missing ) after argument list
