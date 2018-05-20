@@ -716,6 +716,11 @@ section.featured-posts .comments {
     color: #999;
 }
 
+section.featured-posts .headline {
+    font-weight: 700;
+    color: #999;
+}
+
 section.featured-posts .title i,
 section.featured-posts .date i,
 section.featured-posts .comments i {
