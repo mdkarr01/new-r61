@@ -155,6 +155,12 @@ router.post("/register", [check('password').isLength({
   const data = matchedData(req);
   console.log('Sanitized:', data);
 
+  if (req.body.password != req.body.confirm_password) {
+    console.log('Passwords do not match');
+    req.flash('error', 'Your passwords do not match');
+    res.redirect('register')
+  }
+
   var newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -163,14 +169,18 @@ router.post("/register", [check('password').isLength({
     avatar: req.body.avatar
   });
 
-  if (req.body.adminCode === 'secretcode123') {
-    newUser.isAdmin = true;
-  }
+  // User
+  // .find({ where: { email: req.body.email } })
+  // .then(function(existingUser){
+  //   if (existingUser) {
+  //     req.flash('errors', { msg: 'Account with that email address already exists.' });
+  //     return res.redirect('/signup');
+  //   }
+  // },
 
-  if (req.body.password != req.body.password2) {
-    req.flash('failure', 'Oh no!');
-    // return res.render("register");
-  }
+  // if (req.body.adminCode === 'secretcode123') {
+  //   newUser.isAdmin = true;
+  // }
 
   User
     .register(newUser, req.body.password, function (err, user) {
