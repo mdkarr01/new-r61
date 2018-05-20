@@ -607,6 +607,7 @@ section.hero .container {
 
 section.hero .header-text {
     text-align: center;
+    z-index: 2;
 }
 
 section.hero .header-text h1 {
