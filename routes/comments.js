@@ -15,7 +15,7 @@ const {
 router.get("/new", isLoggedIn, function (req, res) {
     // find post by id
     console.log(req.params.id);
-    Post.findById(req.params.id, function (err, post) {
+    Posts.findById(req.params.id, function (err, post) {
         if (err) {
             console.log(err);
         } else {
@@ -29,7 +29,7 @@ router.get("/new", isLoggedIn, function (req, res) {
 //Comments Create
 router.post("/", isLoggedIn, function (req, res) {
     //lookup post using ID
-    Post.findById(req.params.id, function (err, post) {
+    Posts.findById(req.params.id, function (err, post) {
         if (err) {
             console.log(err);
             res.redirect("/posts");
