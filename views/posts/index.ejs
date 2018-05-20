@@ -37,7 +37,6 @@
                         <%- post.title %>
                       </a>
                     </h2>
-                    </a>
                   </header>
                   <p>
                     <%- clip(post.body, 300, { html: true, maxLines: 5 }) %>
@@ -107,9 +106,10 @@
                       </a>
                     </div>
                     <h2 class="h4">
-                      <%- post.title %>
+                      <a class="headline" href="/posts/<%= post._id %>">
+                        <%- post.title %>
+                      </a>
                     </h2>
-                    </a>
                   </header>
                   <p>
                     <%- clip(post.body, 300, { html: true, maxLines: 5 }) %>
