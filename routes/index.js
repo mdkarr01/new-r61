@@ -134,68 +134,68 @@ router.get("/register", function (req, res) {
   });
 });
 
-router.post("/register", [check('password').isLength({
-    min: 6
-  })
-  .withMessage('Passwords much be at least 6 characters in length.'),
-  check('email')
-  .isEmail()
-  .withMessage('That email doesn‘t look right')
-  .trim()
-  .normalizeEmail()
-], function (req, res) {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.render('register', {
-      data: req.body,
-      errors: errors.mapped(),
-      // csrfToken: req.csrfToken()
-    })
-  }
-  const data = matchedData(req);
-  console.log('Sanitized:', data);
+router.post("/register", [check('password')
+    .matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/)
+    .withMessage('Passwords much be at least 6 characters in length and contain one special character.'),
+    check('email')
+    .isEmail()
+    .withMessage('That email doesn‘t look right')
+    .trim()
+    .normalizeEmail()
+  ],
+  function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render('register', {
+        data: req.body,
+        errors: errors.mapped(),
+        // csrfToken: req.csrfToken()
+      })
+    }
+    const data = matchedData(req);
+    console.log('Sanitized:', data);
 
-  if (req.body.password != req.body.confirm_password) {
-    console.log('Passwords do not match');
-    req.flash('error', 'Your passwords do not match');
-    res.redirect('register')
-  }
+    // if (req.body.password != req.body.confirm_password) {
+    //   console.log('Passwords do not match');
+    //   req.flash('error', 'Your passwords do not match');
+    //   return res.redirect('register')
+    // }
 
-  var newUser = new User({
-    username: req.body.username,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    avatar: req.body.avatar
-  });
-
-  // User
-  // .find({ where: { email: req.body.email } })
-  // .then(function(existingUser){
-  //   if (existingUser) {
-  //     req.flash('errors', { msg: 'Account with that email address already exists.' });
-  //     return res.redirect('/signup');
-  //   }
-  // },
-
-  // if (req.body.adminCode === 'secretcode123') {
-  //   newUser.isAdmin = true;
-  // }
-
-  User
-    .register(newUser, req.body.password, function (err, user) {
-      if (err) {
-        console.log(err);
-        return res.render("register", {
-          error: err.message
-        });
-      }
-      passport.authenticate("local")(req, res, function () {
-        req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-        res.redirect("/posts");
-      });
+    var newUser = new User({
+      username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      avatar: req.body.avatar
     });
-});
+
+    // User
+    // .find({ where: { email: req.body.email } })
+    // .then(function(existingUser){
+    //   if (existingUser) {
+    //     req.flash('errors', { msg: 'Account with that email address already exists.' });
+    //     return res.redirect('/signup');
+    //   }
+    // },
+
+    // if (req.body.adminCode === 'secretcode123') {
+    //   newUser.isAdmin = true;
+    // }
+
+    User
+      .register(newUser, req.body.password, function (err, user) {
+        if (err) {
+          console.log(err);
+          return res.render("register", {
+            error: err.message
+          });
+        }
+        passport.authenticate("local")(req, res, function () {
+          req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+          res.redirect("/posts");
+        });
+      });
+  });
 
 //show login form
 router.get("/login", function (req, res) {

@@ -4,20 +4,28 @@
             <div style="width: 38%; margin: 25px auto;">
                 <h1 style="text-align: center">Register Account</h1>
                 <form action="/register" method="POST">
-                    <div class="form-group">
+                    <div class="form-group <%= errors.message ? 'form-field-invalid' : '' %>">
                         <label for="FormInputGroup">
                             <b>Username: *</b>
                         </label>
                         <input class="form-control" type="text" name="username" id="username" required>
-                        <small>
-                            <em>This is the name that will be publicly listed as the author of your posts.</em>
-                        </small>
+                        <% if (errors.username) { %>
+                            <div class="error">
+                                <%= errors.username.msg %>
+                            </div>
+                            <% } %>
+                                <small>
+                                    <em>This is the name that will be publicly listed as the author of your posts.</em>
+                                </small>
                     </div>
                     <div class="form-group">
                         <label for="FormInputGroup">
                             <b>Password: *</b>
                         </label>
                         <input class="form-control" type="password" name="password" id="password" required>
+                        <small>
+                            <em>Passwords much be 7 to 19 characters in length and contain one number and one special character.</em>
+                        </small>
                         <% if (errors.password) { %>
                             <div class="error">
                                 <%= errors.password.msg %>
@@ -28,7 +36,7 @@
                         <label for="FormInputGroup">
                             <b>Password Confirm: *</b>
                         </label>
-                        <input class="form-control" type="password" name="confirm_password" id="confirm_password" required>
+                        <input class="form-control" type="password" name="password_confirm" id="password_confirm" required>
                     </div>
                     <div class="form-group">
                         <label for="FormInputGroup">
@@ -46,7 +54,7 @@
                         <label for="FormInputGroup">
                             <b>Email: *</b>
                         </label>
-                        <input class="form-control" type="Email" id="email" name="email" required>
+                        <input class="form-control <%= errors.email ? 'form-field-invalid' : '' %>" type="Email" id="email" name="email" required>
                         <% if (errors.email) { %>
                             <div class="error">
                                 <%= errors.email.msg %>
