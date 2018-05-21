@@ -128,7 +128,6 @@ router.post('/contact', [
 // show register form
 router.get("/register", function (req, res) {
   res.render("register", {
-    page: "register",
     errors: {},
     data: {}
   });
@@ -136,7 +135,7 @@ router.get("/register", function (req, res) {
 
 router.post("/register", [check('password')
     .matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/)
-    .withMessage('Passwords much be at least 6 characters in length and contain one special character.'),
+    .withMessage('Passwords much be 7 to 19 characters in length and contain one number and one special character.'),
     check('email')
     .isEmail()
     .withMessage('That email doesn‘t look right')
@@ -155,12 +154,6 @@ router.post("/register", [check('password')
     const data = matchedData(req);
     console.log('Sanitized:', data);
 
-    // if (req.body.password != req.body.confirm_password) {
-    //   console.log('Passwords do not match');
-    //   req.flash('error', 'Your passwords do not match');
-    //   return res.redirect('register')
-    // }
-
     var newUser = new User({
       username: req.body.username,
       firstName: req.body.firstName,
@@ -169,14 +162,11 @@ router.post("/register", [check('password')
       avatar: req.body.avatar
     });
 
-    // User
-    // .find({ where: { email: req.body.email } })
-    // .then(function(existingUser){
-    //   if (existingUser) {
-    //     req.flash('errors', { msg: 'Account with that email address already exists.' });
-    //     return res.redirect('/signup');
-    //   }
-    // },
+    if (req.body.password != req.body.password_confirm) {
+      console.log('Passwords do not match');
+      req.flash('error', 'Your passwords do not match');
+      return res.redirect('register')
+    }
 
     // if (req.body.adminCode === 'secretcode123') {
     //   newUser.isAdmin = true;
