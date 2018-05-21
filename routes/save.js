@@ -1,14 +1,3 @@
-User
-  .find({
-    where: {
-      email: req.body.email
-    }
-  })
-  .then(function (existingUser) {
-    if (existingUser) {
-      req.flash('errors', {
-        msg: 'Account with that email address already exists.'
-      });
-      return res.redirect('/signup');
-    }
-  }),
+new RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/);
+
+if (req.body.password != match((/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/));

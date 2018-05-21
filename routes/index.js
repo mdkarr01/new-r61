@@ -141,6 +141,7 @@ router.post("/register", [check('password')
     .withMessage('That email doesn‘t look right')
     .trim()
     .normalizeEmail()
+    .withMessage('Please fill out your username.')
   ],
   function (req, res) {
     const errors = validationResult(req);
@@ -154,37 +155,56 @@ router.post("/register", [check('password')
     const data = matchedData(req);
     console.log('Sanitized:', data);
 
-    var newUser = new User({
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      avatar: req.body.avatar
-    });
-
-    if (req.body.password != req.body.password_confirm) {
-      console.log('Passwords do not match');
-      req.flash('error', 'Your passwords do not match');
-      return res.redirect('register')
-    }
-
-    // if (req.body.adminCode === 'secretcode123') {
-    //   newUser.isAdmin = true;
+    // if (req.body.password != req.body.password_confirm) {
+    //   console.log('Passwords do not match');
+    //   req.flash('error', 'Your passwords do not match');
+    //   return res.redirect('register')
     // }
 
-    User
-      .register(newUser, req.body.password, function (err, user) {
-        if (err) {
-          console.log(err);
-          return res.render("register", {
-            error: err.message
-          });
-        }
-        passport.authenticate("local")(req, res, function () {
-          req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-          res.redirect("/posts");
+    if (req.body.username == '') {
+      console.log('No username');
+      req.flash('error', 'Please fill in your username.');
+      return res.redirect('register');
+    }
+
+    User.findOne({
+      email: req.body.email
+    }).then(user => {
+      if (user) {
+        req.flash('error', "Email already registered");
+        res.redirect("/register");
+      } else if (req.body.password != req.body.password_confirm) {
+        console.log('Passwords do not match');
+        req.flash('error', 'Your passwords do not match');
+        return res.redirect('register')
+      } else {
+        var newUser = new User({
+          username: req.body.username,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          avatar: req.body.avatar
         });
-      });
+
+        // if (req.body.adminCode === 'secretcode123') {
+        //   newUser.isAdmin = true;
+        // }
+
+        User
+          .register(newUser, req.body.password, function (err, user) {
+            if (err) {
+              console.log(err);
+              return res.render("register", {
+                error: err.message
+              });
+            }
+            passport.authenticate("local")(req, res, function () {
+              req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+              res.redirect("/posts");
+            });
+          });
+      }
+    });
   });
 
 //show login form
