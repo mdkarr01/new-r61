@@ -10,13 +10,8 @@ const crypto = require("crypto");
 const validator = require('express-validator');
 // const csrf = require('csurf'); var csrfProtection = csrf({   cookie: true });
 
-const {
-  matchedData
-} = require('express-validator/filter');
-const {
-  check,
-  validationResult
-} = require('express-validator/check')
+const {matchedData} = require('express-validator/filter');
+const {check, validationResult} = require('express-validator/check')
 const request = require("request");
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -31,17 +26,10 @@ const imageFilter = function (req, file, cb) {
   }
   cb(null, true);
 };
-const upload = multer({
-  storage: storage,
-  fileFilter: imageFilter
-});
+const upload = multer({storage: storage, fileFilter: imageFilter});
 
 const cloudinary = require("cloudinary");
-cloudinary.config({
-  cloud_name: "michael-karr",
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+cloudinary.config({cloud_name: "michael-karr", api_key: process.env.CLOUDINARY_API_KEY, api_secret: process.env.CLOUDINARY_API_SECRET});
 
 //root route
 router.get("/", function (req, res) {
@@ -64,22 +52,22 @@ router.get('/contact', (req, res) => {
 
 router.post('/contact', [
   check('name')
-  .not()
-  .isEmpty()
-  .withMessage('Name is required')
-  .trim(),
+    .not()
+    .isEmpty()
+    .withMessage('Name is required')
+    .trim(),
   check('message')
-  .not()
-  .isEmpty()
-  .withMessage('Message is required')
-  .trim(),
+    .not()
+    .isEmpty()
+    .withMessage('Message is required')
+    .trim(),
   check('email')
-  .not()
-  .isEmpty()
-  .isEmail()
-  .withMessage('That email doesn‘t look right')
-  .trim()
-  .normalizeEmail()
+    .not()
+    .isEmpty()
+    .isEmail()
+    .withMessage('That email doesn‘t look right')
+    .trim()
+    .normalizeEmail()
 ], (req, res) => {
   // req.assert('password', 'Password is required').notEmpty();
   // req.check("password",
@@ -105,16 +93,18 @@ router.post('/contact', [
         email: 'no-reply@michaelkarr.net'
       },
       subject: 'Contact Form: Route61',
-      content: [{
-        type: 'text/plain',
-        value: `
+      content: [
+        {
+          type: 'text/plain',
+          value: `
         You have received a contact us form submission. Here is the data:
         Email: ${req.body.email}
         Name: ${req.body.name}
         Phone: ${req.body.phone}
         Message: ${req.body.message}
       `
-      }]
+        }
+      ]
     };
     // eval(require('locus'))
     sgMail.send(msg);
@@ -133,43 +123,43 @@ router.get("/register", function (req, res) {
   });
 });
 
-router.post("/register", [check('password')
+router.post("/register", [
+  check('password')
     .matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/)
-    .withMessage('Passwords much be 7 to 19 characters in length and contain one number and one special character.'),
-    check('email')
+    .withMessage('Passwords much be 7 to 19 characters in length and contain one number and one sp' +
+        'ecial character.')
+    .matches('confirm_password')
+    .withMessage('Your passwords do not match'),
+  check('email')
     .isEmail()
     .withMessage('That email doesn‘t look right')
     .trim()
     .normalizeEmail()
-    .withMessage('Please fill out your username.')
-  ],
-  function (req, res) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.render('register', {
-        data: req.body,
-        errors: errors.mapped(),
-        // csrfToken: req.csrfToken()
-      })
-    }
-    const data = matchedData(req);
-    console.log('Sanitized:', data);
+], function (req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('register', {
+      data: req.body,
+      errors: errors.mapped()
+      // csrfToken: req.csrfToken()
+    })
+  }
+  const data = matchedData(req);
+  console.log('Sanitized:', data);
 
-    // if (req.body.password != req.body.password_confirm) {
-    //   console.log('Passwords do not match');
-    //   req.flash('error', 'Your passwords do not match');
-    //   return res.redirect('register')
-    // }
+  // if (req.body.password != req.body.password_confirm) { console.log('Passwords
+  // do not match');   req.flash('error', 'Your passwords do not match'); return
+  // res.redirect('register') }
 
-    if (req.body.username == '') {
-      console.log('No username');
-      req.flash('error', 'Please fill in your username.');
-      return res.redirect('register');
-    }
+  if (!req.body.username) {
+    console.log('No username');
+    req.flash('error', 'Please fill in your username.');
+    return res.redirect('register');
+  }
 
-    User.findOne({
-      email: req.body.email
-    }).then(user => {
+  User
+    .findOne({email: req.body.email})
+    .then(user => {
       if (user) {
         req.flash('error', "Email already registered");
         res.redirect("/register");
@@ -178,40 +168,27 @@ router.post("/register", [check('password')
         req.flash('error', 'Your passwords do not match');
         return res.redirect('register')
       } else {
-        var newUser = new User({
-          username: req.body.username,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-          avatar: req.body.avatar
-        });
+        var newUser = new User({username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, avatar: req.body.avatar});
 
-        // if (req.body.adminCode === 'secretcode123') {
-        //   newUser.isAdmin = true;
-        // }
+        // if (req.body.adminCode === 'secretcode123') {   newUser.isAdmin = true; }
 
-        User
-          .register(newUser, req.body.password, function (err, user) {
-            if (err) {
-              console.log(err);
-              return res.render("register", {
-                error: err.message
-              });
-            }
-            passport.authenticate("local")(req, res, function () {
-              req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-              res.redirect("/posts");
-            });
+        User.register(newUser, req.body.password, function (err, user) {
+          if (err) {
+            console.log(err);
+            return res.render("register", {error: err.message});
+          }
+          passport.authenticate("local")(req, res, function () {
+            req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+            res.redirect("/posts");
           });
+        });
       }
     });
-  });
+});
 
 //show login form
 router.get("/login", function (req, res) {
-  res.render("login", {
-    page: "login"
-  });
+  res.render("login", {page: "login"});
 });
 
 // handling login logic
@@ -238,60 +215,60 @@ router.get("/forgot", function (req, res) {
 
 router.post("/forgot", function (req, res, next) {
   async
-  .waterfall([
-    function (done) {
-      crypto
-        .randomBytes(20, function (err, buf) {
-          var token = buf.toString("hex");
-          done(err, token);
-        });
-    },
-    function (token, done) {
-      User
-        .findOne({
-          email: req.body.email
-        }, function (err, user) {
-          if (!user) {
-            req.flash("error", "No account with that email address exists.");
-            return res.redirect("/forgot");
-          }
-
-          user.resetPasswordToken = token;
-          user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
-          user.save(function (err) {
-            done(err, token, user);
+    .waterfall([
+      function (done) {
+        crypto
+          .randomBytes(20, function (err, buf) {
+            var token = buf.toString("hex");
+            done(err, token);
           });
+      },
+      function (token, done) {
+        User
+          .findOne({
+            email: req.body.email
+          }, function (err, user) {
+            if (!user) {
+              req.flash("error", "No account with that email address exists.");
+              return res.redirect("/forgot");
+            }
+
+            user.resetPasswordToken = token;
+            user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+            user.save(function (err) {
+              done(err, token, user);
+            });
+          });
+      },
+      function (token, user, done) {
+        var smtpTransport = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: "michaelkarrnet@gmail.com",
+            pass: process.env.GMAILPW
+          }
         });
-    },
-    function (token, user, done) {
-      var smtpTransport = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-          user: "michaelkarrnet@gmail.com",
-          pass: process.env.GMAILPW
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: "michaelkarrnet@gmail.com",
-        subject: "Node.js Password Reset",
-        text: "You are receiving this because you (or someone else) have requested the reset of" +
-          " the password for your account.\n\nPlease click on the following link, or paste " +
-          "this into your browser to complete the process:\n\nhttp://" + req.headers.host + "/reset/" + token + "\n\nIf you did not request this, please ignore this email and your password will" +
-          " remain unchanged.\n"
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        console.log("mail sent");
-        req.flash("success", "An e-mail has been sent to " + user.email + " with further instructions.");
-        done(err, "done");
-      });
-    }
-  ], function (err) {
-    if (err)
-      return next(err);
-    res.redirect("/forgot");
-  });
+        var mailOptions = {
+          to: user.email,
+          from: "michaelkarrnet@gmail.com",
+          subject: "Node.js Password Reset",
+          text: "You are receiving this because you (or someone else) have requested the reset of" +
+              " the password for your account.\n\nPlease click on the following link, or paste " +
+              "this into your browser to complete the process:\n\nhttp://" + req.headers.host + "/reset/" + token + "\n\nIf you did not request this, please ignore this email and your password will" +
+              " remain unchanged.\n"
+        };
+        smtpTransport.sendMail(mailOptions, function (err) {
+          console.log("mail sent");
+          req.flash("success", "An e-mail has been sent to " + user.email + " with further instructions.");
+          done(err, "done");
+        });
+      }
+    ], function (err) {
+      if (err) 
+        return next(err);
+      res.redirect("/forgot");
+    });
 });
 
 router.get("/reset/:token", function (req, res) {
@@ -306,68 +283,66 @@ router.get("/reset/:token", function (req, res) {
         req.flash("error", "Password reset token is invalid or has expired.");
         return res.redirect("/forgot");
       }
-      res.render("reset", {
-        token: req.params.token
-      });
+      res.render("reset", {token: req.params.token});
     });
 });
 
 router.post("/reset/:token", function (req, res) {
   async
-  .waterfall([
-    function (done) {
-      User
-        .findOne({
-          resetPasswordToken: req.params.token,
-          resetPasswordExpires: {
-            $gt: Date.now()
-          }
-        }, function (err, user) {
-          if (!user) {
-            req.flash("error", "Password reset token is invalid or has expired.");
-            return res.redirect("back");
-          }
-          if (req.body.password === req.body.confirm) {
-            user
-              .setPassword(req.body.password, function (err) {
-                user.resetPasswordToken = undefined;
-                user.resetPasswordExpires = undefined;
+    .waterfall([
+      function (done) {
+        User
+          .findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: {
+              $gt: Date.now()
+            }
+          }, function (err, user) {
+            if (!user) {
+              req.flash("error", "Password reset token is invalid or has expired.");
+              return res.redirect("back");
+            }
+            if (req.body.password === req.body.confirm) {
+              user
+                .setPassword(req.body.password, function (err) {
+                  user.resetPasswordToken = undefined;
+                  user.resetPasswordExpires = undefined;
 
-                user.save(function (err) {
-                  req
-                    .logIn(user, function (err) {
-                      done(err, user);
-                    });
+                  user.save(function (err) {
+                    req
+                      .logIn(user, function (err) {
+                        done(err, user);
+                      });
+                  });
                 });
-              });
-          } else {
-            req.flash("error", "Passwords do not match.");
-            return res.redirect("back");
+            } else {
+              req.flash("error", "Passwords do not match.");
+              return res.redirect("back");
+            }
+          });
+      },
+      function (user, done) {
+        var smtpTransport = nodemailer.createTransport({
+          service: "Gmail",
+          auth: {
+            user: "michaelkarrnet@gmail.com",
+            pass: process.env.GMAILPW
           }
         });
-    },
-    function (user, done) {
-      var smtpTransport = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-          user: "michaelkarrnet@gmail.com",
-          pass: process.env.GMAILPW
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: "learntocodeinfo@mail.com",
-        subject: "Your password has been changed",
-        text: "Hello,\n\nThis is a confirmation that the password for your account " + user.email + " has just been changed.\n"
-      };
-      smtpTransport.sendMail(mailOptions, function (err) {
-        req.flash("success", "Success! Your password has been changed.");
-        done(err);
-      });
-    }
-  ], function (err) {
-    res.redirect("/posts");
-  });
+        var mailOptions = {
+          to: user.email,
+          from: "learntocodeinfo@mail.com",
+          subject: "Your password has been changed",
+          text: "Hello,\n\nThis is a confirmation that the password for your account " + user.email + " has just been changed.\n"
+        };
+        smtpTransport.sendMail(mailOptions, function (err) {
+          req.flash("success", "Success! Your password has been changed.");
+          done(err);
+        });
+      }
+    ], function (err) {
+      res.redirect("/posts");
+    });
 });
 
 // USER PROFILE
