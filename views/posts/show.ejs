@@ -44,42 +44,11 @@
           </div>
         </div>
 
-        <div class="well">
-          <div class="text-right">
-            <a class="btn btn-success" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
-          </div>
-          <hr>
-          <% post.comments.forEach(function(comment){ %>
-            <div class="row">
-              <div class="col-md-12">
-                <strong>
-                  <%= comment.author.username %>
-                </strong>
-                <span class="pull-right">
-                  <%= moment(comment.createdAt).fromNow() %>
-                </span>
-                <div>
-                  <%= comment.text %>
-
-                    <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                      <div class="pull-right">
-                        <a href="/posts/<%=post._id%>/comments/<%=comment._id%>/edit" class="btn btn-xs btn-warning">EDIT</a>
-                        <form class="delete-form" action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
-                          <button class="btn btn-xs btn-danger">DELETE</button>
-                        </form>
-                      </div>
-                      <% } %>
-                        <hr>
-                </div>
-              </div>
-            </div>
-            <% }) %>
-        </div>
       </div>
+      <div class="col-3">This is where stuff goes.</div>
     </div>
   </div>
 
-  <div class="col-3">Hi</div>
 
   </div>
   </div>
