@@ -128,6 +128,9 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
       username: req.user.username,
       avatar: "http://res.cloudinary.com/michael-karr/image/upload/v1526680635/default_szjoz0.jpg"
     };
+    req.body.title = req.sanitize(req.body.title);
+    req.body.alt = req.sanitize(req.body.alt);
+    req.body.tag1 = req.sanitize(req.body.tag1);
     // eval(require('locus'))
     Posts.create(req.body.post, function (err, post) {
       if (err) {
@@ -141,7 +144,7 @@ router.post("/", middleware.isLoggedIn, upload.single("image"), function (
 });
 
 //NEW - show form to create new post
-router.get("/new", function (req, res) {
+router.get("/new", isLoggedIn, function (req, res) {
   res.render("posts/new");
 });
 

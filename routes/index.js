@@ -81,10 +81,6 @@ router.post('/contact', [
   .trim()
   .normalizeEmail()
 ], (req, res) => {
-  // req.assert('password', 'Password is required').notEmpty();
-  // req.check("password",
-  // "...").matches(^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d
-  // ! @#$%^&*()_+]{5,20}$, "i");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.render('contact', {
