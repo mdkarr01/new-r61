@@ -183,6 +183,12 @@ fieldset {
     font-weight: bold;
 }
 
+.email-error {
+    background-color: red;
+    color: white;
+    padding: 30px;
+}
+
 /*=== Helpers ===*/
 
 .bg-red {
