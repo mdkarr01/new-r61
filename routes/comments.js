@@ -27,32 +27,32 @@ router.get("/new", isLoggedIn, function (req, res) {
 });
 
 //Comments Create
-router.post("/", isLoggedIn, function (req, res) {
-    //lookup post using ID
-    Posts.findById(req.params.id, function (err, post) {
-        if (err) {
-            console.log(err);
-            res.redirect("/posts");
-        } else {
-            Comment.create(req.body.comment, function (err, comment) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    //add username and id to comment
-                    comment.author.id = req.user._id;
-                    comment.author.username = req.user.username;
-                    //save comment
-                    comment.save();
-                    post.comments.push(comment);
-                    post.save();
-                    console.log(comment);
-                    req.flash('success', 'Created a comment!');
-                    res.redirect('/posts/' + post._id);
-                }
-            });
-        }
-    });
-});
+// router.post("/", isLoggedIn, function (req, res) {
+//     //lookup post using ID
+//     Posts.findById(req.params.id, function (err, post) {
+//         if (err) {
+//             console.log(err);
+//             res.redirect("/posts");
+//         } else {
+//             Comment.create(req.body.comment, function (err, comment) {
+//                 if (err) {
+//                     console.log(err);
+//                 } else {
+//                     //add username and id to comment
+//                     comment.author.id = req.user._id;
+//                     comment.author.username = req.user.username;
+//                     //save comment
+//                     comment.save();
+//                     post.comments.push(comment);
+//                     post.save();
+//                     console.log(comment);
+//                     req.flash('success', 'Created a comment!');
+//                     res.redirect('/posts/' + post._id);
+//                 }
+//             });
+//         }
+//     });
+// });
 
 router.get("/:commentId/edit", isLoggedIn, checkUserComment, function (req, res) {
     res.render("comments/edit", {
