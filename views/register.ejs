@@ -8,7 +8,15 @@
                     </p>
                 </div>
             </div>
-            <% } %>
+            <% } else if (errors.password) { %>
+                <div class="flash-message">
+                    <div class="alert alert-danger">
+                        <p>
+                            <%=errors.password.msg %>
+                        </p>
+                    </div>
+                </div>
+                <% } %>
     </div>
     <div class="container">
         <div class="row">
