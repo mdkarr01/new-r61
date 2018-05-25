@@ -196,12 +196,13 @@ router.put("/:id", upload.single('image'),
             var result = await cloudinary.v2.uploader.upload(req.file.path);
             post.imageId = result.public_id;
             post.image = result.secure_url;
+            // eval(require('locus'));
           } catch (err) {
             req.flash("error", err.message);
             return res.redirect("back");
           }
         }
-        post.title = req.body.title;
+        post.title = req.sanitize(req.body.title);;
         post.body = req.body.body;
         post.tag1 = req.body.tag1;
         post.tag2 = req.body.tag2;
@@ -211,7 +212,7 @@ router.put("/:id", upload.single('image'),
         post.alt = req.body.alt;
         post.isPrimary = req.body.isPrimary;
         post.save();
-        req.flash("success", "Successfully Updated This Post.");
+        req.flash("success", "You have successfully updated this post.");
         res.redirect("/posts/" + post._id);
       }
     });
