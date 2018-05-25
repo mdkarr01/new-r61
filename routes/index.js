@@ -136,7 +136,7 @@ router.post("/register", [
     'ecial character.'),
   check('email')
   .isEmail()
-  .withMessage('Your email does not seem to be formed correctly.')
+  .withMessage('Your email does not seem to be correct.')
   .trim()
   .normalizeEmail()
 ], function (req, res) {
