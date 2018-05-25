@@ -27,31 +27,42 @@
 			</div>
 		</div>
 		<div class="container">
-			<div class="col-md-12">
-				<h4>
-					<%= user.username %>'s Posts:</h4>
-				<ul>
-					<% posts.forEach(function(post) { %>
-						<li class="d-flex" style="margin-bottom: 3rem;">
-							<div class="avatar" style="padding-right: 30px;">
-								<img class="user-thumb" src="<%- post.image %>" alt="<%- post.alt %>">
-							</div>
-							<div class="div">
-								<p>
-									<b>
-										<a href="/posts/<%= post.id %>">
-											<%= post.title %>
-										</a>
-									</b>
-									<%- clip(post.body, 200, { html: true, maxLines: 3 }) %>
-										<a class="read-more" href="/posts/<%= post._id %>">(Read More)</a>
-								</p>
-							</div>
-						</li>
-						<% }); %>
-				</ul>
+			<div class="row">
+				<div class="col-md-12">
+					<h4>
+						<%= user.username %>'s Posts:</h4>
+					<ul>
+						<% posts.forEach(function(post) { %>
+							<li class="d-flex" style="margin-bottom: 3rem; font-size: 0.8rem;">
+								<div class="avatar" style="padding-right: 30px;">
+									<img class="user-thumb" src="<%- post.image %>" alt="<%- post.alt %>">
+								</div>
+								<div class="div">
+									<p>
+										<b>
+											<a href="/posts/<%= post.id %>">
+												<%= post.title %>
+											</a>
+										</b>
+										<%- clip(post.body, 200, { html: true, maxLines: 3 }) %>
+											<a class="read-more" href="/posts/<%= post._id %>">(Read More)</a>
+									</p>
+								</div>
+								<div style="padding-left: 30px;">
+									<% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+										<div class="button-block d-inline-flex">
+											<a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+											<form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+												<button class="btn btn-danger">Delete</button>
+											</form>
+										</div>
+										<% } %>
+								</div>
+							</li>
+							<% }); %>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<% include ../partials/footer %>
+		<% include ../partials/footer %>
