@@ -1,0 +1,139 @@
+<section class="featured-posts no-padding-top">
+  <div class="container">
+    <!-- Post-->
+    <% posts.forEach(function(post) { %>
+      <% if (post.isPrimary =="Yes" && post.status=="Yes") { %>
+        <div class="row d-flex align-items-stretch">
+          <div class="text col-lg-7">
+            <div class="text-inner d-flex align-items-center">
+              <div class="content">
+                <header class="post-header">
+                  <div class="category">
+                    <a href="/tags/<%= post.tag2 %>">
+                      <%= post.tag2 %>
+                    </a>
+                    <a href="#">
+                      <%- post.tag3 %>
+                    </a>
+                    <a href="#">
+                      <%- post.tag4 %>
+                    </a>
+                  </div>
+                  <h2 class="h4">
+                    <a class="headline" href="/posts/<%= post._id %>">
+                      <%- post.title %>
+                    </a>
+                  </h2>
+                </header>
+                <p>
+                  <%- clip(post.body, 300, { html: true, maxLines: 5 }) %>
+                    <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a>
+                </p>
+                <footer class="post-footer d-flex align-items-center">
+                  <a href="#" class="author d-flex align-items-center flex-wrap">
+                    <div class="avatar">
+                      <img src="<%- post.author.avatar %>" alt="Image of author <%- post.firstName %> <%- post.lastName %>" class="img-fluid">
+                    </div>
+                    <div class="title">
+                      <span>
+                        <a href="/users/<%= post.author.id %>">
+                          <%= post.author.username %>
+                        </a>
+                      </span>
+                    </div>
+                  </a>
+                  <div class="date">
+                    <i class="fas fa-clock"></i>
+                    <%= moment(post.createdAt).fromNow() %>
+                  </div>
+                  <div class="comments">
+                    <i class="fas fa-comments"></i> 12 Comments</div>
+                </footer>
+
+                <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                  <div class="button-block d-inline-flex">
+                    <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+                      <button class="btn btn-danger">Delete</button>
+                    </form>
+                  </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="image col-lg-5">
+            <img class="img-fluid" src="<%= post.image %>" alt="<%- post.alt %>">
+          </div>
+        </div>
+        <% } %>
+          <%})%>
+
+
+            <% posts.forEach(function(post) { %>
+              <% if (post.isPrimary=="No" && post.status=="Yes") { %>
+                <div class="row d-flex align-items-stretch">
+                  <div class="text col-lg-7">
+                    <div class="text-inner d-flex align-items-center">
+                      <div class="content">
+                        <header class="post-header">
+                          <div class="category">
+                            <a href="/tags/<%= post.tag2 %>">
+                              <%= post.tag2 %>
+                            </a>
+                            <a href="#">
+                              <%- post.tag3 %>
+                            </a>
+                            <a href="#">
+                              <%- post.tag4 %>
+                            </a>
+                          </div>
+                          <h2 class="h4">
+                            <a class="headline" href="/posts/<%= post._id %>">
+                              <%- post.title %>
+                            </a>
+                          </h2>
+                        </header>
+                        <p>
+                          <%- clip(post.body, 300, { html: true, maxLines: 5 }) %>
+                            <a class="read-more" href="/posts/<%= post._id %>">(Read More)</a>
+                        </p>
+                        <footer class="post-footer d-flex align-items-center">
+                          <a href="#" class="author d-flex align-items-center flex-wrap">
+                            <div class="avatar">
+                              <img src="<%- post.author.avatar %>" alt="Image of author <%- post.firstName %> <%- post.lastName %>" class="img-fluid">
+                            </div>
+                            <div class="title">
+                              <span>
+                                <a href="/users/<%= post.author.id %>">
+                                  <%= post.author.username %>
+                                </a>
+                              </span>
+                            </div>
+                          </a>
+                          <div class="date">
+                            <i class="fas fa-clock"></i>
+                            <%= moment(post.createdAt).fromNow() %>
+                          </div>
+                          <div class="comments">
+                            <i class="fas fa-comments"></i> 12 Comments</div>
+                        </footer>
+
+                        <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                          <div class="button-block d-inline-flex">
+                            <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+                            <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" class="delete-form">
+                              <button class="btn btn-danger">Delete</button>
+                            </form>
+                          </div>
+                          <% } %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="image col-lg-5">
+                    <img class="img-fluid" src="<%= post.image %>" alt="<%- post.alt %>">
+                  </div>
+                </div>
+                <%}%>
+                  <% }); %>
+  </div>
+</section>

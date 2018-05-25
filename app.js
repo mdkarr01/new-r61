@@ -52,6 +52,13 @@ app.use(methodOverride("_method"));
 
 app.use(cookieParser("secret"));
 
+app.use(function (err, req, res, next) {
+  res.status(500)
+  res.render('error', {
+    error: err
+  })
+});
+
 app.use(validator());
 
 app.use(helmet());

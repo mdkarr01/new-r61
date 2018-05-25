@@ -45,7 +45,7 @@ function escapeRegex(text) {
 }
 
 ///INDEX - show all posts
-router.get("/", function (req, res) {
+router.get("/", function (req, res, next) {
   var noMatch = null;
   if (req.query.search) {
     const re = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -91,16 +91,27 @@ router.get("/", function (req, res) {
     });
   } else {
     // Get all posts from DB
-    Posts.find({}, function (err, allPosts) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("posts/index", {
+    // Posts.find({}, function (err, allPosts) {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     res.render("posts/index", {
+    //       posts: allPosts,
+    //       noMatch: noMatch
+    //     });
+    //   }
+    // });
+    Posts.find({})
+      .sort({
+        createdAt: 'desc'
+      })
+      .then(allPosts => {
+        res.render('posts/index', {
           posts: allPosts,
-          noMatch: noMatch
+          NoMatch: noMatch
         });
-      }
-    });
+      })
+      .catch(next);
   }
 });
 
@@ -168,7 +179,7 @@ router.get("/:id", function (req, res) {
 });
 
 // EDIT - shows edit form for a post
-router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res) {
+router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res, next) {
   console.log("IN EDIT!");
   //find the post with provided ID
   Posts.findById(req.params.id, function (err, foundPosts) {
@@ -202,7 +213,7 @@ router.put("/:id", upload.single('image'),
             return res.redirect("back");
           }
         }
-        post.title = req.sanitize(req.body.title);
+        post.title = req.body.title;
         post.body = req.body.body;
         post.tag1 = req.body.tag1;
         post.tag2 = req.body.tag2;
