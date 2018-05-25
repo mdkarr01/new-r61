@@ -202,7 +202,7 @@ router.put("/:id", upload.single('image'),
             return res.redirect("back");
           }
         }
-        post.title = req.sanitize(req.body.title);;
+        post.title = req.sanitize(req.body.title);
         post.body = req.body.body;
         post.tag1 = req.body.tag1;
         post.tag2 = req.body.tag2;
