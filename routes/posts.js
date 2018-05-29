@@ -194,40 +194,40 @@ router.get("/:id/edit", isLoggedIn, middleware.checkUserPost, function (req, res
   });
 });
 
-router.put("/:id", upload.single('image'),
-  function (req, res) {
-    Posts.findById(req.params.id, async function (err, post) {
-      if (err) {
-        req.flash("error", err.message);
-        res.redirect("back");
-      } else {
-        if (req.file) {
-          try {
-            await cloudinary.v2.uploader.destroy(post.imageId);
-            var result = await cloudinary.v2.uploader.upload(req.file.path);
-            post.imageId = result.public_id;
-            post.image = result.secure_url;
-            // eval(require('locus'));
-          } catch (err) {
-            req.flash("error", err.message);
-            return res.redirect("back");
-          }
-        }
-        post.title = req.body.title;
-        post.body = req.body.body;
-        post.tag1 = req.body.tag1;
-        post.tag2 = req.body.tag2;
-        post.tag3 = req.body.tag3;
-        post.tag4 = req.body.tag4;
-        post.status = req.body.status;
-        post.alt = req.body.alt;
-        post.isPrimary = req.body.isPrimary;
-        post.save();
-        req.flash("success", "You have successfully updated this post.");
-        res.redirect("/posts/" + post._id);
-      }
-    });
-  });
+// router.put("/:id", upload.single('image'),
+//   function (req, res) {
+//     Posts.findById(req.params.id, async function (err, post) {
+//       if (err) {
+//         req.flash("error", err.message);
+//         res.redirect("back");
+//       } else {
+//         if (req.file) {
+//           try {
+//             await cloudinary.v2.uploader.destroy(post.imageId);
+//             var result = await cloudinary.v2.uploader.upload(req.file.path);
+//             post.imageId = result.public_id;
+//             post.image = result.secure_url;
+//             // eval(require('locus'));
+//           } catch (err) {
+//             req.flash("error", err.message);
+//             return res.redirect("back");
+//           }
+//         }
+//         post.title = req.body.title;
+//         post.body = req.body.body;
+//         post.tag1 = req.body.tag1;
+//         post.tag2 = req.body.tag2;
+//         post.tag3 = req.body.tag3;
+//         post.tag4 = req.body.tag4;
+//         post.status = req.body.status;
+//         post.alt = req.body.alt;
+//         post.isPrimary = req.body.isPrimary;
+//         post.save();
+//         req.flash("success", "You have successfully updated this post.");
+//         res.redirect("/posts/" + post._id);
+//       }
+//     });
+//   });
 
 // router.put("/:id", function (req, res) {
 //   var newData = {
@@ -254,8 +254,30 @@ router.put("/:id", upload.single('image'),
 //   });
 // });
 
+// router.delete('/:id', isLoggedIn, function (req, res) {
+//   Posts.findById(req.params.id, async function (err, post) {
+//     // eval(require('locus'))
+
+//     if (err) {
+//       req.flash("error", err.message);
+//       return res.redirect("back");
+//     }
+//     try {
+//       await cloudinary.v2.uploader.destroy(post.imageId);
+//       post.remove();
+//       req.flash('success', 'Post deleted successfully!');
+//       res.redirect('/posts');
+//       console.log("POST HAD BEEN DELETED FINALLY!");
+//     } catch (err) {
+//       if (err) {
+//         req.flash("error", err.message);
+//         return res.redirect("back");
+//       }
+//     }
+//   });
+// });
 router.delete('/:id', isLoggedIn, function (req, res) {
-  Posts.findById(req.params.id, async function (err, post) {
+  Posts.findById(req.params.id, function (err, post) {
     // eval(require('locus'))
 
     if (err) {
@@ -263,7 +285,7 @@ router.delete('/:id', isLoggedIn, function (req, res) {
       return res.redirect("back");
     }
     try {
-      await cloudinary.v2.uploader.destroy(post.imageId);
+      cloudinary.v2.uploader.destroy(post.imageId);
       post.remove();
       req.flash('success', 'Post deleted successfully!');
       res.redirect('/posts');
