@@ -1,57 +1,59 @@
 <% include ../partials/header2 %>
-  <div class="container">
-    <div class="row">
-      <div class="col-9">
-        <div class="thumbnail">
-          <img class="img-fluid" src="<%= post.image %>">
-          <div class="caption-full">
-            <h4>
-              <a>
-                <%= post.title %>
-              </a>
-            </h4>
-            <div class="category">
-              <a href="#">
-                <%- post.tag2 %>
-              </a>
-              <a href="#">
-                <%- post.tag3 %>
-              </a>
-              <a href="#">
-                <%- post.tag4 %>
-              </a>
-            </div>
-            <p>
-              <%- post.body %>
-            </p>
-            <p>
-              <em>Author:
-                <a href="/users/<%= post.author.id %>">
-                  <%= post.author.username %>
-                </a>,
-                <%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %>
-              </em>
-            </p>
-            <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-              <div class="d-inline-flex">
-                <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
-
-                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                  <input type="submit" class="btn btn-danger" value="Delete">
-                </form>
-              </div>
-              <% } %>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div class="thumbnail">
+        <img class="img-fluid" src="<%= post.image %>">
+        <div class="caption-full">
+          <h4>
+            <a>
+              <%= post.title %>
+            </a>
+          </h4>
+          <div class="category">
+            <a href="#">
+              <%- post.tag2 %>
+            </a>
+            <a href="#">
+              <%- post.tag3 %>
+            </a>
+            <a href="#">
+              <%- post.tag4 %>
+            </a>
           </div>
+          <p>
+            <%- post.body %>
+          </p>
+          <p>
+            <em>Author:
+              <!-- <a href="/users/<%= post.author.id %>"> -->
+              <p>
+                <%= post.author.username %>
+              </p>
+              <!-- </a>, -->
+              <%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %>
+            </em>
+          </p>
+          <% if(currentUser && post.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+          <div class="d-inline-flex">
+            <a class="btn btn-warning" href="/posts/<%= post._id %>/edit">Edit</a>
+
+            <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+              <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+          </div>
+          <% } %>
         </div>
-
       </div>
-      <div class="col-3">This is where stuff goes.</div>
+
     </div>
+    <!-- <div class="col-3">This is where stuff goes.</div> -->
   </div>
+</div>
 
 
-  </div>
-  </div>
-  <div>&nbsp;</div>
+</div>
+</div>
+<div>&nbsp;</div>
 
-  <% include ../partials/footer2 %>
+<% include ../partials/footer2 %>

@@ -490,6 +490,7 @@ div[class*="-btn"] {
     nav.navbar .container {
         width: 100%;
     }
+
     .breadcrumb li {
         display: block;
         width: 100%;
@@ -573,6 +574,7 @@ div[class*="-btn"] {
         border: none;
         background-color: transparent;
     }
+
     #mainNav .navbar-brand {
         color: rgba(253, 251, 251, 0.75);
         font-weight: bold;
@@ -581,15 +583,18 @@ div[class*="-btn"] {
         -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
+
     #mainNav .navbar-nav .nav-item .nav-link {
         padding: 1.1em 1em !important;
         font-size 1.25em;
     }
+
     #mainNav.navbar-shrink {
         padding-top: 0;
         padding-bottom: 0;
         background-color: #424344;
     }
+
     #mainNav.navbar-shrink .navbar-brand {
         font-size: 1.25em;
         padding: 12px 0;
@@ -690,6 +695,11 @@ section.featured-posts a {
     text-decoration: none;
 }
 
+section.featured-posts p a {
+    color: inherit;
+    text-decoration: underline;
+}
+
 section.featured-posts a.read-more {
     color: rgb(98, 98, 248);
     text-decoration: none;
@@ -783,10 +793,12 @@ section.featured-posts .post-footer {
         max-height: 200px;
         min-height: auto !important;
     }
+
     section.featured-posts .image img {
         width: 100%;
         height: auto !important;
     }
+
     section.featured-posts .text {
         -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
@@ -804,6 +816,7 @@ section.featured-posts .post-footer {
     section.featured-posts .text-inner {
         padding: 15px;
     }
+
     section.featured-posts .post-footer {
         font-size: 0.75em;
     }
@@ -954,6 +967,7 @@ section.latest-posts header {
     .post {
         margin-bottom: 40px;
     }
+
     .post:last-of-type {
         margin-bottom: 0;
     }
@@ -1000,6 +1014,7 @@ section.newsletter .submit {
         font-size: 0.95em;
         width: 100%;
     }
+
     section.newsletter .submit {
         position: static;
         width: 100%;
@@ -1166,17 +1181,21 @@ footer.main-footer .title::after {
     footer.main-footer div[class*="col-"] {
         margin-bottom: 40px;
     }
+
     footer.main-footer div[class*="col-"]:last-of-type {
         margin-bottom: 0;
     }
+
     footer.main-footer .latest-posts>a {
         width: 100%;
         margin-bottom: 20px;
     }
+
     footer.main-footer .copyrights div[class*="col-"] {
         margin-bottom: 20px;
         text-align: center !important;
     }
+
     footer.main-footer .copyrights div[class*="col-"]:last-of-type {
         margin-bottom: 0;
     }
@@ -1575,6 +1594,7 @@ blockquote.blockquote p {
     .blog-post .title::after {
         display: none !important;
     }
+
     .blog-post .author {
         margin-bottom: 10px;
     }
