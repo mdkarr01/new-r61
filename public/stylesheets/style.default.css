@@ -443,6 +443,7 @@ section.intro h1 {
     font-weight: 300;
     line-height: 1.8em;
     color: #111;
+    font-style: italic;
 }
 
 a.hero-link {
