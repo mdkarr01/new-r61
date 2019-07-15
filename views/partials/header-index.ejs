@@ -9,7 +9,8 @@
   <!-- Bootstrap CSS-->
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome CSS-->
-  <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
+  <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js"
+    integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR"
     crossorigin="anonymous"></script>
 
   <!-- Custom icon font-->
@@ -34,52 +35,54 @@
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">Sixty One</a>
-      <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-        aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars fa-2x"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <% if(currentUser){ %>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link' href="#">Signed In As
-                <%= currentUser.username %>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link' href="/logout">Logout</a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link' href="/posts/new">New Post</a>
-            </li>
-            <% } else { %>
-              <li class="nav-item">
-                <form action="/posts" method="GET" class="form-inline" id="post-search">
-                  <div class="form-group">
-                    <input type="text" name="search" placeholder="Search" class="form-control">
-                  </div>
-                </form>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
-              </li>
-              <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href="#">Signed In As
+              <%= currentUser.username %>
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href="/logout">Logout</a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' href="/posts/new">New Post</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <form action="/posts" method="GET" class="form-inline" id="post-search">
+              <div class="form-group">
+                <input type="text" name="search" placeholder="Search" class="form-control">
+              </div>
+            </form>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/posts">Home</a>
+          </li>
+          <!-- <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/contact">Contact</a>
-              </li>
-              <% } %>
+              </li> -->
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/contact">Contact</a>
+          </li>
+          <% } %>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section-->
-  <section style="background: url(./images/country-road.jpg); background-size: cover; background-position: center center" class="hero">
+  <section
+    style="background: url(./images/country-road.jpg); background-size: cover; background-position: center center"
+    class="hero">
     <div class="container">
       <div class="row">
         <div class="col-md-12 header-text">
@@ -93,19 +96,19 @@
   <div class="container">
     <div class='flash-message'>
       <% if(error && error.length > 0) { %>
-        <div class="alert alert-danger">
-          <p>
-            <%=error %>
-          </p>
-        </div>
-        <% } %>
+      <div class="alert alert-danger">
+        <p>
+          <%=error %>
+        </p>
+      </div>
+      <% } %>
 
-          <% if(success && success.length > 0) { %>
-            <div class="alert alert-success">
-              <p>
-                <%= success %>
-              </p>
-            </div>
-            <% } %>
+      <% if(success && success.length > 0) { %>
+      <div class="alert alert-success">
+        <p>
+          <%= success %>
+        </p>
+      </div>
+      <% } %>
     </div>
   </div>
