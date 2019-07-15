@@ -1,6 +1,6 @@
 node_modules
 .env
-package-lock.json
 .vscode
 raw-images
 register.ejs
+.htaccess
