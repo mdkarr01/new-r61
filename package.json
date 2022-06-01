@@ -42,7 +42,7 @@
     "passport-local-mongoose": "^5.0.0",
     "password-strength-meter": "^1.2.1",
     "request": "^2.65.0",
-    "sharp": "^0.20.2",
+    "sharp": "^0.30.5",
     "text-clipper": "^1.2.1",
     "truncate": "^2.0.1"
   },
